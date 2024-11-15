@@ -1,0 +1,1163 @@
+version: 4
+data:
+  attachedData:
+    trivet:
+      testSuites: []
+      version: 1
+  graphs:
+    9uDuqfmG8o7bhQS7dQ6Oy:
+      metadata:
+        description: ""
+        id: 9uDuqfmG8o7bhQS7dQ6Oy
+        name: Tests/My chat
+      nodes:
+        '[3JpzZbnlXLioiuAndfbNV]:text "CV Template (Text)"':
+          data:
+            text: "\\documentclass[a4paper]{article}\r
+
+              \\usepackage[margin=1in]{geometry}\r
+
+              \\usepackage{fontawesome5}\r
+
+              \\usepackage{titlesec}\r
+
+              \\usepackage{array}\r
+
+              \\usepackage{hyperref}\r
+
+              \r
+
+              \\titleformat{\\section}{\\large\\bfseries}{}{0em}{\
+              }[\\titlerule]\r
+
+              \r
+
+              \\begin{document}\r
+
+              \r
+
+              % Header\r
+
+              \\begin{center}\r
+
+              \    \\textbf{\\{Nome Cognome\\}} \\\\\r
+
+              \    \\{Indirizzo\\} \\\\\r
+
+              \    \\vspace{0.5cm}\r
+
+              \    \\faPhone\\ \\{Telefono\\} \\quad \r
+
+              \    \\faEnvelope\\
+              \\href{mailto:\\{Email\\}}{\\{Email\\}} \\quad\r
+
+              \    \\faLinkedin\\ \\href{\\{LinkedIn
+              URL\\}}{\\{LinkedIn Username\\}}\r
+
+              \\end{center}\r
+
+              \r
+
+              % Profile\r
+
+              \\section*{Profile}\r
+
+              A brief summary of the candidate's profile...\r
+
+              \r
+
+              % Work Experience\r
+
+              \\section*{Work Experience}\r
+
+              \\makebox[\\textwidth]{\\textbf{\\{Company\\}}
+              \\hfill \\{Job Title\\} (\\{Start Date\\} - \\{End Date\\})}\r
+
+              \\begin{itemize}\r
+
+              \    \\item Description of key achievements and
+              responsibilities...\r
+
+              \\end{itemize}\r
+
+              \r
+
+              % Education\r
+
+              \\section*{Education}\r
+
+              \\makebox[\\textwidth]{\\textbf{\\{University
+              Name\\}} \\hfill \\{Graduation Year\\}} \\\\\r
+
+              \\textit{Degree: \\{Degree\\}} \\\\\r
+
+              \r
+
+              % Skills\r
+
+              \\section*{Skills}\r
+
+              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
+              th}@{}}\r
+
+              \    \\textbf{Technical Skills} & Languages, tools,
+              etc. \\\\\r
+
+              \    \\textbf{Other Skills} & Project management,
+              leadership...\r
+
+              \\end{tabular}\r
+
+              \r
+
+              % Languages\r
+
+              \\section*{Languages}\r
+
+              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
+              th}@{}}\r
+
+              \    \\textbf{Native} & Language \\\\\r
+
+              \    \\textbf{Fluent} & Language\r
+
+              \\end{tabular}\r
+
+              \r
+
+              % Interests\r
+
+              \\section*{Interests}\r
+
+              Photography, Coding, Hiking\r
+
+              \r
+
+              \\end{document}"
+          outgoingConnections:
+            - output->"Prompt System (Text)" d0laYYFJzPs2N2QvzFUf6/template
+          visualData: -99.66504182309944/-303.38340909027323/330/77//
+        '[Dng7g-i6oWb6tZChGxB87]:text "Message (Text)"':
+          data:
+            text: "Mi chiamo Stefano Riato \r
+
+              \r
+
+              email: stefano.r@prova.com\r
+
+              cell: + 39 1234567891\r
+
+              \r
+
+              Formazione:\r
+
+              Studente di economia aziendale presso Ca'Foscari
+              (2023-presente)\r
+
+              \r
+
+              Liceo Scientifico (2018-2023)\r
+
+              \r
+
+              Esperienze:\r
+
+              \r
+
+              UI designer presso Azienda srl (2022-2023)\r
+
+              \r
+
+              Interessi:\r
+
+              \r
+
+              design, grafica\r\n"
+          outgoingConnections:
+            - output->"Ollama Generate" xmK8unZ2YTJg1Ji82fyF0/messages
+          visualData: -97.33743857077718/-730.1020587926453/330/69//
+        '[DyfTAKFLO1hmUJu037wBr]:text "Text"':
+          data:
+            text: "{{input}}"
+          visualData: 1630.975872879037/-686.9582822838601/330/75//
+        '[EnnP105NLwbhmhZihdmjY]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 1319.2293550871095
+            text: "## Input\r\n"
+          visualData: -141.44041652074043/-940.1519055423162/770.7187868648693/null//
+        '[L31tl0ioR6XctkCO7n72m]:text "Text"':
+          data:
+            text: "{{input}}"
+          visualData: 1731.4848105110066/-427.1643760084602/330/72//
+        '[d0laYYFJzPs2N2QvzFUf6]:text "Prompt System (Text)"':
+          data:
+            text: "Act as an HR expert tasked with writing a CV based on the information
+              provided in the messages. The CV should be written in LaTeX,
+              structured into the following sections:\r
+
+              \r
+
+              Name and Surname\r
+
+              Personal Information\r
+
+              Profile\r
+
+              Education\r
+
+              Work Experience\r
+
+              Skills\r
+
+              Languages\r
+
+              Interests\r
+
+              Instructions:\r
+
+              \r
+
+              Remember:\r
+
+              \r
+
+              - Write only the LaTeX code and content; do not
+              include any additional comments or explanations.\r
+
+              - Follow the structure of the provided example,
+              adapting the content to fit the given information.\r
+
+              - If any information is missing, leave it out
+              without filling in placeholders or assumptions.\r
+
+              \r
+
+              Example template:\r
+
+              \r
+
+              {{template}}\r\n"
+          outgoingConnections:
+            - output->"Ollama Generate" xmK8unZ2YTJg1Ji82fyF0/system-prompt
+          visualData: 303.8766943475023/-684.8048822577515/330/78//
+        '[xmK8unZ2YTJg1Ji82fyF0]:ollamaChat "Ollama Generate"':
+          data:
+            additionalParameters: []
+            advancedOutputs: false
+            jsonMode: false
+            model: llama3
+            numPredict: 550
+            outputFormat: ""
+            promptFormat: auto
+            stop: ""
+            temperature: 0.5
+            useModelInput: false
+          outgoingConnections:
+            - all-messages->"Text" yeR4EbU2J22prKY73V-Ef/input
+            - messages-sent->"Text" DyfTAKFLO1hmUJu037wBr/input
+            - output->"Text" L31tl0ioR6XctkCO7n72m/input
+          visualData: 1083.3993750996979/-829.8040465859676/280/71//
+        '[yeR4EbU2J22prKY73V-Ef]:text "Text"':
+          data:
+            text: "{{input}}"
+          visualData: 1605.2594458336685/-870.9093278786503/330/null//
+    BOtvqg4ur_jtlW8LCp95d:
+      metadata:
+        description: ""
+        id: BOtvqg4ur_jtlW8LCp95d
+        name: Tests/resume
+      nodes:
+        '[-zQOQZWvi8gPjMeVWOYEq]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 1014.6858544164303
+            text: ""
+          visualData: 1361.268280994943/-152.22851778930078/871.7264277000297/12//
+        '[67Zpa_jcJciqdDngzUK2r]:text "Text"':
+          data:
+            text: "\\documentclass[a4paper]{article}\r
+
+              \\usepackage[margin=1in]{geometry}\r
+
+              \\usepackage{fontawesome5}\r
+
+              \\usepackage{titlesec}\r
+
+              \\usepackage{array}\r
+
+              \\usepackage{hyperref}\r
+
+              \r
+
+              \\titleformat{\\section}{\\large\\bfseries}{}{0em}{\
+              }[\\titlerule]\r
+
+              \r
+
+              \\begin{document}\r
+
+              \r
+
+              % Header\r
+
+              \\begin{center}\r
+
+              \    \\textbf{\\{{name}}} \\\\\r
+
+              \    \\{ {{Role}} } \\\\\r
+
+              \    \\vspace{0.5cm}\r
+
+              \    \\faPhone\\ +1-234-871-555-9 \\quad \r
+
+              \    \\faEnvelope\\ \\href{mailto:{{mail}}}{
+              {{mail}} } \\quad\r
+
+              \    \\faLinkedin\\
+              \\href{https://www.linkedin.com/in/john-doe/}{/john-doe}\r
+
+              \\end{center}\r
+
+              \r
+
+              % Work Experience\r
+
+              \\section*{Work Experience}\r
+
+              \\makebox[\\textwidth]{\\textbf{United Staats
+              Government} \\hfill President (Jan 2016 - Nov 2020)}\r
+
+              \\begin{itemize}\r
+
+              \    \\item Led various initiatives including ...\r
+
+              \    \\item Managed a team of ...\r
+
+              \    \\item Achieved goals in areas such as policy
+              development and leadership.\r
+
+              \\end{itemize}\r
+
+              \r
+
+              \\makebox[\\textwidth]{\\textbf{McKienze Ltd}
+              \\hfill Thieve (Oct 2013 - Nov 2016)}\r
+
+              \\begin{itemize}\r
+
+              \    \\item Conducted tasks related to strategic
+              planning and analysis.\r
+
+              \    \\item Coordinated with cross-functional teams
+              to meet project deadlines.\r
+
+              \    \\item Developed solutions for operational
+              challenges.\r
+
+              \\end{itemize}\r
+
+              \r
+
+              \\makebox[\\textwidth]{\\textbf{ACME Corp} \\hfill
+              Trainee (Aug 2010 - Oct 2013)}\r
+
+              \\begin{itemize}\r
+
+              \    \\item Assisted in daily operations and team
+              meetings.\r
+
+              \    \\item Developed reporting templates to
+              streamline information sharing.\r
+
+              \    \\item Provided support in data analysis and
+              project coordination.\r
+
+              \\end{itemize}\r
+
+              \r
+
+              % Education\r
+
+              \\section*{Education}\r
+
+              \\makebox[\\textwidth]{\\textbf{Sample University,
+              Graduate Degree} \\hfill Oct 2013 - Nov 2016} \\\\\r
+
+              \\textit{Degree: Diploma of Business} \\\\\r
+
+              \\textit{Subsidiary Subject: Psychology} \\\\\r
+
+              \r
+
+              \\makebox[\\textwidth]{\\textbf{Some School,
+              Professional Training with A-Levels} \\hfill Sep 2010 - Sep 2013}
+              \\\\\r
+
+              \\textit{Degrees: Potenti nullam \\& A-Levels}
+              \\\\\r
+
+              \r
+
+              % Skills\r
+
+              \\section*{Skills}\r
+
+              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
+              th}@{}}\r
+
+              \    Programming & C++, Python, Bash, JavaScript,
+              SQL \\\\\r
+
+              \    Tools       & Linux, Windows, macOS \\\\\r
+
+              \    Office      & MS Office, Adobe Acrobat\r
+
+              \\end{tabular}\r
+
+              \r
+
+              % Languages\r
+
+              \\section*{Languages}\r
+
+              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
+              th}@{}}\r
+
+              \    Native & Lorem Ipsum \\\\\r
+
+              \    Fluent & English\r
+
+              \\end{tabular}\r
+
+              \r
+
+              % Hobbies\r
+
+              \\section*{Hobbies}\r
+
+              Photography, Programming, Hiking\r
+
+              \r
+
+              \\end{document}\r\n"
+          outgoingConnections:
+            - output->"Text" oSc2uiTis2wLodhSagJDk/input
+          visualData: 763/127.38351381199439/330/14//
+        '[7Q3j6Hjt7_VjodnTBotTf]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 973.0088841233216
+            text: ""
+          visualData: -145.15899620905702/-127.05688746676773/652.9223336612097/7//
+        '[a_lkIZlF0NwVWCKVfICrr]:text "Mail (Text)"':
+          data:
+            text: stefano.riato@icloud.com
+          outgoingConnections:
+            - output->"Text" 67Zpa_jcJciqdDngzUK2r/mail
+          visualData: -93.67465018706122/17.813501928379253/330/11//
+        '[oSc2uiTis2wLodhSagJDk]:text "Text"':
+          data:
+            text: "{{input}}"
+          visualData: 1645.9220644096868/237.8679177947944/330/13//
+    BoqXxxwVIumWwgGQz8DYf:
+      metadata:
+        description: ""
+        id: BoqXxxwVIumWwgGQz8DYf
+        name: Agent/Untitled Graph
+      nodes:
+        '[R3FAx2VEpME7IdAXniCXv]:subGraph "Subgraph"':
+          data:
+            graphId: WYO2N7-3vz1TUBLOET4tJ
+            useAsGraphPartialOutput: false
+            useErrorOutput: false
+          outgoingConnections:
+            - output->"To JSON" qiRKVECkkcyKAJ5MFSe8s/data
+          visualData: 802.3835085341793/625.4273105590366/330/7//
+        '[qiRKVECkkcyKAJ5MFSe8s]:toJson "To JSON"':
+          data:
+            indented: true
+          visualData: 1247.9202340367194/471.05254646582114/205/8//
+    JUtfO2Qdbgbmuw-FMXlvI:
+      metadata:
+        description: ""
+        id: JUtfO2Qdbgbmuw-FMXlvI
+        name: Tests/List of models
+      nodes:
+        '[wIAIpVimdmgTcqG0Zqlfq]:listOllamaModels "List Ollama Models"':
+          visualData: 672.7999877929688/228/330/1//
+    KNsK4IKfHKwKZTMPlJYoc:
+      metadata:
+        description: ""
+        id: KNsK4IKfHKwKZTMPlJYoc
+        name: App/LLM Studio
+      nodes:
+        '[3Fr8HQKKfHM_vAF_Tn1jw]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 864.8813426300826
+            text: "## **Input**\r
+
+              \r
+
+              - prompt -> instruction for llm\r
+
+              - message -> message from the user\r\n"
+          visualData: 253.41559594947904/-1.2298741299075004/473.4553647190156/41//
+        '[3ekaL6dQRwmkQq2VddA2w]:graphOutput "Graph Output"':
+          data:
+            dataType: object
+            id: JSON
+          visualData: 2581.3526020962295/433.95100988206195/330/49//
+        '[CKqRLKkm5bCXqrqd6vj4O]:object "Object"':
+          data:
+            jsonTemplate: "{{input}}"
+          outgoingConnections:
+            - output->"Destructure (taking the message)"
+              SqIvT1zI03PQALyiFqXLI/object
+          visualData: 1809.3004456452131/82.20161754191577/230/71//
+        '[CzkdGkoc32STw33spEzDB]:subGraph "Subgraph"':
+          data:
+            graphId: WYO2N7-3vz1TUBLOET4tJ
+            useAsGraphPartialOutput: false
+            useErrorOutput: false
+          outgoingConnections:
+            - output->"Body (Object)" OGaYrEYc95Lsa0vvr_c7i/tools
+          visualData: 324.83455021640293/575.1551003003408/330/79//
+        '[DbF216M3ZkfMzc-95g7oK]:object "Object"':
+          data:
+            jsonTemplate: "{{input}}"
+          outgoingConnections:
+            - output->"Graph Output" 3ekaL6dQRwmkQq2VddA2w/value
+          visualData: 2067.503962752268/470.1472351327337/230/74//
+        '[KOELDRlaVL8wBXsP5h_JW]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: Message
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Body (Object)" OGaYrEYc95Lsa0vvr_c7i/Message
+          visualData: 332.579028060289/393.2641182624574/330/77//
+        '[OGaYrEYc95Lsa0vvr_c7i]:object "Body (Object)"':
+          data:
+            jsonTemplate: |
+              {
+                  "model": "mistral-7b-instruct-v0.3",
+                  "messages": [
+                    { "role": "assistant", "content": "{{prompt}}" },
+                    { "role": "user", "content": "{{Message}}" }
+                  ],
+                "tools": [{{tools}}],
+                "tool_choice": "auto",
+                  "temperature": 0.7,
+                  "max_tokens": -1,
+                  "stream": false
+              }   
+          outgoingConnections:
+            - output->"Http Call" pD3YbA54f3tDZA2Xrti1c/req_body
+          visualData: 951.4907873216239/340.72095294519823/343.60618228536123/32//
+        '[SqIvT1zI03PQALyiFqXLI]:destructure "Destructure (taking the message)"':
+          data:
+            paths:
+              - $.choices[0].message.content
+          outgoingConnections:
+            - match_0->"Graph Output" mDne9LNa4_nL5wIikyZ7b/value
+          visualData: 2055.5114444960277/261.5777937282196/280/63//
+        '[fcnZyXpcuCM1corUyR0UB]:object "Headers (Object)"':
+          data:
+            jsonTemplate: |-
+              {
+                "Content-Type": "application/json"
+              }
+          outgoingConnections:
+            - output->"Http Call" pD3YbA54f3tDZA2Xrti1c/headers
+          visualData: 984.8936690661247/77.739022796229/265.52833517053364/36//
+        '[kMWcR5BHLJMmsOQeaZl1e]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: Prompt
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Body (Object)" OGaYrEYc95Lsa0vvr_c7i/prompt
+          visualData: 326.6682289671328/235.04108660317536/330/76//
+        '[kQEG-jhY4QJoZwhC8UjXl]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 746.8174483885173
+            text: "## **Output**"
+          visualData: 2504.709151278909/19.82135152569309/451.24962203215523/48//
+        '[mDne9LNa4_nL5wIikyZ7b]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: Answer
+          visualData: 2581.3526020962295/233.95100988206192/330/49//
+        '[pD3YbA54f3tDZA2Xrti1c]:httpCall "Http Call"':
+          data:
+            body: ""
+            errorOnNon200: true
+            headers: ""
+            method: POST
+            url: http://localhost:1234/v1/chat/completions
+            useBodyInput: true
+            useHeadersInput: true
+            useMethodInput: false
+            useUrlInput: false
+          outgoingConnections:
+            - json->"Object" CKqRLKkm5bCXqrqd6vj4O/input
+            - json->"Object" DbF216M3ZkfMzc-95g7oK/input
+          visualData: 1412.3284941008515/194.25897308456865/280/37//
+        '[vaZ-VbbhdaKMAxgYRbD_U]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 781.4630954621032
+            text: ""
+          visualData: 818.0030163949509/-9.03573411550498/1589.21549612719/72//
+    SrpEY8HejD6oN9lYTwpV2:
+      metadata:
+        description: ""
+        id: SrpEY8HejD6oN9lYTwpV2
+        name: App/* root graph
+      nodes:
+        '[6BcPXPtgwBLqQedqS0t9s]:subGraph "Subgraph"':
+          data:
+            graphId: KNsK4IKfHKwKZTMPlJYoc
+            useAsGraphPartialOutput: false
+            useErrorOutput: false
+          outgoingConnections:
+            - Answer->"Text" CVO7J4aCsNqe9c1kQR38A/input
+          visualData: 506.68991970272936/162.62982893423003/330/4//
+        '[CVO7J4aCsNqe9c1kQR38A]:text "Text"':
+          data:
+            text: "{{input}}"
+          visualData: 999.7145879831127/165.36519368686342/330/80//
+        '[GOjxsj8lHCkhR5c7YljwM]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 1319.2293550871095
+            text: "## Input\r\n"
+          visualData: -491.5022786176115/-132.70905593968874/770.7187868648693/79//
+        '[Hxbg7FaN-6aMNRUu5GE3c]:text "Prompt System (Text)"':
+          data:
+            text: "Act as an HR expert tasked with writing a CV based on the information
+              provided in the messages. The CV should be written in LaTeX,
+              structured into the following sections:\r
+
+              \r
+
+              Name and Surname\r
+
+              Personal Information\r
+
+              Profile\r
+
+              Education\r
+
+              Work Experience\r
+
+              Skills\r
+
+              Languages\r
+
+              Interests\r
+
+              Instructions:\r
+
+              \r
+
+              Remember:\r
+
+              \r
+
+              - Write only the LaTeX code and content; do not
+              include any additional comments or explanations.\r
+
+              - Follow the structure of the provided example,
+              adapting the content to fit the given information.\r
+
+              - If any information is missing, leave it out
+              without filling in placeholders or assumptions.\r
+
+              \r
+
+              Example template:\r
+
+              \r
+
+              {{template}}\r\n"
+          outgoingConnections:
+            - output->"Subgraph" 6BcPXPtgwBLqQedqS0t9s/Prompt
+          visualData: -46.185167749368816/122.6379673448759/330/79//
+        '[N7ENui41alq3hVgqKH5J_]:text "Message (Text)"':
+          data:
+            text: "Mi chiamo Andrea Baldassin\r
+
+              \r
+
+              email: circo.regina@prova.com\r
+
+              cell: + 39 1234567891\r
+
+              \r
+
+              Formazione:\r
+
+              Studente di Farmaceutica psicologica
+              (2023-presente)\r
+
+              \r
+
+              Liceo Classico Gianfranco Antoni (2018-2023)\r
+
+              \r
+
+              Esperienze:\r
+
+              \r
+
+              Piccolo chimico presso Azienda srl (2022-2023)\r
+
+              \r
+
+              Interessi:\r
+
+              \r
+
+              Aviazione, tennis, bricolage, danza, hokey su
+              fango\r\n"
+          outgoingConnections:
+            - output->"Subgraph" 6BcPXPtgwBLqQedqS0t9s/Message
+          visualData: -447.3993006676483/77.34079080998214/330/79//
+        '[n0-6r8kexw1mO9xzkzBUv]:text "CV Template (Text)"':
+          data:
+            text: "\\documentclass[a4paper]{article}\r
+
+              \\usepackage[margin=1in]{geometry}\r
+
+              \\usepackage{fontawesome5}\r
+
+              \\usepackage{titlesec}\r
+
+              \\usepackage{array}\r
+
+              \\usepackage{hyperref}\r
+
+              \r
+
+              \\titleformat{\\section}{\\large\\bfseries}{}{0em}{\
+              }[\\titlerule]\r
+
+              \r
+
+              \\begin{document}\r
+
+              \r
+
+              % Header\r
+
+              \\begin{center}\r
+
+              \    \\textbf{\\{Nome Cognome\\}} \\\\\r
+
+              \    \\{Indirizzo\\} \\\\\r
+
+              \    \\vspace{0.5cm}\r
+
+              \    \\faPhone\\ \\{Telefono\\} \\quad \r
+
+              \    \\faEnvelope\\
+              \\href{mailto:\\{Email\\}}{\\{Email\\}} \\quad\r
+
+              \    \\faLinkedin\\ \\href{\\{LinkedIn
+              URL\\}}{\\{LinkedIn Username\\}}\r
+
+              \\end{center}\r
+
+              \r
+
+              % Profile\r
+
+              \\section*{Profile}\r
+
+              A brief summary of the candidate's profile...\r
+
+              \r
+
+              % Work Experience\r
+
+              \\section*{Work Experience}\r
+
+              \\makebox[\\textwidth]{\\textbf{\\{Company\\}}
+              \\hfill \\{Job Title\\} (\\{Start Date\\} - \\{End Date\\})}\r
+
+              \\begin{itemize}\r
+
+              \    \\item Description of key achievements and
+              responsibilities...\r
+
+              \\end{itemize}\r
+
+              \r
+
+              % Education\r
+
+              \\section*{Education}\r
+
+              \\makebox[\\textwidth]{\\textbf{\\{University
+              Name\\}} \\hfill \\{Graduation Year\\}} \\\\\r
+
+              \\textit{Degree: \\{Degree\\}} \\\\\r
+
+              \r
+
+              % Skills\r
+
+              \\section*{Skills}\r
+
+              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
+              th}@{}}\r
+
+              \    \\textbf{Technical Skills} & Languages, tools,
+              etc. \\\\\r
+
+              \    \\textbf{Other Skills} & Project management,
+              leadership...\r
+
+              \\end{tabular}\r
+
+              \r
+
+              % Languages\r
+
+              \\section*{Languages}\r
+
+              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
+              th}@{}}\r
+
+              \    \\textbf{Native} & Language \\\\\r
+
+              \    \\textbf{Fluent} & Language\r
+
+              \\end{tabular}\r
+
+              \r
+
+              % Interests\r
+
+              \\section*{Interests}\r
+
+              Photography, Coding, Hiking\r
+
+              \r
+
+              \\end{document}"
+          outgoingConnections:
+            - output->"Prompt System (Text)" Hxbg7FaN-6aMNRUu5GE3c/template
+          visualData: -449.72690391997054/504.0594405123541/330/79//
+    VglPVdxrnd7YCQ6SeFCB0:
+      metadata:
+        description: ""
+        id: VglPVdxrnd7YCQ6SeFCB0
+        name: Tests/models
+      nodes:
+        '[0zyxP6fmBFusPuT9nvHfe]:raiseEvent "Raise Event"':
+          data:
+            eventName: toast
+            useEventNameInput: false
+          visualData: 1111/214.59999084472656/180/2//
+        '[OMhTHvBMow1yWhNsEX_7R]:text "Text"':
+          data:
+            text: llama3
+          outgoingConnections:
+            - output->"Pull Model to Ollama" kzZGQkr0nhVEav41Y8fWe/modelName
+          visualData: 251.94931214374532/186.83685347862684/330/3//
+        '[kzZGQkr0nhVEav41Y8fWe]:pullModelToOllama "Pull Model to Ollama"':
+          data:
+            insecure: false
+            modelName: mistral
+            useModelNameInput: true
+          outgoingConnections:
+            - modelName->"Raise Event" 0zyxP6fmBFusPuT9nvHfe/data
+          visualData: 689.5999755859375/237.5999755859375/280/1//
+    WYO2N7-3vz1TUBLOET4tJ:
+      metadata:
+        description: ""
+        id: WYO2N7-3vz1TUBLOET4tJ
+        name: Agent/function calling
+      nodes:
+        '[5YyZ_V1pVybmSjvZJgcyI]:gptFunction "archival_memory_search"':
+          data:
+            description: Search archival memory using semantic (embedding-based) search.
+            name: archival_memory_search
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                  "query": {
+                                        "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                    "type": "string",
+                    "description": "String to search for."
+                  },
+                  "page": {
+                    "type": "integer",
+                    "description": "Allows you to page through results. Only use on a follow-up query. Defaults to 0 (first page)."
+                  }
+                },
+                "required": [
+                  "name",
+                  "query",
+                  "page",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input5
+          visualData: 574.3403354872589/712.2945132271373/280/270//
+        '[Ijb_kXJoKnZLVUBCYgiT_]:graphOutput "Graph Output"':
+          data:
+            dataType: gpt-function[]
+            id: output
+          visualData: 1747.1742762427907/577.3654396562922/330/270//
+        '[KfYrlJWBSy5C_4WOyaTV_]:gptFunction "archival_memory_insert"':
+          data:
+            description: Add to archival memory. Make sure to phrase the memory contents
+              such that it can be easily queried later.
+            name: archival_memory_insert
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                                        "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                    "type": "string",
+                    "description": "Content to write to the memory. All unicode (including emojis) are supported."
+                  }
+                },
+                "required": [
+                  "name",
+                  "content",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input6
+          visualData: 913.7638604207057/708.6314191546091/280/270//
+        '[PK1-zh9L4WBWm1DTfz7im]:gptFunction "send_message"':
+          data:
+            description: Sends a message to the human user
+            name: send_message
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                                      "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                  "message": {
+                    "type": "string",
+                    "description": "Message contents. All unicode (including emojis) are supported."
+                  }
+                },
+                "required": [
+                  "message",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input7
+          visualData: 569.7306809478043/976.2848768285485/280/275//
+        '[YYT9ZTq8t__kWcTUw7-jP]:gptFunction "pause_heartbeats"':
+          data:
+            description: Temporarily ignore timed heartbeats. You may still receive messages
+              from manual heartbeats and other events.
+            name: pause_heartbeats
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                                      "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                  "minutes": {
+                    "type": "integer",
+                    "description": "Number of minutes to ignore heartbeats for. Max value of 360 minutes (6 hours)."
+                  }
+                },
+                "required": [
+                  "minutes",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input8
+          visualData: 910.4072496019195/974.6354325367766/280/276//
+        '[b5OFPpJUShH_mMSOWgdM6]:array "Array"':
+          data:
+            flatten: true
+            flattenDeep: false
+          outgoingConnections:
+            - output->"Graph Output" Ijb_kXJoKnZLVUBCYgiT_/value
+          visualData: 1343.2483025037777/558.740610895992/230/270//
+        '[bvTnpNGqOY4H6JM14O0Rv]:gptFunction "core_memory_append"':
+          data:
+            description: Append to the contents of core memory.
+            name: core_memory_append
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                                      "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Section of the memory to be edited (persona or human)."
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "Content to write to the memory. All unicode (including emojis) are supported."
+                  }
+                },
+                "required": [
+                  "name",
+                  "content",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input1
+          visualData: 576.7118472085152/258.81329849170606/280/272//
+        '[dJPrJ-NScBlm7k63kNxMd]:gptFunction "recall_memory_search"':
+          data:
+            description: Search prior conversation history using a string.
+            name: recall_memory_search
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                                      "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                  "query": {
+                    "type": "string",
+                    "description": "String to search for."
+                  },
+                  "page": {
+                    "type": "integer",
+                    "description": "Allows you to page through results. Only use on a follow-up query. Defaults to 0 (first page)."
+                  }
+                },
+                "required": [
+                  "name",
+                  "page",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input3
+          visualData: 566.8943573623156/481.2518316681372/280/273//
+        '[sJ38evVKroe_nIpA48Usw]:gptFunction "core_memory_replace"':
+          data:
+            description: Replace to the contents of core memory. To delete memories, use an
+              empty string for new_content.
+            name: core_memory_replace
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                                      "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Section of the memory to be edited (persona or human)."
+                  },
+                  "old_content": {
+                    "type": "string",
+                    "description": "String to replace. Must be an exact match."
+                  },
+                  "new_content": {
+                    "type": "string",
+                    "description": "Content to write to the memory. All unicode (including emojis) are supported."
+                  }
+                },
+                "required": [
+                  "name",
+                  "old_content",
+                  "new_content",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input2
+          visualData: 900.4554668681853/253.54202315291093/325.5338049263912/271//
+        '[uxxislqMfMw0qs4r8QV_X]:gptFunction "recall_memory_search_date"':
+          data:
+            description: Search prior conversation history using a date range.
+            name: recall_memory_search_date
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                  "start_date": {
+                                        "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                    "type": "string",
+                    "description": "The start of the date range to search, in the format datetime, e.g. 2023-11-06T20:43:32.223Z."
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "description": "The end of the date range to search, in the format datetime, e.g. 2023-11-06T20:43:32.223Z."
+                  },
+                  "page": {
+                    "type": "integer",
+                    "description": "Allows you to page through results. Only use on a follow-up query. Defaults to 0 (first page)."
+                  }
+                },
+                "required": [
+                  "name",
+                  "page",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input4
+          visualData: 906.7971262191352/475.61858891724955/280/274//
+  metadata:
+    description: An agent who is able to support you in order to create a CV and to
+      prepare yourself for being ready for a interview
+    id: ugyuZ6K2weboh6ySJsoif
+    mainGraphId: SrpEY8HejD6oN9lYTwpV2
+    title: am-Ia
+  plugins:
+    - id: rivet-plugin-chromadb@latest
+      package: rivet-plugin-chromadb
+      tag: latest
+      type: package
+    - id: rivet-plugin-example-python-exec@latest
+      package: rivet-plugin-example-python-exec
+      tag: latest
+      type: package
+    - id: rivet-plugin-ollama@latest
+      package: rivet-plugin-ollama
+      tag: latest
+      type: package

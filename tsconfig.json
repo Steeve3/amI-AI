@@ -9,8 +9,8 @@
     "paths": {
       "@server/*": ["./*"],
       "@root/*": ["../src/*"]
-    }
+    },
+    "skipLibCheck": true
   },
-  "include": ["src/*"],
-  "skipLibCheck": true
+  "include": ["src/*"]
 }

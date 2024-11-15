@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Chat Frontend</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Welcome to the Frontend</h1>
+
+  <div id="chat-container">
+    <div id="chat-box">
+      <!-- Messages will appear here -->
+    </div>
+    <div id="input-container">
+      <input type="text" id="user-input" placeholder="Type your message..." />
+      <button id="send-button">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // Elements
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+
+    // Function to append messages to the chat box
+    function appendMessage(sender, message) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message', sender);
+      messageElement.textContent = message;
+      chatBox.appendChild(messageElement);
+      chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+    }
+
+    // Send message function
+    async function sendMessage() {
+      const message = userInput.value;
+      if (message.trim() === '') return;
+
+      // Display user's message
+      appendMessage('user', message);
+      userInput.value = '';
+
+      try {
+        // Send the message to the backend
+        const response = await fetch('/api/message', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: message })
+        });
+        const data = await response.json();
+
+        // Display the response message from the backend
+        if (data.message) {
+          appendMessage('bot', data.message);
+        } else {
+          appendMessage('bot', 'No response received');
+        }
+      } catch (error) {
+        console.error(error);
+        appendMessage('bot', 'Error communicating with server');
+      }
+    }
+
+    // Event listeners
+    sendButton.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
+</body>
+</html>
