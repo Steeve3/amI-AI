@@ -575,7 +575,7 @@ data:
               }
           outgoingConnections:
             - output->"Http Call" pD3YbA54f3tDZA2Xrti1c/headers
-          visualData: 984.8936690661247/77.739022796229/265.52833517053364/36//
+          visualData: 984.8936690661247/108.59466359278355/265.52833517053364/80//
         '[kMWcR5BHLJMmsOQeaZl1e]:graphInput "Graph Input"':
           data:
             dataType: string
@@ -617,7 +617,29 @@ data:
             color: rgba(255,255,255,1)
             height: 781.4630954621032
             text: ""
-          visualData: 818.0030163949509/-9.03573411550498/1589.21549612719/72//
+          visualData: 818.0030163949509/-14.480859415735404/1589.21549612719/81//
+    P70f22k7XN4_NOExJUKIN:
+      metadata:
+        description: ""
+        id: P70f22k7XN4_NOExJUKIN
+        name: http call
+      nodes:
+        '[owMDpNjDDog4B6tnT-BtJ]:httpCall "Http Call"':
+          data:
+            body: "{\r
+
+              \    \"prompt\": \"Tell me a joke\"\r
+
+              }\r\n"
+            errorOnNon200: true
+            headers: "{\r
+
+              \    \"Content-Type\": \"application/json\"\r
+
+              }\r\n"
+            method: POST
+            url: http://localhost:3001/api/message
+          visualData: 586.3999633789062/260.79998779296875/280/6//
     SrpEY8HejD6oN9lYTwpV2:
       metadata:
         description: ""
@@ -733,7 +755,7 @@ data:
               fango\r\n"
           outgoingConnections:
             - output->"Subgraph" 6BcPXPtgwBLqQedqS0t9s/Message
-          visualData: -447.3993006676483/77.34079080998214/330/79//
+          visualData: -444.3768754935145/47.11607787612492/330/81//
         '[n0-6r8kexw1mO9xzkzBUv]:text "CV Template (Text)"':
           data:
             text: "\\documentclass[a4paper]{article}\r
@@ -1142,6 +1164,93 @@ data:
           outgoingConnections:
             - function->"Array" b5OFPpJUShH_mMSOWgdM6/input4
           visualData: 906.7971262191352/475.61858891724955/280/274//
+    ZkI8iJkPcztY-i2zIxgtK:
+      metadata:
+        description: ""
+        id: ZkI8iJkPcztY-i2zIxgtK
+        name: App/LLM_Studio_v1.0
+      nodes:
+        '[2p5m5PCEb81aSDZc6rzNw]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 746.8174483885173
+            text: "## **Output**"
+          visualData: 1266.4393977388172/-41.26857331059037/451.24962203215523/81//
+        '[3LmnVz8Uk44_aHLQRwSMb]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            endpoint: http://localhost:1234/v1/chat/completions
+            maxTokens: 1024
+            model: local-model
+            parallelFunctionCalling: false
+            stop: ""
+            temperature: 0.5
+            toolChoice: function
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Graph Output" BQtxxgda2HpS0x0K9Q49t/value
+          visualData: 859.7657471777105/137.6389486488759/230/11//
+        '[5UI2JVF1ra3stGexdXXay]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: Prompt
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Chat" 3LmnVz8Uk44_aHLQRwSMb/systemPrompt
+          visualData: 124.80587916266218/107.93618292910445/330/83//
+        '[BQtxxgda2HpS0x0K9Q49t]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: Answer
+          visualData: 1343.0828485561378/172.86108504577848/330/81//
+        '[OsGD_4Kq4MDfVEjGwHblN]:graphOutput "Graph Output"':
+          data:
+            dataType: object
+            id: JSON
+          visualData: 1343.0828485561378/372.8610850457785/330/81//
+        '[adQYBlg54zmZeoOowCkpO]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 864.8813426300826
+            text: "## **Input**\r
+
+              \r
+
+              - prompt -> instruction for llm\r
+
+              - message -> message from the user\r\n"
+          visualData: 38.49352769509156/-101.0280423064855/473.4553647190156/80//
+        '[c5xLvEuOoO9SPbQhshvso]:subGraph "Subgraph"':
+          data:
+            graphId: WYO2N7-3vz1TUBLOET4tJ
+            useAsGraphPartialOutput: false
+            useErrorOutput: false
+          visualData: 109.91248196201545/475.3569321237629/330/80//
+        '[yWPQAtfjibytB75N4LxcS]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: Message
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Chat" 3LmnVz8Uk44_aHLQRwSMb/prompt
+          visualData: 117.6569598059015/293.46595008587934/330/80//
   metadata:
     description: An agent who is able to support you in order to create a CV and to
       prepare yourself for being ready for a interview

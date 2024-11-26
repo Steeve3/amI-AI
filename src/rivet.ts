@@ -18,16 +18,16 @@ async function runRivetGraph(prompt, context) {
     const project = path.join(__dirname, '../am-Ia.rivet-project');
     
     const result = await runGraphInFile(project, {
-        graph: "App/LLM Studio",
+        graph: "App/LLM_Studio_v1.0",
         remoteDebugger: debuggerServer,
         inputs: { Message: prompt },
-        context: { userContext: context }
+        context: { userContext: context },
+        settings: {openAiEndpoint: 'http://localhost:1234/v1/chat/completions'}
     }as RunGraphOptions);
 
     return {
-        message: result?.Answer?.value ?? "No response",
-        suggestions: result?.suggestions?.value ?? [],
-        nextSteps: result?.nextSteps?.value ?? []
+        
+        message: result?.Answer?.value ?? "No response"
     };
 }
 
