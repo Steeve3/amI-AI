@@ -13,11 +13,12 @@ app.use(express.json());
 async function runRivetGraph(prompt, context) {
     const project = path.join(__dirname, '../am-Ia.rivet-project');
     const result = await runGraphInFile(project, {
-        graph: "App/LLM_Studio_v1.0",
+        graph: "App/OpenAI",
         remoteDebugger: debuggerServer,
         inputs: { Message: prompt },
         context: { userContext: context },
-        settings: { openAiEndpoint: 'http://localhost:1234/v1/chat/completions' }
+        settings: { openAiEndpoint: 'https://api.openai.com/v1/chat/completions',
+        }
     });
     return {
         message: result?.Answer?.value ?? "No response"
