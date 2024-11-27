@@ -2,6 +2,11 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { runGraphInFile, startDebuggerServer, RunGraphOptions } from '@ironclad/rivet-node';
+import * as dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
+
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -23,7 +28,7 @@ async function runRivetGraph(prompt, context) {
         inputs: { Message: prompt },
         context: { userContext: context },
         settings: {openAiEndpoint: 'https://api.openai.com/v1/chat/completions'},
-        openAiKey: 'my-openai-key' 
+        openAiKey: process.env.API_KEY as string 
     }as RunGraphOptions);
 
     return {
