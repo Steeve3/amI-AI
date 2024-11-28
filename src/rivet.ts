@@ -19,6 +19,11 @@ const debuggerServer = startDebuggerServer({
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json());
 
+// Add explicit route for root path
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/home_page.html'));
+});
+
 async function runRivetGraph(prompt, context) {
     const project = path.join(__dirname, '../am-Ia.rivet-project');
     
