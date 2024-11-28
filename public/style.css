@@ -1,168 +1,321 @@
-/* Custom styling on top of Bootstrap */
-
-/* Chat container styling */
-.chat-container {
-    height: 60vh;
-    overflow-y: auto;
-    padding: 1rem;
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-/* Message styling */
-.message {
-    margin-bottom: 1rem;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    max-width: 80%;
-}
-
-.message.user {
-    background-color: #007bff;
+/* General styles for both pages */
+body {
+    margin: 0;
+    font-family: 'Hubballi', sans-serif;
+    background: linear-gradient(360deg, black 63%, #002B62 95%);
     color: white;
-    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-.message.bot {
-    background-color: #e9ecef;
-    color: #212529;
-    margin-right: auto;
-}
-
-.message.bot-suggestion {
-    background-color: #d4edda;
-    color: #155724;
-    margin-right: auto;
-    border-left: 4px solid #28a745;
-}
-
-.message.bot-question {
-    background-color: #fff3cd;
-    color: #856404;
-    margin-right: auto;
-    border-left: 4px solid #ffc107;
-}
-
-.message.bot-tip {
-    background-color: #cce5ff;
-    color: #004085;
-    margin-right: auto;
-    border-left: 4px solid #007bff;
-}
-
-/* Input area styling */
-.input-container {
+/* Header styles (shared) */
+header {
+    text-align: center;
+    margin: 30px 0;
+    width: 100%;
     position: relative;
-    margin-top: 1rem;
 }
 
-#user-input {
-    resize: none;
-    padding-right: 100px; /* Space for send button */
+.main-title {
+    font-size: 100px;
+    margin: 0;
 }
 
-#send-button {
+.sub-title {
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+/* Theme Switcher Styles */
+.theme-switch {
     position: absolute;
-    bottom: 0.5rem;
-    right: 0.5rem;
+    top: 20px;
+    right: 20px;
 }
 
-/* Mode selector styling */
-.mode-selector {
-    margin-bottom: 2rem;
+.theme-switch input {
+    display: none;
 }
 
-.mode-selector .btn {
-    margin: 0 0.25rem;
-}
-
-/* Feature cards styling */
-.feature-card {
+.theme-switch .slider {
+    width: 50px;
+    height: 25px;
     background-color: white;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
 }
 
-.feature-card h3 {
-    margin-bottom: 1.5rem;
-    color: #212529;
-}
-
-/* Form styling */
-.form-group {
-    margin-bottom: 1rem;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .message {
-        max-width: 90%;
-    }
-    
-    .mode-selector .btn {
-        margin: 0.25rem;
-        width: calc(50% - 0.5rem);
-    }
-}
-
-/* Loading indicator */
-.loading {
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #007bff;
+.theme-switch .slider::before {
+    content: '';
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    left: 1px;
+    top: 1px;
+    background-color: black;
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    transition: transform 0.3s;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.theme-switch input:checked + .slider::before {
+    transform: translateX(25px);
 }
 
-/* Transitions */
-.message {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 0.3s ease forwards;
+/* Shared Main Container */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    width: 100%;
+    padding: 20px 0;
 }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Home Page-Specific Styles */
+.cv-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
 }
 
-/* Accessibility improvements */
-.btn:focus, .form-control:focus {
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+.cv-box {
+    width: 400px;
+    height: 250px;
+    border: 2px solid white;
+    border-radius: 30px;
+    background: rgba(217, 217, 217, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+    text-decoration: none;
+    color: white;
+}
+
+.cv-box:hover {
+    transform: scale(1.05);
+}
+
+.cv-text {
+    font-size: 35px;
+    max-width: 90%;
+    word-wrap: break-word;
+}
+
+/* Second Page-Specific Styles */
+.second-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    width: 100%;
+    padding: 50px 0;
+}
+
+/* Outer Box */
+.outer-box {
+    position: relative;
+    width: 700px;
+    border: 2px solid white;
+    border-radius: 20px;
+    background: rgba(217, 217, 217, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Subtitle (above the inner rectangle) */
+.subtitle {
+    font-size: 50px;
+    margin: 20px 0;
+}
+
+/* Inner Box */
+.inner-box {
+    width: 90%;
+    background: rgba(217, 217, 217, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Input Fields and Textarea Styles */
+.inner-box input[type="text"],
+.inner-box input[type="email"],
+.inner-box input[type="tel"],
+.inner-box textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
     outline: none;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    .chat-container {
-        background-color: #343a40;
-        border-color: #495057;
+.inner-box input::placeholder,
+.inner-box textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Submit Button Styles */
+.submit-button {
+    margin: 30px auto; /* Center horizontally using auto margin */
+    display: block; /* Required for margin auto to work */
+    padding: 15px 30px;
+    font-size: 24px;
+    border: 2px solid white;
+    border-radius: 20px;
+    background: rgba(217, 217, 217, 0);
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.submit-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+/* CV Preview Styles */
+.cv-preview {
+    width: 700px;
+    min-height: 1000px;
+    background: white;
+    color: black;
+    padding: 40px;
+    border-radius: 20px;
+    margin-top: 50px;
+}
+
+.cv-preview h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cv-preview .section {
+    margin-bottom: 20px;
+}
+
+.cv-preview .section h3 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.cv-preview .section p {
+    margin: 0;
+}
+
+/* Light Theme Styles */
+body.light-theme {
+    background: linear-gradient(360deg, white 63%, #d3d3d3 95%);
+    color: black;
+}
+
+body.light-theme .cv-preview {
+    background: #f5f5f5;
+    color: black;
+}
+
+body.light-theme .outer-box {
+    border: 2px solid black;
+}
+
+body.light-theme .inner-box input[type="text"],
+body.light-theme .inner-box input[type="email"],
+body.light-theme .inner-box input[type="tel"],
+body.light-theme .inner-box textarea {
+    background: rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+body.light-theme .submit-button {
+    border: 2px solid black;
+    color: black;
+}
+
+body.light-theme .submit-button:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .outer-box, .cv-preview {
+        width: 90%;
     }
 
-    .message.bot {
-        background-color: #495057;
-        color: #f8f9fa;
+    .main-title {
+        font-size: 60px;
     }
 
-    .feature-card {
-        background-color: #343a40;
-        color: #f8f9fa;
+    .subtitle {
+        font-size: 30px;
     }
 
-    .feature-card h3 {
-        color: #f8f9fa;
+    .submit-button {
+        font-size: 18px;
+        padding: 10px 20px;
     }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 40px;
+    }
+
+    .subtitle {
+        font-size: 24px;
+    }
+
+    .inner-box input[type="text"],
+    .inner-box input[type="email"],
+    .inner-box input[type="tel"],
+    .inner-box textarea {
+        font-size: 16px;
+    }
+
+    .submit-button {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+}
+/* Back Button Styles */
+.back-button {
+    margin: 20px auto; /* Center horizontally using auto margin */
+    display: block; /* Required for margin auto to work */
+    padding: 10px 20px;
+    font-size: 18px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background: rgba(217, 217, 217, 0);
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+/* Light Theme Back Button Styles */
+body.light-theme .back-button {
+    border: 2px solid black;
+    color: black;
+}
+
+body.light-theme .back-button:hover {
+    background: rgba(0, 0, 0, 0.1);
 }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hubballi&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 class="main-title">AM I AI</h1>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+    </header>
+    <main class="second-container">
+        <button class="back-button" onclick="location.href='home_page.html';">Back</button>
+        <form id="cv-form">
+            <!-- About You -->
+            <section class="outer-box">
+                <p class="subtitle">About You</p>
+                <div class="inner-box">
+                    <textarea id="self-description" name="selfDescription" rows="5" placeholder="Describe yourself here..." required></textarea>
+                </div>
+            </section>
+            
+            <!-- Personal Information -->
+            <section class="outer-box">
+                <p class="subtitle">Personal Information</p>
+                <div class="inner-box">
+                    <input type="text" id="full-name" name="fullName" placeholder="Full Name" required>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                    <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+                </div>
+            </section>
+            <!-- Education -->
+            <section class="outer-box">
+                <p class="subtitle">Education</p>
+                <div class="inner-box">
+                    <textarea id="education" name="education" rows="5" placeholder="Enter your education details..." required></textarea>
+                </div>
+            </section>
+            <!-- Work Experience -->
+            <section class="outer-box">
+                <p class="subtitle">Work Experience</p>
+                <div class="inner-box">
+                    <textarea id="work-experience" name="workExperience" rows="5" placeholder="Enter your work experience..." required></textarea>
+                </div>
+            </section>
+            <!-- Skills -->
+            <section class="outer-box">
+                <p class="subtitle">Skills</p>
+                <div class="inner-box">
+                    <textarea id="skills" name="skills" rows="5" placeholder="List your skills..." required></textarea>
+                </div>
+            </section>
+            <!-- Job Description -->
+            <section class="outer-box">
+                <p class="subtitle">Job Description</p>
+                <div class="inner-box">
+                    <textarea id="job-description" name="jobDescription" rows="5" placeholder="Enter the job description here..." required></textarea>
+                </div>
+            </section>
+            <button type="submit" class="submit-button">Generate CV</button>
+        </form>
+        <!-- CV Preview Section -->
+        <section id="cv-preview" class="cv-preview">
+            <!-- The CV content will be dynamically inserted here -->
+        </section>
+    </main>
+    <!-- Include jsPDF and html2canvas libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
