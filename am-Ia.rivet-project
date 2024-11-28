@@ -1391,7 +1391,7 @@ data:
           data:
             additionalParameters: []
             cache: false
-            enableFunctionUse: false
+            enableFunctionUse: true
             endpoint: https://api.openai.com/v1/chat/completions
             maxTokens: 1024
             model: gpt-4o-mini
@@ -1414,9 +1414,9 @@ data:
             useTopPInput: false
             useUseTopPInput: false
             useUserInput: false
-          outgoingConnections:
-            - response->"Graph Output" BQtxxgda2HpS0x0K9Q49t/value
-          visualData: 859.7657471777105/137.6389486488759/230/11//
+          disabled: true
+          isSplitRun: true
+          visualData: 858.4482737289402/12.477061196850272/230/91//
         '[5UI2JVF1ra3stGexdXXay]:graphInput "Graph Input"':
           data:
             dataType: string
@@ -1424,7 +1424,36 @@ data:
             useDefaultValueInput: false
           outgoingConnections:
             - data->"Chat" 3LmnVz8Uk44_aHLQRwSMb/systemPrompt
+            - data->"Chat" 7kdRumF3MVy_yJw49EOOF/systemPrompt
           visualData: 124.80587916266218/107.93618292910445/330/83//
+        '[7kdRumF3MVy_yJw49EOOF]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            endpoint: https://api.openai.com/v1/chat/completions
+            maxTokens: 1024
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Graph Output" BQtxxgda2HpS0x0K9Q49t/value
+          visualData: 865.8321723246279/470.4574132923389/230/95//
         '[BQtxxgda2HpS0x0K9Q49t]:graphOutput "Graph Output"':
           data:
             dataType: string
@@ -1448,7 +1477,9 @@ data:
             graphId: WYO2N7-3vz1TUBLOET4tJ
             useAsGraphPartialOutput: false
             useErrorOutput: false
-          visualData: 109.91248196201545/475.3569321237629/330/80//
+          outgoingConnections:
+            - output->"Chat" 3LmnVz8Uk44_aHLQRwSMb/functions
+          visualData: 124.49687489669599/527.8607615246245/330/84//
         '[yWPQAtfjibytB75N4LxcS]:graphInput "Graph Input"':
           data:
             dataType: chat-message
@@ -1456,6 +1487,7 @@ data:
             useDefaultValueInput: false
           outgoingConnections:
             - data->"Chat" 3LmnVz8Uk44_aHLQRwSMb/prompt
+            - data->"Chat" 7kdRumF3MVy_yJw49EOOF/prompt
           visualData: 117.6569598059015/293.46595008587934/330/80//
   metadata:
     description: An agent who is able to support you in order to create a CV and to
