@@ -43,34 +43,6 @@ function handleFileUpload(file) {
     }
 }
 
-// Format CV content into HTML
-function formatCVToHTML(cvText) {
-    // Split the CV text into sections
-    const sections = cvText.split('###').filter(section => section.trim());
-    
-    // Create HTML elements for each section
-    const formattedSections = sections.map(section => {
-        const lines = section.trim().split('\n');
-        const title = lines[0].replace(/\*\*/g, '').trim();
-        const content = lines.slice(1).join('<br>');
-        
-        return `
-            <div class="cv-section">
-                <h2>${title}</h2>
-                <div class="cv-content">
-                    ${content.replace(/\*\*/g, '')}
-                </div>
-            </div>
-        `;
-    });
-
-    return `
-        <div class="cv-container">
-            ${formattedSections.join('')}
-        </div>
-    `;
-}
-
 // Form submission handlers
 const updateCvForm = document.getElementById('update-cv-form');
 if (updateCvForm) {
@@ -90,18 +62,9 @@ if (updateCvForm) {
             const prompt = `Job Description: ${jobDescription}\n\nCV Content: ${fileText}`;
             
             const response = await sendToBackend(prompt, 'cv_update');
-            // Format and display the CV
-            const previewSection = document.createElement('div');
-            previewSection.className = 'cv-preview';
-            previewSection.innerHTML = formatCVToHTML(response.message);
-            
-            // Replace or append the preview
-            const existingPreview = document.querySelector('.cv-preview');
-            if (existingPreview) {
-                existingPreview.replaceWith(previewSection);
-            } else {
-                updateCvForm.after(previewSection);
-            }
+            // Handle the response - you might want to download the updated CV or show it in a preview
+            console.log('Backend response:', response);
+            alert('CV has been processed! Check the response in console.');
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred while processing your CV');
@@ -139,10 +102,10 @@ if (cvForm) {
 
         try {
             const response = await sendToBackend(prompt, 'cv_creation');
-            // Format and display the CV
+            // Display the generated CV in the preview section
             const previewSection = document.getElementById('cv-preview');
             if (previewSection) {
-                previewSection.innerHTML = formatCVToHTML(response.message);
+                previewSection.innerHTML = `<pre>${response.message}</pre>`;
                 previewSection.style.display = 'block';
             }
         } catch (error) {
@@ -176,4 +139,30 @@ async function sendToBackend(prompt, context) {
     }
 
     return await response.json();
+}
+
+async function downloadPDF(latexContent) {
+    const response = await fetch('/generate-pdf', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ latex: latexContent })
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to generate PDF');
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    // Create a link to download the PDF
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'output.pdf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
 }

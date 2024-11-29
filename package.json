@@ -12,6 +12,7 @@
   "dependencies": {
     "@ironclad/rivet-node": "^1.14.0",
     "dotenv": "^16.4.5",
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "node-latex": "^3.1.0"
   }
 }

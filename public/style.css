@@ -145,7 +145,7 @@ main {
     background: rgba(217, 217, 217, 0);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 /* Input Fields and Textarea Styles */

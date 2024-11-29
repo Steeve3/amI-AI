@@ -28,7 +28,7 @@ async function runRivetGraph(prompt, context) {
         openAiKey: process.env.API_KEY
     });
     return {
-        message: result?.Answer?.value ?? "No response"
+        message: result?.Answer?.value?.toString() ?? "No response"
     };
 }
 app.post('/api/message', async (req, res) => {
@@ -38,13 +38,23 @@ app.post('/api/message', async (req, res) => {
     }
     try {
         const response = await runRivetGraph(prompt, context);
+        // For CV creation/update, we'll return formatted text that the frontend will handle
+        if (context === 'cv_creation' || context === 'cv_update') {
+            // Ensure the response is properly formatted for frontend display
+            const formattedResponse = {
+                ...response,
+                message: response.message.replace(/\n/g, '<br>'),
+                context
+            };
+            return res.json(formattedResponse);
+        }
         res.json({ ...response, context });
     }
     catch (error) {
         console.error("Error processing request:", error);
         res.status(500).json({
             error: "Failed to process request",
-            details: error.message
+            details: error instanceof Error ? error.message : 'Unknown error'
         });
     }
 });
