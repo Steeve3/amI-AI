@@ -43,6 +43,19 @@ function handleFileUpload(file) {
     }
 }
 
+// Loading animation functions
+function showLoadingOverlay(message = 'Generating your CV...') {
+    const overlay = document.querySelector('.loading-overlay');
+    const loadingText = overlay.querySelector('.loading-text');
+    loadingText.textContent = message;
+    overlay.classList.add('active');
+}
+
+function hideLoadingOverlay() {
+    const overlay = document.querySelector('.loading-overlay');
+    overlay.classList.remove('active');
+}
+
 // Form submission handlers
 const updateCvForm = document.getElementById('update-cv-form');
 if (updateCvForm) {
@@ -58,14 +71,22 @@ if (updateCvForm) {
         }
 
         try {
+            showLoadingOverlay('Updating your CV...');
             const fileText = await readFileAsText(file);
             const prompt = `Job Description: ${jobDescription}\n\nCV Content: ${fileText}`;
             
-            const response = await sendToBackend(prompt, 'cv_update');
-            // Handle the response - you might want to download the updated CV or show it in a preview
-            console.log('Backend response:', response);
-            alert('CV has been processed! Check the response in console.');
+            const response = await sendToBackend(prompt, jobDescription, true);
+            
+            // Store CV data in sessionStorage
+            sessionStorage.setItem('cvContent', response.message);
+            
+            // Add a delay for the loading animation
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Redirect to chat page
+            window.location.href = 'chat.html';
         } catch (error) {
+            hideLoadingOverlay();
             console.error('Error:', error);
             alert('An error occurred while processing your CV');
         }
@@ -89,7 +110,6 @@ if (cvForm) {
         };
 
         const prompt = `
-            Create a CV for the following information:
             About: ${formData.selfDescription}
             Name: ${formData.fullName}
             Email: ${formData.email}
@@ -97,22 +117,86 @@ if (cvForm) {
             Education: ${formData.education}
             Work Experience: ${formData.workExperience}
             Skills: ${formData.skills}
-            Job Description to target: ${formData.jobDescription}
         `;
 
         try {
-            const response = await sendToBackend(prompt, 'cv_creation');
-            // Display the generated CV in the preview section
-            const previewSection = document.getElementById('cv-preview');
-            if (previewSection) {
-                previewSection.innerHTML = `<pre>${response.message}</pre>`;
-                previewSection.style.display = 'block';
-            }
+            showLoadingOverlay();
+            const response = await sendToBackend(prompt, formData.jobDescription, true);
+            
+            // Store CV data in sessionStorage
+            sessionStorage.setItem('cvContent', response.message);
+            
+            // Add a delay for the loading animation
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Redirect to chat page
+            window.location.href = 'chat.html';
         } catch (error) {
+            hideLoadingOverlay();
             console.error('Error:', error);
             alert('An error occurred while generating your CV');
         }
     });
+}
+
+// Chat functionality
+document.addEventListener('DOMContentLoaded', () => {
+    // Load CV content from sessionStorage if on chat page
+    const cvContainer = document.getElementById('cv');
+    if (cvContainer) {
+        const storedCV = sessionStorage.getItem('cvContent');
+        if (storedCV) {
+            cvContainer.innerHTML = storedCV;
+        }
+    }
+
+    // Chat message handling
+    const sendBtn = document.getElementById('send-btn');
+    const userInput = document.getElementById('user-input');
+    if (sendBtn && userInput) {
+        sendBtn.addEventListener('click', () => {
+            const messageText = userInput.value.trim();
+            if (messageText) {
+                addMessage('user', messageText);
+                userInput.value = '';
+                handleChatMessage(messageText);
+            }
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const messageText = userInput.value.trim();
+                if (messageText) {
+                    addMessage('user', messageText);
+                    userInput.value = '';
+                    handleChatMessage(messageText);
+                }
+            }
+        });
+    }
+});
+
+async function handleChatMessage(message) {
+    try {
+        const response = await sendToBackend(message, '', false);
+        addMessage('system', response.message);
+    } catch (error) {
+        console.error('Error:', error);
+        addMessage('system', 'Sorry, I encountered an error processing your request.');
+    }
+}
+
+function addMessage(sender, text) {
+    const chatMessages = document.getElementById('chat-messages');
+    if (!chatMessages) return;
+
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', sender);
+    const messageContent = document.createElement('p');
+    messageContent.textContent = text;
+    messageDiv.appendChild(messageContent);
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 // Utility functions
@@ -125,13 +209,17 @@ async function readFileAsText(file) {
     });
 }
 
-async function sendToBackend(prompt, context) {
-    const response = await fetch('/api/message', {
+async function sendToBackend(prompt, jobOffers, layout) {
+    const response = await fetch('/api/html', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt, context })
+        body: JSON.stringify({ 
+            prompt, 
+            JobOffers: jobOffers,
+            layout: layout 
+        })
     });
 
     if (!response.ok) {
@@ -142,10 +230,11 @@ async function sendToBackend(prompt, context) {
 }
 
 async function downloadPDF(latexContent) {
-    const response = await fetch('/generate-pdf', {
+    const response = await fetch('/api/generate-pdf', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/pdf'
         },
         body: JSON.stringify({ latex: latexContent })
     });

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Chat Interface</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hubballi&display=swap" rel="stylesheet">
+    <style>
+        /* Chat-specific styles */
+        .container {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            gap: 20px;
+            animation: fadeIn 1s;
+        }
+
+        #chat {
+            width: 30%;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 160px);
+        }
+
+        #chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message.system {
+            text-align: left;
+        }
+
+        .message p {
+            background-color: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 0;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .message.user p {
+            background-color: rgba(0, 43, 98, 0.5);
+        }
+
+        #chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        #chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            outline: none;
+        }
+
+        #chat-input input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        #chat-input button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #002B62;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #chat-input button:hover {
+            background-color: #003b8a;
+        }
+
+        #cv-container {
+            width: 70%;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            height: calc(100vh - 160px);
+        }
+
+        #cv {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            color: black;
+        }
+
+        #downloadBtn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #002B62;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #downloadBtn:hover {
+            background-color: #003b8a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            #chat, #cv-container {
+                width: 100%;
+                height: auto;
+                max-height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="main-title">AM I AI</h1>
+        <button class="back-button" onclick="location.href='home_page.html';" style="position: absolute; top: 20px; left: 20px;">Back</button>
+    </header>
+    <div class="container">
+        <!-- Chat Section -->
+        <div id="chat">
+            <div id="chat-messages">
+                <div class="message system">
+                    <p>Hello! I'm here to help you with your CV. You can ask me to make changes or provide feedback.</p>
+                </div>
+            </div>
+            <div id="chat-input">
+                <input type="text" id="user-input" placeholder="Type your message here..." />
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+        <!-- CV Section -->
+        <div id="cv-container">
+            <div id="cv">
+                <!-- CV content will be loaded here dynamically -->
+            </div>
+            <button id="downloadBtn">Download CV as Image</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

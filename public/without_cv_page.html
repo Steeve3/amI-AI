@@ -65,14 +65,14 @@
             </section>
             <button type="submit" class="submit-button">Generate CV</button>
         </form>
-        <!-- CV Preview Section -->
-        <section id="cv-preview" class="cv-preview">
-            <!-- The CV content will be dynamically inserted here -->
-        </section>
     </main>
-    <!-- Include jsPDF and html2canvas libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Generating your CV...</div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -84,6 +84,16 @@ main {
     gap: 30px;
 }
 
+#cv {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px 40px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 .cv-box {
     width: 400px;
     height: 250px;
@@ -131,6 +141,7 @@ main {
     align-items: center;
     text-align: center;
     padding: 20px;
+    margin-top: 50px;
 }
 
 /* Subtitle (above the inner rectangle) */
@@ -171,8 +182,8 @@ main {
 
 /* Submit Button Styles */
 .submit-button {
-    margin: 30px auto; /* Center horizontally using auto margin */
-    display: block; /* Required for margin auto to work */
+    margin: 30px auto;
+    display: block;
     padding: 15px 30px;
     font-size: 24px;
     border: 2px solid white;
@@ -250,6 +261,89 @@ body.light-theme .submit-button:hover {
     background: rgba(0, 0, 0, 0.1);
 }
 
+/* Back Button Styles */
+.back-button {
+    margin: 20px auto;
+    display: block;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background: rgba(217, 217, 217, 0);
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+/* Light Theme Back Button Styles */
+body.light-theme .back-button {
+    border: 2px solid black;
+    color: black;
+}
+
+body.light-theme .back-button:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Loading Animation Styles */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.loading-spinner {
+    width: 100px;
+    height: 100px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #002B62;
+    border-radius: 50%;
+    animation: spin 1s linear infinite, scale-up 0.5s ease-out;
+}
+
+.loading-text {
+    position: absolute;
+    color: white;
+    font-size: 24px;
+    margin-top: 160px;
+    animation: fade-in 0.5s ease-out;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes scale-up {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .outer-box, .cv-preview {
@@ -290,32 +384,4 @@ body.light-theme .submit-button:hover {
         font-size: 16px;
         padding: 8px 16px;
     }
-}
-/* Back Button Styles */
-.back-button {
-    margin: 20px auto; /* Center horizontally using auto margin */
-    display: block; /* Required for margin auto to work */
-    padding: 10px 20px;
-    font-size: 18px;
-    border: 2px solid white;
-    border-radius: 10px;
-    background: rgba(217, 217, 217, 0);
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-}
-
-.back-button:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.05);
-}
-
-/* Light Theme Back Button Styles */
-body.light-theme .back-button {
-    border: 2px solid black;
-    color: black;
-}
-
-body.light-theme .back-button:hover {
-    background: rgba(0, 0, 0, 0.1);
 }
