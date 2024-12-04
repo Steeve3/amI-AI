@@ -664,9 +664,7 @@ data:
           visualData: 1640.2411926593174/275.95026310288574/330/128//
         '[GHIXI402va3hq3lcQfaGR]:text "Message Job Offer (Text)"':
           data:
-            text: "JOB OFFER:\"\"\"\r
-
-              JUNIOR DATA ANALYST - OGILVY \r
+            text: "JUNIOR DATA ANALYST - OGILVY \r
 
               INTERNSHIP\r
 
@@ -724,14 +722,10 @@ data:
               nice to have.\r
 
               Lo stage ha una durata di 6 mesi ed è previsto un
-              rimborso spese di 500 euro + ticket.\r
-
-              \r
-
-              \"\"\"\r\n"
+              rimborso spese di 500 euro + ticket."
           outgoingConnections:
-            - output->"Assemble Message" lHaaXF0tEAGmY3flTQEKJ/part1
-          visualData: -421.53296500658075/-447.04715912523955/330/131//
+            - output->"Subgraph" Mrtc72w4n7Vo-jlqJ9wrf/JobOffer
+          visualData: -68.28360935565968/-119.99985372829124/330/141//
         '[GOjxsj8lHCkhR5c7YljwM]:comment "Comment"':
           data:
             backgroundColor: rgba(0,0,0,0.05)
@@ -739,80 +733,17 @@ data:
             height: 1468.464314604057
             text: "## Input\r\n"
           visualData: -649.9842121287253/-514.8338118731047/1027.193464418357/132//
-        '[Hxbg7FaN-6aMNRUu5GE3c]:text "Prompt System (Text)"':
+        '[Mrtc72w4n7Vo-jlqJ9wrf]:subGraph "Subgraph"':
           data:
-            text: "Act as an HR expert tasked with writing a CV in LaTeX based on the
-              information provided in the message, a JOB OFFER and a PERSONAL
-              DESCRIPTION. The CV must be structured to fit the job offer
-              starting from the personal description, into the following
-              sections:\r
-
-              \r
-
-              Name and Surname\r
-
-              Personal Information (e.g., address, phone, email,
-              LinkedIn, etc.)\r
-
-              Profile (a concise professional summary)\r
-
-              Education\r
-
-              Work Experience\r
-
-              Skills\r
-
-              Languages\r
-
-              Interests\r
-
-              \r
-
-              \r
-
-              Instructions:\r
-
-              - Use the following LaTeX template style for
-              structure and formatting:\r
-
-              \r
-
-              \"\"\"\r
-
-              {{template}}\r
-
-              \"\"\"\r
-
-              \r
-
-              Remember:\r
-
-              \r
-
-              - Use only the provided LaTeX structure and adjust
-              the content to reflect the provided information accurately.\r
-
-              - Write only the LaTeX code and content without any
-              additional comments, explanations, or placeholders.\r
-
-              - If any section of information is missing, omit it
-              without assuming or filling in any data.\r
-
-              - Ensure the resulting document is formatted cleanly
-              and adheres to the provided structure and style.\r
-
-              \r
-
-              \r\n"
+            graphId: ZkI8iJkPcztY-i2zIxgtK
+            useAsGraphPartialOutput: false
+            useErrorOutput: false
           outgoingConnections:
-            - output->"Subgraph" 6BcPXPtgwBLqQedqS0t9s/Prompt
-            - output->"Subgraph" Zx3z-kxikaDoLMo8SR8yy/Prompt
-          visualData: -75.885990252713/411.06753830440385/330/103//
+            - Answer->"Race Inputs" Nats9Nxf77lzNcdDD0Faw/input2
+          visualData: 487.03407468426553/401.67390493165277/330/137//
         '[N7ENui41alq3hVgqKH5J_]:text "Message P. Info (Text)"':
           data:
-            text: "PERSONAL DESCRIPTION:\"\"\"\r
-
-              Basic information:\r
+            text: "Basic information:\r
 
               Name: Giovanni Rossi\r
 
@@ -916,51 +847,665 @@ data:
               cuisines, with recent trips to Spain and Germany.\r
 
               Gaming: Casual gamer, particularly enjoys strategy
-              and simulation games.\r
-
-              \r
-
-              \"\"\""
+              and simulation games."
           outgoingConnections:
-            - output->"Assemble Message" lHaaXF0tEAGmY3flTQEKJ/part2
-          visualData: -458.78484707899446/16.903598712986394/330/115//
+            - output->"Subgraph" Mrtc72w4n7Vo-jlqJ9wrf/Message
+          visualData: -55.232887338274445/319.76284822770214/330/143//
         '[Nats9Nxf77lzNcdDD0Faw]:raceInputs "Race Inputs"':
           outgoingConnections:
-            - result->"Extract Regex" mXjCjdLerhd6_DwUfeYaM/input
+            - result->"Text" CVO7J4aCsNqe9c1kQR38A/input
           visualData: 1073.7111950411293/242.92277833872203/330/93//
         '[XZ79GaEkZjU0BRXE2qKya]:text "Text"':
           data:
             text: "{{input}}"
           visualData: 1045.4810407826224/17.381088474318734/330/129//
-        '[Zx3z-kxikaDoLMo8SR8yy]:subGraph "Subgraph"':
+        '[mLtkCKyiqs25B2LZV1zu1]:boolean "Bool"':
           data:
-            graphId: ZkI8iJkPcztY-i2zIxgtK
-            useAsGraphPartialOutput: false
-            useErrorOutput: false
+            value: true
           outgoingConnections:
-            - Answer->"Race Inputs" Nats9Nxf77lzNcdDD0Faw/input2
-            - Answer->"Text" qaW5sptUJHVjMrBe6DWfo/input
-          visualData: 503.9063060702151/371.32254221220035/330/106//
-        '[lHaaXF0tEAGmY3flTQEKJ]:assembleMessage "Assemble Message"':
+            - value->"Subgraph" Mrtc72w4n7Vo-jlqJ9wrf/html_format
+          visualData: -28.157489462706707/762.9697413892663/160/140//
+    VglPVdxrnd7YCQ6SeFCB0:
+      metadata:
+        description: ""
+        id: VglPVdxrnd7YCQ6SeFCB0
+        name: Tests/models
+      nodes:
+        '[Eyj71w3PsTdwWMbTXSkYy]:code "Code"':
+          data:
+            code: >-
+              // This is a code node, you can write and JS in here and it will
+              be executed.
+
+              // Inputs are accessible via an object `inputs` and data is typed (i.e. inputs.foo.type, inputs.foo.value)
+
+              // Return an object with named outputs that match the output names specified in the node's config.
+
+              // Output values must by typed as well (e.g. { bar: { type: 'string', value: 'bar' } }
+
+              return {
+                output1: {
+                  type: inputs.input1.type,
+                  value: inputs.input1.value
+                }
+              };
+            inputNames: input1
+            outputNames: output1
+          visualData: 621.8273634591704/143.3129669197157/230/2//
+    WYO2N7-3vz1TUBLOET4tJ:
+      metadata:
+        description: ""
+        id: WYO2N7-3vz1TUBLOET4tJ
+        name: Agent/function calling
+      nodes:
+        '[5YyZ_V1pVybmSjvZJgcyI]:gptFunction "archival_memory_search"':
+          data:
+            description: Search archival memory using semantic (embedding-based) search.
+            name: archival_memory_search
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                  "query": {
+                                        "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                    "type": "string",
+                    "description": "String to search for."
+                  },
+                  "page": {
+                    "type": "integer",
+                    "description": "Allows you to page through results. Only use on a follow-up query. Defaults to 0 (first page)."
+                  }
+                },
+                "required": [
+                  "name",
+                  "query",
+                  "page",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input5
+          visualData: 574.3403354872589/712.2945132271373/280/270//
+        '[Ijb_kXJoKnZLVUBCYgiT_]:graphOutput "Graph Output"':
+          data:
+            dataType: gpt-function[]
+            id: output
+          visualData: 1747.1742762427907/577.3654396562922/330/270//
+        '[KfYrlJWBSy5C_4WOyaTV_]:gptFunction "archival_memory_insert"':
+          data:
+            description: Add to archival memory. Make sure to phrase the memory contents
+              such that it can be easily queried later.
+            name: archival_memory_insert
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                                        "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                    "type": "string",
+                    "description": "Content to write to the memory. All unicode (including emojis) are supported."
+                  }
+                },
+                "required": [
+                  "name",
+                  "content",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input6
+          visualData: 913.7638604207057/708.6314191546091/280/270//
+        '[PK1-zh9L4WBWm1DTfz7im]:gptFunction "send_message"':
+          data:
+            description: Sends a message to the human user
+            name: send_message
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                                      "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                  "message": {
+                    "type": "string",
+                    "description": "Message contents. All unicode (including emojis) are supported."
+                  }
+                },
+                "required": [
+                  "message",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input7
+          visualData: 569.7306809478043/976.2848768285485/280/282//
+        '[YYT9ZTq8t__kWcTUw7-jP]:gptFunction "pause_heartbeats"':
+          data:
+            description: Temporarily ignore timed heartbeats. You may still receive messages
+              from manual heartbeats and other events.
+            name: pause_heartbeats
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                                      "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                  "minutes": {
+                    "type": "integer",
+                    "description": "Number of minutes to ignore heartbeats for. Max value of 360 minutes (6 hours)."
+                  }
+                },
+                "required": [
+                  "minutes",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input8
+          visualData: 910.4072496019195/974.6354325367766/280/276//
+        '[b5OFPpJUShH_mMSOWgdM6]:array "Array"':
+          data:
+            flatten: true
+            flattenDeep: false
+          outgoingConnections:
+            - output->"Graph Output" Ijb_kXJoKnZLVUBCYgiT_/value
+          visualData: 1310.7868697760218/43.59077534196717/230/280//
+        '[bvTnpNGqOY4H6JM14O0Rv]:gptFunction "core_memory_append"':
+          data:
+            description: Append to the contents of core memory.
+            name: core_memory_append
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                        "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Section of the memory to be edited (persona or human)."
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "Content to write to the memory. All unicode (including emojis) are supported."
+                  }
+                },
+                "required": [
+                  "name",
+                  "content",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input1
+          visualData: 558.3644902945717/246.58175637797092/280/277//
+        '[dJPrJ-NScBlm7k63kNxMd]:gptFunction "recall_memory_search"':
+          data:
+            description: Search prior conversation history using a string.
+            name: recall_memory_search
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                                      "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                  "query": {
+                    "type": "string",
+                    "description": "String to search for."
+                  },
+                  "page": {
+                    "type": "integer",
+                    "description": "Allows you to page through results. Only use on a follow-up query. Defaults to 0 (first page)."
+                  }
+                },
+                "required": [
+                  "name",
+                  "page",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input3
+          visualData: 566.8943573623156/481.2518316681372/280/273//
+        '[sJ38evVKroe_nIpA48Usw]:gptFunction "core_memory_replace"':
+          data:
+            description: Replace to the contents of core memory. To delete memories, use an
+              empty string for new_content.
+            name: core_memory_replace
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                                      "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Section of the memory to be edited (persona or human)."
+                  },
+                  "old_content": {
+                    "type": "string",
+                    "description": "String to replace. Must be an exact match."
+                  },
+                  "new_content": {
+                    "type": "string",
+                    "description": "Content to write to the memory. All unicode (including emojis) are supported."
+                  }
+                },
+                "required": [
+                  "name",
+                  "old_content",
+                  "new_content",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input2
+          visualData: 900.4554668681853/253.54202315291093/325.5338049263912/284//
+        '[uxxislqMfMw0qs4r8QV_X]:gptFunction "recall_memory_search_date"':
+          data:
+            description: Search prior conversation history using a date range.
+            name: recall_memory_search_date
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                  "start_date": {
+                                        "inner_monologue": {
+                                      "type": "string",
+                                      "description": "Your reasoning to use this function."
+                                  },
+                    "type": "string",
+                    "description": "The start of the date range to search, in the format datetime, e.g. 2023-11-06T20:43:32.223Z."
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "description": "The end of the date range to search, in the format datetime, e.g. 2023-11-06T20:43:32.223Z."
+                  },
+                  "page": {
+                    "type": "integer",
+                    "description": "Allows you to page through results. Only use on a follow-up query. Defaults to 0 (first page)."
+                  }
+                },
+                "required": [
+                  "name",
+                  "page",
+                  "inner_monologue"
+                ]
+              }
+          outgoingConnections:
+            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input4
+          visualData: 906.7971262191352/475.61858891724955/280/279//
+    ZkI8iJkPcztY-i2zIxgtK:
+      metadata:
+        description: ""
+        id: ZkI8iJkPcztY-i2zIxgtK
+        name: App/OpenAI
+      nodes:
+        '[2p5m5PCEb81aSDZc6rzNw]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 453.40452936862357
+            text: "## **Output**"
+          visualData: -254.56308027825781/-164.93160765408015/470.4086794777768/283//
+        '[7kdRumF3MVy_yJw49EOOF]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            endpoint: https://api.openai.com/v1/chat/completions
+            maxTokens: 1024
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Extract Regex" pNBX-NSlpCdWQQe2NIdK5/input
+          visualData: -737.3768492628809/-122.38886575840976/230/284//
+        '[BQtxxgda2HpS0x0K9Q49t]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: Answer
+          visualData: -173.46028179362526/70.91004627655047/330/283//
+        '[IoK_VNG14LFTpzOqvs1aB]:ifElse "If/Else (Template)"':
+          data:
+            unconnectedControlFlowExcluded: true
+          outgoingConnections:
+            - output->"Prompt System (Text)" YUBjAYXkACYog48MxS6ew/template
+          visualData: -1889.0109857511468/172.10950695330612/205/266//
+        '[QNMMePJ1P8IUKVd3wUPvf]:text "CV Template HTML (Text)"':
+          data:
+            text: "<div id=\"cv\">\r
+
+              \    <div class=\"header\">\r
+
+              \        <h1>[Full Name]</h1>\r
+
+              \        <div class=\"info\">\r
+
+              \            [City, Country]<br>\r
+
+              \            <i class=\"fas fa-phone\"></i> [Phone
+              Number] &nbsp; \r
+
+              \            <i class=\"fas fa-envelope\"></i> <a
+              href=\"mailto:[Email Address]\">[Email Address]</a> &nbsp;\r
+
+              \            <i class=\"fab fa-linkedin\"></i> <a
+              href=\"[LinkedIn URL]\" target=\"_blank\">[LinkedIn Profile]</a>\r
+
+              \        </div>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section\">\r
+
+              \        <h2 class=\"section-title\">Profile</h2>\r
+
+              \        <p>[Brief description about yourself,
+              highlighting your main skills, interests, and career goals.]</p>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section work-experience\">\r
+
+              \        <h2 class=\"section-title\">Work
+              Experience</h2>\r
+
+              \        <div class=\"job\">\r
+
+              \            <div class=\"job-title\">\r
+
+              \                <span>[Company Name]</span>\r
+
+              \                <span>[Job Title] ([Start Date] -
+              [End Date])</span>\r
+
+              \            </div>\r
+
+              \            <ul>\r
+
+              \                <li>[Responsibility or achievement
+              #1]</li>\r
+
+              \                <li>[Responsibility or achievement
+              #2]</li>\r
+
+              \                <li>[Responsibility or achievement
+              #3]</li>\r
+
+              \                <li>[Responsibility or achievement
+              #4]</li>\r
+
+              \            </ul>\r
+
+              \        </div>\r
+
+              \        <div class=\"job\">\r
+
+              \            <div class=\"job-title\">\r
+
+              \                <span>[Company Name]</span>\r
+
+              \                <span>[Job Title] ([Start Date] -
+              [End Date])</span>\r
+
+              \            </div>\r
+
+              \            <ul>\r
+
+              \                <li>[Responsibility or achievement
+              #1]</li>\r
+
+              \                <li>[Responsibility or achievement
+              #2]</li>\r
+
+              \                <li>[Responsibility or achievement
+              #3]</li>\r
+
+              \            </ul>\r
+
+              \        </div>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section education\">\r
+
+              \        <h2
+              class=\"section-title\">Education</h2>\r
+
+              \        <div class=\"education-title\">\r
+
+              \            <span>[Institution Name]</span>\r
+
+              \            <span>[Graduation Date]</span>\r
+
+              \        </div>\r
+
+              \        <p><em>[Degree or Diploma]</em></p>\r
+
+              \        <div class=\"education-title\">\r
+
+              \            <span>[Institution Name]</span>\r
+
+              \            <span>[Graduation Date]</span>\r
+
+              \        </div>\r
+
+              \        <p><em>[Degree or Diploma]</em></p>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section skills\">\r
+
+              \        <h2 class=\"section-title\">Skills</h2>\r
+
+              \        <table>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Technical
+              Skills</strong></td>\r
+
+              \                <td>[List of technical
+              skills]</td>\r
+
+              \            </tr>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Other
+              Skills</strong></td>\r
+
+              \                <td>[List of other skills]</td>\r
+
+              \            </tr>\r
+
+              \        </table>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section languages\">\r
+
+              \        <h2
+              class=\"section-title\">Languages</h2>\r
+
+              \        <table>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Native</strong></td>\r
+
+              \                <td>[Native Language]</td>\r
+
+              \            </tr>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Fluent</strong></td>\r
+
+              \                <td>[Fluent Language]</td>\r
+
+              \            </tr>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Basic</strong></td>\r
+
+              \                <td>[Basic Language]</td>\r
+
+              \            </tr>\r
+
+              \        </table>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section interests\">\r
+
+              \        <h2
+              class=\"section-title\">Interests</h2>\r
+
+              \        <p>[List of interests, such as sports,
+              technology, travel, etc.]</p>\r
+
+              \    </div>\r
+
+              </div>\r\n"
+          outgoingConnections:
+            - output->"If/Else (Template)" IoK_VNG14LFTpzOqvs1aB/true
+          visualData: -2144.4216747647865/-248.41161753772138/330/264//
+        '[YUBjAYXkACYog48MxS6ew]:text "Prompt System (Text)"':
+          data:
+            text: "Act as an HR expert tasked with writing a CV in LaTeX or HTML based on
+              the information provided in the message, a JOB OFFER and a
+              PERSONAL DESCRIPTION. The CV must be structured to fit the job
+              offer starting from the personal description, into the following
+              sections:\r
+
+              \r
+
+              Name and Surname\r
+
+              Personal Information (e.g., address, phone, email,
+              LinkedIn, etc.)\r
+
+              Profile (a concise professional summary)\r
+
+              Education\r
+
+              Work Experience\r
+
+              Skills\r
+
+              Languages\r
+
+              Interests\r
+
+              \r
+
+              \r
+
+              Instructions:\r
+
+              - Use the following LaTeX or HTML template style for
+              structure and formatting:\r
+
+              \r
+
+              \"\"\"\r
+
+              {{template}}\r
+
+              \"\"\"\r
+
+              \r
+
+              Remember:\r
+
+              \r
+
+              - Use only the provided LaTeX structure and adjust
+              the content to reflect the provided information accurately.\r
+
+              - Write only the LaTeX code and content without any
+              additional comments, explanations, or placeholders. Start the code
+              with \"\"\" and finish with \"\"\"\r
+
+              - If any section of information is missing, omit it
+              without assuming or filling in any data.\r
+
+              - Ensure the resulting document is formatted cleanly
+              and adheres to the provided structure and style.\r
+
+              \r
+
+              \r\n"
+          outgoingConnections:
+            - output->"Chat" 7kdRumF3MVy_yJw49EOOF/systemPrompt
+          visualData: -1368.5450911111193/-99.88919963006879/330/267//
+        '[aATYTwFRsNVYPXLe4mt_T]:assembleMessage "Assemble Message"':
           data:
             toolCallId: ""
             type: user
             useToolCallIdInput: false
             useTypeInput: false
           outgoingConnections:
-            - message->"Subgraph" 6BcPXPtgwBLqQedqS0t9s/Message
-            - message->"Subgraph" Zx3z-kxikaDoLMo8SR8yy/Message
-          visualData: -9.254580638789776/-157.97783999698862/280/null//
-        '[mXjCjdLerhd6_DwUfeYaM]:extractRegex "Extract Regex"':
+            - message->"Chat" 7kdRumF3MVy_yJw49EOOF/prompt
+          visualData: -1550.9052288394641/512.4934047026213/280/270//
+        '[adQYBlg54zmZeoOowCkpO]:comment "Comment"':
           data:
-            errorOnFailed: false
-            multilineMode: true
-            regex: "```([\\s\\S]+?)```"
-            useRegexInput: false
-          outgoingConnections:
-            - output1->"Text" CVO7J4aCsNqe9c1kQR38A/input
-          visualData: 1091.4180621174796/476.51091241597845/280/127//
-        '[n0-6r8kexw1mO9xzkzBUv]:text "CV Template (Text)"':
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 1009.591320522223
+            text: "## **Input**\r
+
+              \r
+
+              - prompt -> instruction for llm\r
+
+              - message -> message from the user\r\n"
+          visualData: -2941.656329911893/-336.95954350788236/663.1567922408503/275//
+        '[eSQ1UDGFBnXOpoAYjljX3]:text "CV Template Latex (Text)"':
           data:
             text: "\\documentclass[a4paper]{article}\r
 
@@ -1084,411 +1629,69 @@ data:
 
               \\end{document}"
           outgoingConnections:
-            - output->"Prompt System (Text)" Hxbg7FaN-6aMNRUu5GE3c/template
-          visualData: -520.0332120996728/454.8700917700931/330/102//
-        '[qaW5sptUJHVjMrBe6DWfo]:text "Text"':
+            - output->"If/Else (Template)" IoK_VNG14LFTpzOqvs1aB/false
+          visualData: -1778.479276854653/-251.3726817292774/330/265//
+        '[igfhaQ9wEsxuNKDhxI0o4]:text "Message P. Info (Text)"':
           data:
-            text: "{{input}}"
-          visualData: 772.898050843658/668.4606047743289/330/130//
-    VglPVdxrnd7YCQ6SeFCB0:
-      metadata:
-        description: ""
-        id: VglPVdxrnd7YCQ6SeFCB0
-        name: Tests/models
-      nodes:
-        '[Eyj71w3PsTdwWMbTXSkYy]:code "Code"':
-          data:
-            code: >-
-              // This is a code node, you can write and JS in here and it will
-              be executed.
+            text: "PERSONAL DESCRIPTION:\"\"\"\r
 
-              // Inputs are accessible via an object `inputs` and data is typed (i.e. inputs.foo.type, inputs.foo.value)
+              {{info}}\r
 
-              // Return an object with named outputs that match the output names specified in the node's config.
-
-              // Output values must by typed as well (e.g. { bar: { type: 'string', value: 'bar' } }
-
-              return {
-                output1: {
-                  type: inputs.input1.type,
-                  value: inputs.input1.value
-                }
-              };
-            inputNames: input1
-            outputNames: output1
-          visualData: 621.8273634591704/143.3129669197157/230/2//
-    WYO2N7-3vz1TUBLOET4tJ:
-      metadata:
-        description: ""
-        id: WYO2N7-3vz1TUBLOET4tJ
-        name: Agent/function calling
-      nodes:
-        '[5YyZ_V1pVybmSjvZJgcyI]:gptFunction "archival_memory_search"':
-          data:
-            description: Search archival memory using semantic (embedding-based) search.
-            name: archival_memory_search
-            schema: >-
-              {
-                "type": "object",
-                "properties": {
-                  "query": {
-                                        "inner_monologue": {
-                                      "type": "string",
-                                      "description": "Your reasoning to use this function."
-                                  },
-                    "type": "string",
-                    "description": "String to search for."
-                  },
-                  "page": {
-                    "type": "integer",
-                    "description": "Allows you to page through results. Only use on a follow-up query. Defaults to 0 (first page)."
-                  }
-                },
-                "required": [
-                  "name",
-                  "query",
-                  "page",
-                  "inner_monologue"
-                ]
-              }
+              \"\"\""
           outgoingConnections:
-            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input5
-          visualData: 574.3403354872589/712.2945132271373/280/270//
-        '[Ijb_kXJoKnZLVUBCYgiT_]:graphOutput "Graph Output"':
-          data:
-            dataType: gpt-function[]
-            id: output
-          visualData: 1747.1742762427907/577.3654396562922/330/270//
-        '[KfYrlJWBSy5C_4WOyaTV_]:gptFunction "archival_memory_insert"':
-          data:
-            description: Add to archival memory. Make sure to phrase the memory contents
-              such that it can be easily queried later.
-            name: archival_memory_insert
-            schema: >-
-              {
-                "type": "object",
-                "properties": {
-                  "content": {
-                                        "inner_monologue": {
-                                      "type": "string",
-                                      "description": "Your reasoning to use this function."
-                                  },
-                    "type": "string",
-                    "description": "Content to write to the memory. All unicode (including emojis) are supported."
-                  }
-                },
-                "required": [
-                  "name",
-                  "content",
-                  "inner_monologue"
-                ]
-              }
-          outgoingConnections:
-            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input6
-          visualData: 913.7638604207057/708.6314191546091/280/270//
-        '[PK1-zh9L4WBWm1DTfz7im]:gptFunction "send_message"':
-          data:
-            description: Sends a message to the human user
-            name: send_message
-            schema: >-
-              {
-                "type": "object",
-                "properties": {
-                                      "inner_monologue": {
-                                      "type": "string",
-                                      "description": "Your reasoning to use this function."
-                                  },
-                  "message": {
-                    "type": "string",
-                    "description": "Message contents. All unicode (including emojis) are supported."
-                  }
-                },
-                "required": [
-                  "message",
-                  "inner_monologue"
-                ]
-              }
-          outgoingConnections:
-            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input7
-          visualData: 569.7306809478043/976.2848768285485/280/275//
-        '[YYT9ZTq8t__kWcTUw7-jP]:gptFunction "pause_heartbeats"':
-          data:
-            description: Temporarily ignore timed heartbeats. You may still receive messages
-              from manual heartbeats and other events.
-            name: pause_heartbeats
-            schema: >-
-              {
-                "type": "object",
-                "properties": {
-                                      "inner_monologue": {
-                                      "type": "string",
-                                      "description": "Your reasoning to use this function."
-                                  },
-                  "minutes": {
-                    "type": "integer",
-                    "description": "Number of minutes to ignore heartbeats for. Max value of 360 minutes (6 hours)."
-                  }
-                },
-                "required": [
-                  "minutes",
-                  "inner_monologue"
-                ]
-              }
-          outgoingConnections:
-            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input8
-          visualData: 910.4072496019195/974.6354325367766/280/276//
-        '[b5OFPpJUShH_mMSOWgdM6]:array "Array"':
-          data:
-            flatten: true
-            flattenDeep: false
-          outgoingConnections:
-            - output->"Graph Output" Ijb_kXJoKnZLVUBCYgiT_/value
-          visualData: 1343.2483025037777/558.740610895992/230/270//
-        '[bvTnpNGqOY4H6JM14O0Rv]:gptFunction "core_memory_append"':
-          data:
-            description: Append to the contents of core memory.
-            name: core_memory_append
-            schema: >-
-              {
-                "type": "object",
-                "properties": {
-                                      "inner_monologue": {
-                                      "type": "string",
-                                      "description": "Your reasoning to use this function."
-                                  },
-                  "name": {
-                    "type": "string",
-                    "description": "Section of the memory to be edited (persona or human)."
-                  },
-                  "content": {
-                    "type": "string",
-                    "description": "Content to write to the memory. All unicode (including emojis) are supported."
-                  }
-                },
-                "required": [
-                  "name",
-                  "content",
-                  "inner_monologue"
-                ]
-              }
-          outgoingConnections:
-            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input1
-          visualData: 576.7118472085152/258.81329849170606/280/272//
-        '[dJPrJ-NScBlm7k63kNxMd]:gptFunction "recall_memory_search"':
-          data:
-            description: Search prior conversation history using a string.
-            name: recall_memory_search
-            schema: >-
-              {
-                "type": "object",
-                "properties": {
-                                      "inner_monologue": {
-                                      "type": "string",
-                                      "description": "Your reasoning to use this function."
-                                  },
-                  "query": {
-                    "type": "string",
-                    "description": "String to search for."
-                  },
-                  "page": {
-                    "type": "integer",
-                    "description": "Allows you to page through results. Only use on a follow-up query. Defaults to 0 (first page)."
-                  }
-                },
-                "required": [
-                  "name",
-                  "page",
-                  "inner_monologue"
-                ]
-              }
-          outgoingConnections:
-            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input3
-          visualData: 566.8943573623156/481.2518316681372/280/273//
-        '[sJ38evVKroe_nIpA48Usw]:gptFunction "core_memory_replace"':
-          data:
-            description: Replace to the contents of core memory. To delete memories, use an
-              empty string for new_content.
-            name: core_memory_replace
-            schema: >-
-              {
-                "type": "object",
-                "properties": {
-                                      "inner_monologue": {
-                                      "type": "string",
-                                      "description": "Your reasoning to use this function."
-                                  },
-                  "name": {
-                    "type": "string",
-                    "description": "Section of the memory to be edited (persona or human)."
-                  },
-                  "old_content": {
-                    "type": "string",
-                    "description": "String to replace. Must be an exact match."
-                  },
-                  "new_content": {
-                    "type": "string",
-                    "description": "Content to write to the memory. All unicode (including emojis) are supported."
-                  }
-                },
-                "required": [
-                  "name",
-                  "old_content",
-                  "new_content",
-                  "inner_monologue"
-                ]
-              }
-          outgoingConnections:
-            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input2
-          visualData: 900.4554668681853/253.54202315291093/325.5338049263912/271//
-        '[uxxislqMfMw0qs4r8QV_X]:gptFunction "recall_memory_search_date"':
-          data:
-            description: Search prior conversation history using a date range.
-            name: recall_memory_search_date
-            schema: >-
-              {
-                "type": "object",
-                "properties": {
-                  "start_date": {
-                                        "inner_monologue": {
-                                      "type": "string",
-                                      "description": "Your reasoning to use this function."
-                                  },
-                    "type": "string",
-                    "description": "The start of the date range to search, in the format datetime, e.g. 2023-11-06T20:43:32.223Z."
-                  },
-                  "end_date": {
-                    "type": "string",
-                    "description": "The end of the date range to search, in the format datetime, e.g. 2023-11-06T20:43:32.223Z."
-                  },
-                  "page": {
-                    "type": "integer",
-                    "description": "Allows you to page through results. Only use on a follow-up query. Defaults to 0 (first page)."
-                  }
-                },
-                "required": [
-                  "name",
-                  "page",
-                  "inner_monologue"
-                ]
-              }
-          outgoingConnections:
-            - function->"Array" b5OFPpJUShH_mMSOWgdM6/input4
-          visualData: 906.7971262191352/475.61858891724955/280/274//
-    ZkI8iJkPcztY-i2zIxgtK:
-      metadata:
-        description: ""
-        id: ZkI8iJkPcztY-i2zIxgtK
-        name: App/OpenAI
-      nodes:
-        '[2p5m5PCEb81aSDZc6rzNw]:comment "Comment"':
+            - output->"Assemble Message" aATYTwFRsNVYPXLe4mt_T/part2
+          visualData: -1966.7802496848035/610.2547951928444/330/269//
+        '[kNxmPRMeeennfvcw4GvGp]:comment "Comment"':
           data:
             backgroundColor: rgba(0,0,0,0.05)
             color: rgba(255,255,255,1)
-            height: 746.8174483885173
-            text: "## **Output**"
-          visualData: 1266.4393977388172/-41.26857331059037/451.24962203215523/81//
-        '[3LmnVz8Uk44_aHLQRwSMb]:chat "Chat"':
+            height: 1182.8631840598805
+            text: ""
+          visualData: -2215.7756644087876/-355.2149350943086/1849.656769491849/280//
+        '[kucuOK2c2SQSkezsaOJMs]:text "Message Job Offer (Text)"':
           data:
-            additionalParameters: []
-            cache: false
-            enableFunctionUse: true
-            endpoint: https://api.openai.com/v1/chat/completions
-            maxTokens: 1024
-            model: gpt-4o-mini
-            parallelFunctionCalling: true
-            responseFormat: ""
-            stop: ""
-            temperature: 0.5
-            toolChoice: function
-            top_p: 1
-            useAdditionalParametersInput: false
-            useAsGraphPartialOutput: true
-            useFrequencyPenaltyInput: false
-            useMaxTokensInput: false
-            useModelInput: false
-            usePresencePenaltyInput: false
-            useStop: false
-            useStopInput: false
-            useTemperatureInput: false
-            useTopP: false
-            useTopPInput: false
-            useUseTopPInput: false
-            useUserInput: false
-          disabled: true
-          isSplitRun: true
-          visualData: 858.4482737289402/12.477061196850272/230/91//
-        '[5UI2JVF1ra3stGexdXXay]:graphInput "Graph Input"':
+            text: "JOB OFFER:\"\"\"\r
+
+              {{role}}\r
+
+              \"\"\"\r\n"
+          outgoingConnections:
+            - output->"Assemble Message" aATYTwFRsNVYPXLe4mt_T/part1
+          visualData: -1972.0815221974813/401.7472605814916/330/268//
+        '[mRMnVc4q7P4j-XaIbf-y_]:graphInput "Graph Input"':
           data:
             dataType: string
-            id: Prompt
+            id: JobOffer
             useDefaultValueInput: false
           outgoingConnections:
-            - data->"Chat" 3LmnVz8Uk44_aHLQRwSMb/systemPrompt
-            - data->"Chat" 7kdRumF3MVy_yJw49EOOF/systemPrompt
-          visualData: 124.80587916266218/107.93618292910445/330/83//
-        '[7kdRumF3MVy_yJw49EOOF]:chat "Chat"':
+            - data->"Message Job Offer (Text)" kucuOK2c2SQSkezsaOJMs/role
+          visualData: -2828.76632500986/241.00942597150464/330/260//
+        '[pNBX-NSlpCdWQQe2NIdK5]:extractRegex "Extract Regex"':
           data:
-            additionalParameters: []
-            cache: false
-            enableFunctionUse: false
-            endpoint: https://api.openai.com/v1/chat/completions
-            maxTokens: 1024
-            model: gpt-4o-mini
-            parallelFunctionCalling: true
-            stop: ""
-            temperature: 0.5
-            top_p: 1
-            useAdditionalParametersInput: false
-            useAsGraphPartialOutput: true
-            useFrequencyPenaltyInput: false
-            useMaxTokensInput: false
-            useModelInput: false
-            usePresencePenaltyInput: false
-            useStop: false
-            useStopInput: false
-            useTemperatureInput: false
-            useTopP: false
-            useTopPInput: false
-            useUseTopPInput: false
-            useUserInput: false
+            errorOnFailed: false
+            regex: '"""([\s\S]+?)"""'
+            useRegexInput: false
           outgoingConnections:
-            - response->"Graph Output" BQtxxgda2HpS0x0K9Q49t/value
-          visualData: 865.8321723246279/470.4574132923389/230/95//
-        '[BQtxxgda2HpS0x0K9Q49t]:graphOutput "Graph Output"':
+            - output1->"Graph Output" BQtxxgda2HpS0x0K9Q49t/value
+          visualData: -762.1406696194366/186.5612665084075/280/285//
+        '[waqMhaULNtnM4Lo2WHUcj]:graphInput "Graph Input"':
           data:
-            dataType: string
-            id: Answer
-          visualData: 1343.0828485561378/172.86108504577848/330/81//
-        '[adQYBlg54zmZeoOowCkpO]:comment "Comment"':
-          data:
-            backgroundColor: rgba(0,0,0,0.05)
-            color: rgba(255,255,255,1)
-            height: 864.8813426300826
-            text: "## **Input**\r
-
-              \r
-
-              - prompt -> instruction for llm\r
-
-              - message -> message from the user\r\n"
-          visualData: 38.49352769509156/-101.0280423064855/473.4553647190156/80//
-        '[c5xLvEuOoO9SPbQhshvso]:subGraph "Subgraph"':
-          data:
-            graphId: WYO2N7-3vz1TUBLOET4tJ
-            useAsGraphPartialOutput: false
-            useErrorOutput: false
+            dataType: boolean
+            defaultValue: "false"
+            editor: auto
+            id: html_format
+            useDefaultValueInput: false
           outgoingConnections:
-            - output->"Chat" 3LmnVz8Uk44_aHLQRwSMb/functions
-          visualData: 124.49687489669599/527.8607615246245/330/84//
+            - data->"If/Else (Template)" IoK_VNG14LFTpzOqvs1aB/if
+          visualData: -2832.079467231554/20.85695949650858/330/250//
         '[yWPQAtfjibytB75N4LxcS]:graphInput "Graph Input"':
           data:
             dataType: chat-message
             id: Message
             useDefaultValueInput: false
           outgoingConnections:
-            - data->"Chat" 3LmnVz8Uk44_aHLQRwSMb/prompt
-            - data->"Chat" 7kdRumF3MVy_yJw49EOOF/prompt
-          visualData: 117.6569598059015/293.46595008587934/330/80//
+            - data->"Message P. Info (Text)" igfhaQ9wEsxuNKDhxI0o4/info
+          visualData: -2828.3846418461635/486.16845299239736/330/259//
   metadata:
     description: An agent who is able to support you in order to create a CV and to
       prepare yourself for being ready for a interview

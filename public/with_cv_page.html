@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update CV</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hubballi&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 class="main-title">AM I AI</h1>
+    </header>
+    <main class="second-container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="location.href='home_page.html';">Back</button>
+        
+        <form id="update-cv-form">
+            <!-- Job Description Input -->
+            <section class="outer-box">
+                <p class="subtitle">Job Description</p>
+                <div class="inner-box">
+                    <textarea id="job-description" name="jobDescription" rows="10" placeholder="Enter the job description here..." required></textarea>
+                </div>
+            </section>
+            <!-- CV Upload Section -->
+            <section class="outer-box">
+                <p class="subtitle">Upload Your CV</p>
+                <div class="inner-box drop-zone" id="drop-zone">
+                    <p id="drop-zone-text">Drag and drop your CV here or click to upload</p>
+                    <input type="file" id="cv-upload" name="cvUpload" accept=".pdf,.doc,.docx" required hidden>
+                </div>
+            </section>
+            <button type="submit" class="submit-button">Update My CV</button>
+        </form>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Updating your CV...</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
