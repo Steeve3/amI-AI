@@ -306,13 +306,57 @@ data:
         id: BcyljO29l3xdokqZcUT91
         name: App/ChatforCV
       nodes:
+        '[-rRI7BN5z4N-1HvTrAnE-]:gptFunction "GPT Function"':
+          data:
+            description: To update the CV
+            name: updateCV
+            schema: >-
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the function to be executed",
+                    "enum": ["updateCV"]
+                  },
+                  "arguments": {
+                    "type": "object",
+                    "properties": {
+                      "chat": {
+                        "type": "object",
+                        "properties": {
+                          "inner_monologue": {
+                            "type": "string",
+                            "description": "Your short reasoning for using the updateCV function"
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Your response to the user about what you are going to do"
+                          }
+                        },
+                        "required": ["inner_monologue", "message"]
+                      },
+                      "content": {
+                        "type": "string",
+                        "description": "The instructions in a step-by-step format or content detailing what is needed to be done"
+                      }
+                    },
+                    "required": ["chat", "content"]
+                  }
+                },
+                "required": ["name", "arguments"]
+              }
+          outgoingConnections:
+            - function->"Array" vo2UxlJIClbUtFLt1wbGO/input1
+          visualData: -1096.8134885079407/1040.7028447219527/280/229//
         '[6WgVswdNimTZyJSHQJOIg]:destructure "Destructure"':
           data:
             paths:
               - $.name
+              - $.id
           outgoingConnections:
             - match_0->"Match" hO-3ujDGrsGYLDyK5Bzdm/input
-          visualData: 766.89810319102/573.5798526281446/280/222//
+          visualData: 766.89810319102/573.5798526281446/280/234//
         '[6iO8dHO0FzGuM2J_mB00Y]:extractObjectPath "Extract Object Path"':
           data:
             path: $.chat.inner_monologue
@@ -540,37 +584,6 @@ data:
 
               </div>"
           visualData: -1121.3510568351662/436.3407724093317/330/224//
-        '[B36x8xiF_QyWH98qjo-qa]:chat "Chat"':
-          data:
-            additionalParameters: []
-            cache: false
-            enableFunctionUse: false
-            endpoint: https://api.openai.com/v1/chat/completions
-            maxTokens: 1024
-            model: gpt-4o-mini
-            parallelFunctionCalling: true
-            responseFormat: json
-            stop: ""
-            temperature: 0.5
-            toolChoice: auto
-            toolChoiceFunction: updateCV
-            top_p: 1
-            useAdditionalParametersInput: false
-            useAsGraphPartialOutput: true
-            useFrequencyPenaltyInput: false
-            useMaxTokensInput: false
-            useModelInput: false
-            usePresencePenaltyInput: false
-            useStop: false
-            useStopInput: false
-            useTemperatureInput: false
-            useTopP: false
-            useTopPInput: false
-            useUseTopPInput: false
-            useUserInput: false
-          outgoingConnections:
-            - response->"Extract JSON" ez7NCbJrQwk9ZEupdOP7N/input
-          visualData: 394.23264303002844/318.53057952580286/230/222//
         '[Bl5fS5OvYu9AN9UItTbHY]:extractObjectPath "Extract Object Path"':
           data:
             path: $.chat.inner_monologue
@@ -599,6 +612,35 @@ data:
           outgoingConnections:
             - match->"Graph Output" PPYRBbUemXfgLSYUl5URO/value
           visualData: 1947.8801723831764/61.578319966836496/280/209//
+        '[OuZitNvARwccPbmHk8g9J]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            endpoint: https://api.openai.com/v1/chat/completions
+            maxTokens: 1024
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            responseFormat: json
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Extract JSON" ez7NCbJrQwk9ZEupdOP7N/input
+          visualData: 379.0739233668721/385.83951111600845/230/236//
         '[PPYRBbUemXfgLSYUl5URO]:graphOutput "Graph Output"':
           data:
             dataType: string
@@ -623,11 +665,68 @@ data:
             dataType: string
             id: aiResponse
           visualData: 2457.2944782204713/823.3810380350051/330/204//
+        '[ZXp8-b_w_21epgLIjkO4q]:gptFunction "GPT Function"':
+          data:
+            description: Provides feedback or suggestions for improving a CV based on the
+              user's input.
+            name: feedbackCV
+            schema: >-
+              {
+                "name": "feedbackCV",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the function."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "A brief description of what the function does."
+                    },
+                    "parameters": {
+                      "type": "object",
+                      "description": "The parameters required for the function.",
+                      "properties": {
+                        "inner_monologue": {
+                          "type": "string",
+                          "description": "The inner monologue for generating CV feedback."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "The message related to the CV feedback."
+                        },
+                        "content": {
+                          "type": "string",
+                          "description": "The content to be evaluated for CV feedback."
+                        }
+                      },
+                      "required": [
+                        "inner_monologue",
+                        "message",
+                        "content"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "description",
+                    "parameters"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": true
+              }
+            text: ""
+          outgoingConnections:
+            - function->"Array" vo2UxlJIClbUtFLt1wbGO/input2
+          visualData: -1098.7349780411573/1183.9916386263578/280/231//
         '[ez7NCbJrQwk9ZEupdOP7N]:extractJson "Extract JSON"':
           outgoingConnections:
             - output->"Destructure" 6WgVswdNimTZyJSHQJOIg/object
             - output->"Extract Object Path" tWntRagjON54RXgVN7q62/object
-          visualData: 372.8247151522408/631.5030996343718/280/222//
+          visualData: 370.63992512531047/731.8329296611697/280/237//
         '[f3mdw0NCiSyb9hjBOu8Ev]:graphOutput "Graph Output"':
           data:
             dataType: string
@@ -639,7 +738,7 @@ data:
             id: userMessage
             useDefaultValueInput: false
           outgoingConnections:
-            - data->"Chat" B36x8xiF_QyWH98qjo-qa/prompt
+            - data->"Chat" OuZitNvARwccPbmHk8g9J/prompt
           visualData: -724.3782958041846/338.9242359128642/330/215//
         '[hO-3ujDGrsGYLDyK5Bzdm]:match "Match"':
           data:
@@ -669,11 +768,12 @@ data:
         '[skK4UrMsHr5U7rx52hBur]:graphInput "Conversational Hystory (Graph Input)"':
           data:
             dataType: object
+            defaultValue: ""
             id: conversationHistory
             useDefaultValueInput: false
           outgoingConnections:
             - data->"Prompt (Text)" yy1Jvx19D0sZNmNoYoBuR/conversationHistory
-          visualData: -717.1828755539477/641.2716782139987/330/215//
+          visualData: -714.332636071298/698.899251239907/330/230//
         '[tWntRagjON54RXgVN7q62]:extractObjectPath "Extract Object Path"':
           data:
             path: $.arguments
@@ -681,6 +781,11 @@ data:
           outgoingConnections:
             - match->"Match" hO-3ujDGrsGYLDyK5Bzdm/value
           visualData: 765.8821962344375/413.0042779874672/280/222//
+        '[vo2UxlJIClbUtFLt1wbGO]:array "Array"':
+          data:
+            flatten: true
+            flattenDeep: false
+          visualData: -163.70833819265948/671.4646475199023/230/232//
         '[xW2H6FTcm1_FPRikymEx3]:extractObjectPath "Extract Object Path"':
           data:
             path: $.chat.message
@@ -723,8 +828,8 @@ data:
 
               \r
 
-              Use updateCV for make the changes ask from the
-              user\r
+              Answer using the updateCV json schema for make the
+              changes ask from the user\r
 
               \r
 
@@ -814,7 +919,7 @@ data:
 
               \r
 
-              Use feedbackCV for giving feedback:\r
+              Use feedbackCV json schema for giving feedback:\r
 
               \r
 
@@ -904,11 +1009,11 @@ data:
 
               CV in HTML:\"\"\" {{userCVData}}\"\"\"\r
 
-              Conversation so far: {{conversationHistory}}\r
+              Conversation so far: \"{{conversationHistory}}\"\r
 
               \r
 
-              ### Example output\r
+              [Example output 1]\r
 
               ```json\r
 
@@ -948,7 +1053,7 @@ data:
 
               \r\n"
           outgoingConnections:
-            - output->"Chat" B36x8xiF_QyWH98qjo-qa/systemPrompt
+            - output->"Chat" OuZitNvARwccPbmHk8g9J/systemPrompt
           visualData: -215.78878144734682/217.85165704616614/330/223//
     BoqXxxwVIumWwgGQz8DYf:
       metadata:

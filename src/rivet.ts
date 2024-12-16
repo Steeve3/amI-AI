@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, RequestHandler } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { runGraphInFile, startDebuggerServer, RunGraphOptions } from '@ironclad/rivet-node';
@@ -21,14 +21,39 @@ const debuggerServer = startDebuggerServer({
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json()); // middleware for parsing JSON
 
-// Add explicit route for root path
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/home_page.html'));
-});
-
 interface RivetResponse {
     message: string;
 }
+
+interface ChatResponse {
+    response: string;
+    monologue: string;
+    cvData?: string;
+}
+
+// Define request body interfaces
+interface HtmlRequestBody {
+    prompt: string;
+    JobOffers: string;
+    layout: boolean;
+}
+
+interface ChatRequestBody {
+    message: string;
+    cvContent: string;
+}
+
+interface PdfRequestBody {
+    latex: string;
+}
+
+// Store conversation history
+let conversationHistory: { role: string; content: string }[] = [];
+
+// Add explicit route for root path
+app.get('/', ((_req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, '../public/home_page.html'));
+}) as RequestHandler);
 
 async function runRivetGraph(prompt: string, JobOffer: string, html_l: boolean): Promise<RivetResponse> {
     const project = path.join(__dirname, '../am-Ia.rivet-project');
@@ -42,44 +67,90 @@ async function runRivetGraph(prompt: string, JobOffer: string, html_l: boolean):
             html_format: html_l
         },
         settings: {openAiEndpoint: 'https://api.openai.com/v1/chat/completions'},
-        openAiKey: process.env.API_KEY as string 
+        openAiKey: process.env.OPENAI_API_KEY as string 
     } as RunGraphOptions);
 
-    // The response will be HTML code when html_l is true
     return {
         message: result?.Answer?.value?.toString() ?? "No response"
     };
 }
 
-app.post('/api/html', async (req, res) => {
+async function runChatGraph(message: string, cvContent: string) {
+    const project = path.join(__dirname, '../am-Ia.rivet-project');
+    
+    const result = await runGraphInFile(project, {
+        graph: "App/ChatforCV",
+        remoteDebugger: debuggerServer,
+        inputs: { 
+            userMessage: message,
+            userCVData: cvContent,
+            conversationHistory: JSON.stringify(conversationHistory) // server save chat hystory
+        },
+        settings: {openAiEndpoint: 'https://api.openai.com/v1/chat/completions'},
+        openAiKey: process.env.OPENAI_API_KEY as string 
+    } as RunGraphOptions);
+
+    // Extract response type and data
+    const { output } = result;
+    console.log(result)
+    return {
+        monologue: result?.innerMonologue?.value?.toString() ?? "No response", 
+        response: result?.aiResponse?.value?.toString() ?? "No response"
+    }
+}
+
+app.post('/api/chat', ((req: Request<{}, {}, ChatRequestBody>, res: Response) => {
+    const { message, cvContent } = req.body;
+    
+    if (!message || !cvContent) {
+        res.status(400).json({ error: "Message and CV content are required" });
+        return;
+    }
+
+    runChatGraph(message, cvContent)
+        .then(response => {
+            // Update conversation history
+            conversationHistory.push({ role: 'user', content: message });
+            conversationHistory.push({ role: 'assistant', content: response.response });
+            
+            res.json(response);
+        })
+        .catch(error => {
+            console.error("Error processing chat request:", error);
+            res.status(500).json({ 
+                error: "Failed to process chat request",
+                details: error instanceof Error ? error.message : 'Unknown error'
+            });
+        });
+}) as RequestHandler);
+
+app.post('/api/html', ((req: Request<{}, {}, HtmlRequestBody>, res: Response) => {
     const { prompt, JobOffers, layout } = req.body;
     
     if (!prompt || !JobOffers) {
-        return res.status(400).json({ error: "Prompt and JobOffers are required" });
+        res.status(400).json({ error: "Prompt and JobOffers are required" });
+        return;
     }
 
-    try {
-        const response = await runRivetGraph(prompt, JobOffers, layout);
-        res.json(response);
-    } catch (error) {
-        console.error("Error processing request:", error);
-        res.status(500).json({ 
-            error: "Failed to process request",
-            details: error instanceof Error ? error.message : 'Unknown error'
+    runRivetGraph(prompt, JobOffers, layout)
+        .then(response => {
+            res.json(response);
+        })
+        .catch(error => {
+            console.error("Error processing request:", error);
+            res.status(500).json({ 
+                error: "Failed to process request",
+                details: error instanceof Error ? error.message : 'Unknown error'
+            });
         });
-    }
-});
+}) as RequestHandler);
 
 // Function to compile LaTeX to PDF using node-latex
 async function compileLaTeXToPDF(latexContent: string): Promise<Buffer> {
     return new Promise((resolve, reject) => {
-        // Create a readable stream from the LaTeX content
         const input = Readable.from(latexContent);
-        
-        // Create a write stream for error logs
         const errorLogStream = createWriteStream(path.join(__dirname, '../latex_errors.log'));
         
-        // Configure node-latex with the correct path to pdflatex
         const options = {
             cmd: 'C:\\Users\\User\\AppData\\Local\\Programs\\MiKTeX\\miktex\\bin\\x64\\pdflatex.exe',
             errorLogs: errorLogStream
@@ -93,42 +164,42 @@ async function compileLaTeXToPDF(latexContent: string): Promise<Buffer> {
         });
 
         output.on('end', () => {
-            errorLogStream.end(); // Close the error log stream
+            errorLogStream.end();
             resolve(Buffer.concat(chunks));
         });
 
         output.on('error', (err: Error) => {
             console.error('LaTeX compilation error:', err);
-            errorLogStream.end(); // Close the error log stream
+            errorLogStream.end();
             reject(err);
         });
     });
 }
 
-// Route for PDF generation
-app.post('/api/generate-pdf', async (req, res) => {
+app.post('/api/generate-pdf', ((req: Request<{}, {}, PdfRequestBody>, res: Response) => {
     console.log('Route /generate-pdf was hit');
-    try {
-        const { latex: latexContent } = req.body;
+    
+    const { latex: latexContent } = req.body;
 
-        if (!latexContent) {
-            return res.status(400).send('LaTeX input is required.');
-        }
-
-        const pdfBuffer = await compileLaTeXToPDF(latexContent);
-
-        res.set({
-            'Content-Type': 'application/pdf',
-            'Content-Disposition': 'attachment; filename="output.pdf"',
-            'Content-Length': pdfBuffer.length,
-        });
-
-        res.send(pdfBuffer);
-    } catch (error) {
-        console.error('Error generating PDF:', error);
-        res.status(500).send('An error occurred while generating the PDF.');
+    if (!latexContent) {
+        res.status(400).send('LaTeX input is required.');
+        return;
     }
-});
+
+    compileLaTeXToPDF(latexContent)
+        .then(pdfBuffer => {
+            res.set({
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'attachment; filename="output.pdf"',
+                'Content-Length': pdfBuffer.length,
+            });
+            res.send(pdfBuffer);
+        })
+        .catch(error => {
+            console.error('Error generating PDF:', error);
+            res.status(500).send('An error occurred while generating the PDF.');
+        });
+}) as RequestHandler);
 
 // Start the server
 app.listen(PORT, () => {

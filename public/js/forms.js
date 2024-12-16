@@ -22,9 +22,9 @@ function initUpdateCvForm() {
             try {
                 showLoadingOverlay('Updating your CV...');
                 const fileText = await readFileAsText(file);
-                const prompt = `Job Description: ${jobDescription}\n\nCV Content: ${fileText}`;
+                const prompt = `CV Content: ${fileText}`;
                 
-                const response = await sendToBackend(prompt, jobDescription, true);
+                const response = await sendToBackend(prompt, jobDescription);
                 
                 // Store CV data in sessionStorage
                 sessionStorage.setItem('cvContent', response.message);
@@ -72,7 +72,7 @@ function initCvForm() {
 
             try {
                 showLoadingOverlay();
-                const response = await sendToBackend(prompt, formData.jobDescription, true);
+                const response = await sendToBackend(prompt, formData.jobDescription);
                 
                 // Store CV data in sessionStorage
                 sessionStorage.setItem('cvContent', response.message);
@@ -102,16 +102,16 @@ function readFileAsText(file) {
 }
 
 // Helper function to send data to backend
-async function sendToBackend(prompt, jobDescription, generateCV = false) {
-    const response = await fetch('/api/chat', {
+async function sendToBackend(prompt, JobOffers) {
+    const response = await fetch('/api/html', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            message: prompt,
-            jobDescription,
-            generateCV
+            prompt,
+            JobOffers,
+            layout: true // Always true for CV generation
         })
     });
 

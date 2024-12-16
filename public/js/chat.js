@@ -45,10 +45,13 @@ async function handleChatMessage(message) {
     try {
         showLoadingOverlay('Processing your request...');
         
-        // Get CV content from sessionStorage
-        const cvContent = sessionStorage.getItem('cvContent');
-        if (!cvContent) {
-            throw new Error('CV content not found in session storage');
+        // Get CV content directly from the CV container
+        const cvContainer = document.getElementById('cv');
+        const cvContent = cvContainer ? cvContainer.innerHTML : '';
+        
+        // Validate both message and CV content
+        if (!message || !cvContent) {
+            throw new Error('Message and CV content are required');
         }
 
         const response = await fetch('/api/chat', {
@@ -63,7 +66,8 @@ async function handleChatMessage(message) {
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorData = await response.json();
+            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
@@ -82,8 +86,8 @@ async function handleChatMessage(message) {
     } catch (error) {
         console.error('Error:', error);
         hideLoadingOverlay();
-        addMessage('system', 'Sorry, I encountered an error processing your request.');
-        showNotification('Error processing your request', 'error');
+        addMessage('system', error.message);
+        showNotification(error.message, 'error');
     }
 }
 
