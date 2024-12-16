@@ -13,75 +13,35 @@ data:
       nodes:
         '[-VV4NIC_AGG0PV3RNzKhs]:loopController "Loop Controller"':
           data:
+            atMaxIterationsAction: break
             maxIterations: 100
-          visualData: 495.32197680339766/199.27033045148562/280/9//
-        '[AnUfTuOppkpfjxtkGflyf]:text "Headers 2 (Text)"':
-          data:
-            text: "{\r
-
-              \r
-
-              \"Accept\": \"application/json\",\r
-
-              \  \"Authorization\": \"Bearer {{key}}\"\r
-
-              }"
           outgoingConnections:
-            - output->"Http Call" tnpBAeCzMPxuH5X2FU-zB/headers
-          visualData: 139.11616422389403/643.4177513667839/330/119//
+            - break->"Graph Output" vq9SqD779tItJhUb6eUYL/value
+            - output1->"Text" EgAFPgclN9FOvNMkBHDFh/input
+          visualData: 495.32197680339766/199.27033045148562/280/9//
+        '[B-3H4LbzI97hKMFFA9I6I]:userInput "User Input"':
+          data:
+            prompt: This is an example question?
+            useInput: false
+          outgoingConnections:
+            - output->"Loop Controller" -VV4NIC_AGG0PV3RNzKhs/input1
+            - output->"Loop Controller" -VV4NIC_AGG0PV3RNzKhs/input2
+          visualData: -38.600033568926335/184.51186106597865/280/20//
+        '[EgAFPgclN9FOvNMkBHDFh]:text "Text"':
+          data:
+            text: "{{input}} + A"
+          outgoingConnections:
+            - output->"Loop Controller" -VV4NIC_AGG0PV3RNzKhs/continue
+          visualData: 881.542335145247/461.64661839207486/330/19//
         '[Hjxru4-wYXQ-yLmLnneMA]:text "Text"':
           data:
-            text: "{{input}}"
-          visualData: -86.44979153581163/132.2189957497552/330/11//
-        '[Xjw0O4BO0BqqTxlsM8QJc]:text "URL ID Job (Text)"':
+            text: A
+          visualData: -76.91402039726314/-18.991971077785905/330/16//
+        '[vq9SqD779tItJhUb6eUYL]:graphOutput "Graph Output"':
           data:
-            text: https://api.cloud.llamaindex.ai/api/parsing/job/{{job id}}
-          outgoingConnections:
-            - output->"Http Call" tnpBAeCzMPxuH5X2FU-zB/url
-          visualData: 140.26853786492762/512.0752722220839/330/119//
-        '[smQUOILkgBb30o5kBFUAN]:comment "Comment"':
-          data:
-            backgroundColor: rgba(0,0,0,0.05)
-            color: rgba(255,255,255,1)
-            height: 600
-            text: "#### Pseudocode\r
-
-              \r
-
-              a loop that check when the job in Llamaparse is
-              ready to be parsed checking the status. (the case are PENDING,
-              SUCCESS, ERROR, PARTIAL SUCESS)\r
-
-              \r
-
-              '''\r
-
-              Def CheckStatus(job_id, status)\r
-
-              \r
-
-              \r
-
-              \r
-
-              '''\r\n"
-          visualData: 228.68362077117544/-147.46424875837636/630/6//
-        '[tnpBAeCzMPxuH5X2FU-zB]:httpCall "Http Call"':
-          data:
-            body: ""
-            errorOnNon200: true
-            headers: ""
-            method: GET
-            url: ""
-            useHeadersInput: true
-            useUrlInput: true
-          visualData: 651.8440793558398/551.6916009216227/280/119//
-        '[tpsKAJjR6VSVgwZjqLKv2]:delay "Delay"':
-          data:
-            delay: 3000
-          outgoingConnections:
-            - output1->"URL ID Job (Text)" Xjw0O4BO0BqqTxlsM8QJc/job id
-          visualData: -151.99925808994402/548.7421853842056/205/119//
+            dataType: string
+            id: output
+          visualData: 867.1805254994/144.8973550061142/330/null//
     9uDuqfmG8o7bhQS7dQ6Oy:
       metadata:
         description: ""
@@ -340,206 +300,656 @@ data:
           data:
             text: "{{input}}"
           visualData: 1605.2594458336685/-870.9093278786503/330/null//
-    BOtvqg4ur_jtlW8LCp95d:
+    BcyljO29l3xdokqZcUT91:
       metadata:
         description: ""
-        id: BOtvqg4ur_jtlW8LCp95d
-        name: Tests/resume
+        id: BcyljO29l3xdokqZcUT91
+        name: App/ChatforCV
       nodes:
-        '[-zQOQZWvi8gPjMeVWOYEq]:comment "Comment"':
+        '[6WgVswdNimTZyJSHQJOIg]:destructure "Destructure"':
+          data:
+            paths:
+              - $.name
+          outgoingConnections:
+            - match_0->"Match" hO-3ujDGrsGYLDyK5Bzdm/input
+          visualData: 766.89810319102/573.5798526281446/280/222//
+        '[6iO8dHO0FzGuM2J_mB00Y]:extractObjectPath "Extract Object Path"':
+          data:
+            path: $.chat.inner_monologue
+            usePathInput: false
+          outgoingConnections:
+            - match->"Graph Output" iPRrNuywxKRzZLnewNcxw/value
+          visualData: 2014.2089735524412/657.7326891892201/280/204//
+        '[7AExTIEZ8PkpfR5R5k6Dw]:text "Text"':
+          data:
+            text: "<div id=\"cv\">\r
+
+              \    <div class=\"header\">\r
+
+              \        <h1>Giovanni Rossi</h1>\r
+
+              \        <div class=\"info\">\r
+
+              \            Italy<br>\r
+
+              \            <i class=\"fas fa-phone\"></i> +39 123
+              456 7890 &nbsp; \r
+
+              \            <i class=\"fas fa-envelope\"></i> <a
+              href=\"mailto:giovanni.rossi@example.com\">giovanni.rossi@example\
+              .com</a> &nbsp;\r
+
+              \            <i class=\"fab fa-linkedin\"></i> <a
+              href=\"https://www.linkedin.com/in/giovannirossi\"
+              target=\"_blank\">Giovanni Rossi</a>\r
+
+              \        </div>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section\">\r
+
+              \        <h2 class=\"section-title\">Profile</h2>\r
+
+              \        <p>Third-year Digital Management student
+              with a strong focus on innovation and digital transformation.
+              Experienced in data analysis and digital marketing, with a passion
+              for social networks and emerging trends. Adept at collaborating
+              with teams and presenting insights effectively.</p>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section work-experience\">\r
+
+              \        <h2 class=\"section-title\">Work
+              Experience</h2>\r
+
+              \        <div class=\"job\">\r
+
+              \            <div class=\"job-title\">\r
+
+              \                <span>H-Farm College | Innovation
+              Lab</span>\r
+
+              \                <span>Data Analysis Intern (Jan
+              2023 - Mar 2023)</span>\r
+
+              \            </div>\r
+
+              \            <ul>\r
+
+              \                <li>Assisted in analyzing key
+              performance metrics for an educational platform.</li>\r
+
+              \                <li>Automated data visualization
+              dashboards using Microsoft Excel and Tableau.</li>\r
+
+              \                <li>Collaborated with peers to
+              propose strategies for improving platform engagement.</li>\r
+
+              \            </ul>\r
+
+              \        </div>\r
+
+              \        <div class=\"job\">\r
+
+              \            <div class=\"job-title\">\r
+
+              \                <span>H-Farm College</span>\r
+
+              \                <span>Digital Marketing Project
+              Lead (Sep 2022 - Dec 2022)</span>\r
+
+              \            </div>\r
+
+              \            <ul>\r
+
+              \                <li>Developed a comprehensive
+              digital marketing strategy for a local startup.</li>\r
+
+              \                <li>Conducted data analysis to
+              identify target audiences and optimize social media
+              campaigns.</li>\r
+
+              \                <li>Presented actionable insights
+              and reports to stakeholders using PowerPoint and Excel.</li>\r
+
+              \            </ul>\r
+
+              \        </div>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section education\">\r
+
+              \        <h2
+              class=\"section-title\">Education</h2>\r
+
+              \        <div class=\"education-title\">\r
+
+              \            <span>H-Farm College</span>\r
+
+              \            <span>Expected Graduation:
+              2024</span>\r
+
+              \        </div>\r
+
+              \        <p><em>Bachelor's Degree in Digital
+              Management</em></p>\r
+
+              \        <div class=\"education-title\">\r
+
+              \            <span>Galileo Galilei High School,
+              Verona</span>\r
+
+              \            <span>Graduated: 2021</span>\r
+
+              \        </div>\r
+
+              \        <p><em>Scientific High-School
+              Diploma</em></p>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section skills\">\r
+
+              \        <h2 class=\"section-title\">Skills</h2>\r
+
+              \        <table>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Technical
+              Skills</strong></td>\r
+
+              \                <td>Excel, Tableau, basic Python,
+              Looker Studio, project management tools (Asana, Trello)</td>\r
+
+              \            </tr>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Other
+              Skills</strong></td>\r
+
+              \                <td>Team collaboration, effective
+              communication, critical thinking, adaptability</td>\r
+
+              \            </tr>\r
+
+              \        </table>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section languages\">\r
+
+              \        <h2
+              class=\"section-title\">Languages</h2>\r
+
+              \        <table>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Native</strong></td>\r
+
+              \                <td>Italian</td>\r
+
+              \            </tr>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Fluent</strong></td>\r
+
+              \                <td>English</td>\r
+
+              \            </tr>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Basic</strong></td>\r
+
+              \                <td>Spanish</td>\r
+
+              \            </tr>\r
+
+              \        </table>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section interests\">\r
+
+              \        <h2
+              class=\"section-title\">Interests</h2>\r
+
+              \        <p>Tennis, emerging technology trends (AI,
+              blockchain), travel, and casual gaming.</p>\r
+
+              \    </div>\r
+
+              </div>"
+          visualData: -1121.3510568351662/436.3407724093317/330/224//
+        '[B36x8xiF_QyWH98qjo-qa]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            endpoint: https://api.openai.com/v1/chat/completions
+            maxTokens: 1024
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            responseFormat: json
+            stop: ""
+            temperature: 0.5
+            toolChoice: auto
+            toolChoiceFunction: updateCV
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Extract JSON" ez7NCbJrQwk9ZEupdOP7N/input
+          visualData: 394.23264303002844/318.53057952580286/230/222//
+        '[Bl5fS5OvYu9AN9UItTbHY]:extractObjectPath "Extract Object Path"':
+          data:
+            path: $.chat.inner_monologue
+            usePathInput: false
+          outgoingConnections:
+            - match->"Graph Output" f3mdw0NCiSyb9hjBOu8Ev/value
+          visualData: 1944.2556863262478/-184.23589349434772/280/208//
+        '[Idp21kHPj-oj3NkDZsbke]:comment "Comment"':
           data:
             backgroundColor: rgba(0,0,0,0.05)
             color: rgba(255,255,255,1)
-            height: 1014.6858544164303
-            text: ""
-          visualData: 1361.268280994943/-152.22851778930078/871.7264277000297/12//
-        '[67Zpa_jcJciqdDngzUK2r]:text "Text"':
-          data:
-            text: "\\documentclass[a4paper]{article}\r
-
-              \\usepackage[margin=1in]{geometry}\r
-
-              \\usepackage{fontawesome5}\r
-
-              \\usepackage{titlesec}\r
-
-              \\usepackage{array}\r
-
-              \\usepackage{hyperref}\r
-
-              \r
-
-              \\titleformat{\\section}{\\large\\bfseries}{}{0em}{\
-              }[\\titlerule]\r
-
-              \r
-
-              \\begin{document}\r
-
-              \r
-
-              % Header\r
-
-              \\begin{center}\r
-
-              \    \\textbf{\\{{name}}} \\\\\r
-
-              \    \\{ {{Role}} } \\\\\r
-
-              \    \\vspace{0.5cm}\r
-
-              \    \\faPhone\\ +1-234-871-555-9 \\quad \r
-
-              \    \\faEnvelope\\ \\href{mailto:{{mail}}}{
-              {{mail}} } \\quad\r
-
-              \    \\faLinkedin\\
-              \\href{https://www.linkedin.com/in/john-doe/}{/john-doe}\r
-
-              \\end{center}\r
-
-              \r
-
-              % Work Experience\r
-
-              \\section*{Work Experience}\r
-
-              \\makebox[\\textwidth]{\\textbf{United Staats
-              Government} \\hfill President (Jan 2016 - Nov 2020)}\r
-
-              \\begin{itemize}\r
-
-              \    \\item Led various initiatives including ...\r
-
-              \    \\item Managed a team of ...\r
-
-              \    \\item Achieved goals in areas such as policy
-              development and leadership.\r
-
-              \\end{itemize}\r
-
-              \r
-
-              \\makebox[\\textwidth]{\\textbf{McKienze Ltd}
-              \\hfill Thieve (Oct 2013 - Nov 2016)}\r
-
-              \\begin{itemize}\r
-
-              \    \\item Conducted tasks related to strategic
-              planning and analysis.\r
-
-              \    \\item Coordinated with cross-functional teams
-              to meet project deadlines.\r
-
-              \    \\item Developed solutions for operational
-              challenges.\r
-
-              \\end{itemize}\r
-
-              \r
-
-              \\makebox[\\textwidth]{\\textbf{ACME Corp} \\hfill
-              Trainee (Aug 2010 - Oct 2013)}\r
-
-              \\begin{itemize}\r
-
-              \    \\item Assisted in daily operations and team
-              meetings.\r
-
-              \    \\item Developed reporting templates to
-              streamline information sharing.\r
-
-              \    \\item Provided support in data analysis and
-              project coordination.\r
-
-              \\end{itemize}\r
-
-              \r
-
-              % Education\r
-
-              \\section*{Education}\r
-
-              \\makebox[\\textwidth]{\\textbf{Sample University,
-              Graduate Degree} \\hfill Oct 2013 - Nov 2016} \\\\\r
-
-              \\textit{Degree: Diploma of Business} \\\\\r
-
-              \\textit{Subsidiary Subject: Psychology} \\\\\r
-
-              \r
-
-              \\makebox[\\textwidth]{\\textbf{Some School,
-              Professional Training with A-Levels} \\hfill Sep 2010 - Sep 2013}
-              \\\\\r
-
-              \\textit{Degrees: Potenti nullam \\& A-Levels}
-              \\\\\r
-
-              \r
-
-              % Skills\r
-
-              \\section*{Skills}\r
-
-              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
-              th}@{}}\r
-
-              \    Programming & C++, Python, Bash, JavaScript,
-              SQL \\\\\r
-
-              \    Tools       & Linux, Windows, macOS \\\\\r
-
-              \    Office      & MS Office, Adobe Acrobat\r
-
-              \\end{tabular}\r
-
-              \r
-
-              % Languages\r
-
-              \\section*{Languages}\r
-
-              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
-              th}@{}}\r
-
-              \    Native & Lorem Ipsum \\\\\r
-
-              \    Fluent & English\r
-
-              \\end{tabular}\r
-
-              \r
-
-              % Hobbies\r
-
-              \\section*{Hobbies}\r
-
-              Photography, Programming, Hiking\r
-
-              \r
-
-              \\end{document}\r\n"
-          outgoingConnections:
-            - output->"Text" oSc2uiTis2wLodhSagJDk/input
-          visualData: 763/127.38351381199439/330/14//
-        '[7Q3j6Hjt7_VjodnTBotTf]:comment "Comment"':
+            height: 704.4759983974178
+            text: "# UpdateCV"
+          visualData: 1869.5552837208695/-390.00799068404524/1057.9312474959656/206//
+        '[KAY3cR8MTvbCMtJGpWlxX]:comment "Comment"':
           data:
             backgroundColor: rgba(0,0,0,0.05)
             color: rgba(255,255,255,1)
-            height: 973.0088841233216
-            text: ""
-          visualData: -145.15899620905702/-127.05688746676773/652.9223336612097/7//
-        '[a_lkIZlF0NwVWCKVfICrr]:text "Mail (Text)"':
+            height: 1142.9166875422366
+            text: "# Input"
+          visualData: -849.010059452817/-86.49666015247755/1059.9900165334511/210//
+        '[Kvq8joxoBnTG4KPj-VbRK]:extractObjectPath "Extract Object Path"':
           data:
-            text: stefano.riato@icloud.com
+            path: $.chat.message
+            usePathInput: false
           outgoingConnections:
-            - output->"Text" 67Zpa_jcJciqdDngzUK2r/mail
-          visualData: -93.67465018706122/17.813501928379253/330/11//
-        '[oSc2uiTis2wLodhSagJDk]:text "Text"':
+            - match->"Graph Output" PPYRBbUemXfgLSYUl5URO/value
+          visualData: 1947.8801723831764/61.578319966836496/280/209//
+        '[PPYRBbUemXfgLSYUl5URO]:graphOutput "Graph Output"':
           data:
-            text: "{{input}}"
-          visualData: 1645.9220644096868/237.8679177947944/330/13//
+            dataType: string
+            id: aiResponse
+          visualData: 2544.530929571345/-24.19223232500478/330/200//
+        '[PeuUsdUupdkN0DP_GgEVJ]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 645.6533068024191
+            text: "# FeedbackCV"
+          visualData: 1922.876114674502/470.3471319282827/965.8779000463692/221//
+        '[UVu3xNnXFPPukaADuC87x]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 797.9074146158474
+            text: "# Using the tools"
+          visualData: 121.37957539756928/48.798553167298465/1457.4212688761133/222//
+        '[XtqpmM19w9NMIRo30DnDP]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: aiResponse
+          visualData: 2457.2944782204713/823.3810380350051/330/204//
+        '[ez7NCbJrQwk9ZEupdOP7N]:extractJson "Extract JSON"':
+          outgoingConnections:
+            - output->"Destructure" 6WgVswdNimTZyJSHQJOIg/object
+            - output->"Extract Object Path" tWntRagjON54RXgVN7q62/object
+          visualData: 372.8247151522408/631.5030996343718/280/222//
+        '[f3mdw0NCiSyb9hjBOu8Ev]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: innerMonologue
+          visualData: 2542.9403192390537/-208.82015230185218/330/199//
+        '[h5jM2XnL9faPsnSwsweoP]:graphInput "User Message (Graph Input)"':
+          data:
+            dataType: string
+            id: userMessage
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Chat" B36x8xiF_QyWH98qjo-qa/prompt
+          visualData: -724.3782958041846/338.9242359128642/330/215//
+        '[hO-3ujDGrsGYLDyK5Bzdm]:match "Match"':
+          data:
+            cases:
+              - updateCV
+              - feedbackCV
+            exclusive: false
+          outgoingConnections:
+            - case1->"Extract Object Path" Bl5fS5OvYu9AN9UItTbHY/object
+            - case1->"Extract Object Path" Kvq8joxoBnTG4KPj-VbRK/object
+            - case2->"Extract Object Path" 6iO8dHO0FzGuM2J_mB00Y/object
+            - case2->"Extract Object Path" xW2H6FTcm1_FPRikymEx3/object
+          visualData: 1260.015914348642/471.0216797578775/280/222//
+        '[iPRrNuywxKRzZLnewNcxw]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: innerMonologue
+          visualData: 2458.7002873517754/635.7567557461466/330/204//
+        '[rndcOhFFoSedpHvIZvSO_]:graphInput "User CV Data (Graph Input)"':
+          data:
+            dataType: string
+            id: userCVData
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Prompt (Text)" yy1Jvx19D0sZNmNoYoBuR/userCVData
+          visualData: -721.2945386666403/487.52815291346127/330/215//
+        '[skK4UrMsHr5U7rx52hBur]:graphInput "Conversational Hystory (Graph Input)"':
+          data:
+            dataType: object
+            id: conversationHistory
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Prompt (Text)" yy1Jvx19D0sZNmNoYoBuR/conversationHistory
+          visualData: -717.1828755539477/641.2716782139987/330/215//
+        '[tWntRagjON54RXgVN7q62]:extractObjectPath "Extract Object Path"':
+          data:
+            path: $.arguments
+            usePathInput: false
+          outgoingConnections:
+            - match->"Match" hO-3ujDGrsGYLDyK5Bzdm/value
+          visualData: 765.8821962344375/413.0042779874672/280/222//
+        '[xW2H6FTcm1_FPRikymEx3]:extractObjectPath "Extract Object Path"':
+          data:
+            path: $.chat.message
+            usePathInput: false
+          outgoingConnections:
+            - match->"Graph Output" XtqpmM19w9NMIRo30DnDP/value
+          visualData: 2017.2345732910078/806.5247766650664/280/204//
+        '[yL-hDJ6NbOzShqpTzmTxp]:userInput "User Input"':
+          data:
+            prompt: This is an example question?
+            useInput: false
+          disabled: true
+          visualData: -1103.2031415203455/845.9698878928846/280/225//
+        '[yy1Jvx19D0sZNmNoYoBuR]:text "Prompt (Text)"':
+          data:
+            text: "[Context]\r
+
+              You are a HR specialised in discovering talent and
+              your task. An user will ask you question about feedback on their
+              CV or the user will ask you to update or improve their CV in
+              html\r
+
+              \r
+
+              [Your Goal]\r
+
+              Help the user to improve his CV in order to leverage
+              his profile for the role interested.\r
+
+              \r
+
+              [Your style]\r
+
+              - be simple\r
+
+              - be effective\r
+
+              - be short in the answer for feedback and ask a
+              question everytime\r
+
+              \r
+
+              Use updateCV for make the changes ask from the
+              user\r
+
+              \r
+
+              updateCV:\"\"\"json schema\r
+
+              {\r
+
+              \  \"type\": \"object\",\r
+
+              \  \"properties\": {\r
+
+              \    \"name\": {\r
+
+              \      \"type\": \"string\",\r
+
+              \      \"description\": \"The name of the function
+              to be executed\",\r
+
+              \      \"enum\": [\"updateCV\"]\r
+
+              \    },\r
+
+              \    \"arguments\": {\r
+
+              \      \"type\": \"object\",\r
+
+              \      \"properties\": {\r
+
+              \        \"chat\": {\r
+
+              \          \"type\": \"object\",\r
+
+              \          \"properties\": {\r
+
+              \            \"inner_monologue\": {\r
+
+              \              \"type\": \"string\",\r
+
+              \              \"description\": \"Your short
+              reasoning for using the updateCV function\"\r
+
+              \            },\r
+
+              \            \"message\": {\r
+
+              \              \"type\": \"string\",\r
+
+              \              \"description\": \"Your response to
+              the user about what you are going to do\"\r
+
+              \            }\r
+
+              \          },\r
+
+              \          \"required\": [\"inner_monologue\",
+              \"message\"]\r
+
+              \        },\r
+
+              \        \"content\": {\r
+
+              \          \"type\": \"string\",\r
+
+              \          \"description\": \"The instructions in a
+              step by step format or content detailing what is needed to be
+              done\"\r
+
+              \        }\r
+
+              \      },\r
+
+              \      \"required\": [\"chat\", \"content\"]\r
+
+              \    }\r
+
+              \  },\r
+
+              \  \"required\": [\"name\", \"arguments\"]\r
+
+              }\r
+
+              \r
+
+              \r
+
+              \"\"\"\r
+
+              \r
+
+              Use feedbackCV for giving feedback:\r
+
+              \r
+
+              \"\"\"json schema\r
+
+              {\r
+
+              \  \"type\": \"object\",\r
+
+              \  \"properties\": {\r
+
+              \    \"name\": {\r
+
+              \      \"type\": \"string\",\r
+
+              \      \"description\": \"The name of the function
+              to be executed\",\r
+
+              \      \"enum\": [\"feedbackCV\"]\r
+
+              \    },\r
+
+              \    \"arguments\": {\r
+
+              \      \"type\": \"object\",\r
+
+              \      \"properties\": {\r
+
+              \        \"inner_monologue\": {\r
+
+              \          \"type\": \"string\",\r
+
+              \          \"description\": \"Your reasoning for
+              using the feedbackCV function.\"\r
+
+              \        },\r
+
+              \        \"message\": {\r
+
+              \          \"type\": \"string\",\r
+
+              \          \"description\": \"Your answer in the
+              chat where you write feedback or suggestions for improving the CV
+              based on the user's CV.\"\r
+
+              \        },\r
+
+              \        \"content\": {\r
+
+              \          \"type\": \"object\",\r
+
+              \          \"description\": \"An object detailing
+              the content or instructions related to the feedbackCV function\"\r
+
+              \        }\r
+
+              \      },\r
+
+              \      \"required\": [\"inner_monologue\",
+              \"message\", \"content\"]\r
+
+              \    }\r
+
+              \  },\r
+
+              \  \"required\": [\"name\", \"arguments\"]\r
+
+              }\r
+
+              \r
+
+              \"\"\"\r
+
+              [Requirement]\r
+
+              1. **Encapsulation under `arguments`**: The
+              `inner_monologue`, `message`, and `content` fields were placed
+              inside the `arguments` object as per the schema.\r
+
+              2. **Field Grouping**: The `chat` object includes
+              both `inner_monologue` and `message`.\r
+
+              3. **Structure Validation**: Ensured all required
+              fields match the defined schema.\r
+
+              \r
+
+              CV in HTML:\"\"\" {{userCVData}}\"\"\"\r
+
+              Conversation so far: {{conversationHistory}}\r
+
+              \r
+
+              ### Example output\r
+
+              ```json\r
+
+              {\r
+
+              \  \"name\": \"feedbackCV\",\r
+
+              \  \"arguments\": {\r
+
+              \    \"chat\": {\r
+
+              \      \"inner_monologue\": \"The CV is
+              well-structured and provides relevant information, but it could
+              benefit from some enhancements to make it more impactful.\",\r
+
+              \      \"message\": \"Your CV is quite strong, but
+              here are a few suggestions for improvement: 1. Consider adding
+              specific achievements or metrics in your work experience to
+              showcase your impact. 2. Tailor your profile summary to align more
+              closely with the specific role you're targeting. 3. Include any
+              relevant certifications or courses that could enhance your skills
+              section. 4. Ensure your interests reflect your professional
+              aspirations. What specific role are you aiming for, so I can
+              provide more tailored advice?\"\r
+
+              \    },\r
+
+              \    \"content\": {}\r
+
+              \  }\r
+
+              }\r
+
+              ```\r
+
+              \r
+
+              \r\n"
+          outgoingConnections:
+            - output->"Chat" B36x8xiF_QyWH98qjo-qa/systemPrompt
+          visualData: -215.78878144734682/217.85165704616614/330/223//
     BoqXxxwVIumWwgGQz8DYf:
       metadata:
         description: ""
@@ -558,6 +968,148 @@ data:
           data:
             indented: true
           visualData: 1247.9202340367194/471.05254646582114/205/8//
+    D4Fm6n64gG7N1lIibNmEA:
+      metadata:
+        description: ""
+        id: D4Fm6n64gG7N1lIibNmEA
+        name: Tests/LLamaIndex/provaLlamaIndex
+      nodes:
+        '[1eADf1HTQ77vymW0RiA6w]:text "Headers (Text)"':
+          data:
+            text: "{\r
+
+              \  \"Content-Type\": \"multipart/form-data
+              boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW\",\r
+
+              \  \"Accept\": \"application/json\",\r
+
+              \  \"Authorization\": \"Bearer {{key}}\"\r
+
+              }"
+          disabled: true
+          visualData: 882.2575784416855/1253.2219084283777/330/184//
+        '[Bn5tiyJ157xOYrgxQh02g]:context "Context"':
+          data:
+            dataType: string
+            defaultValue: ""
+            id: llamaparse
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Graph Output" OJRS23VwFXmU_6sP64vas/value
+          visualData: 883.5898928230002/509.5251942885079/330/175//
+        '[MvwNEpui5sDiCuvCTCSZV]:graphOutput "Graph Output"':
+          data:
+            dataType: object
+            id: output
+          visualData: 3024.2430970478918/1114.5618449346791/330/201//
+        '[OJRS23VwFXmU_6sP64vas]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: key
+          visualData: 3019.0958242917495/916.698248743056/330/199//
+        '[UQEHOfN5Tkz2rS7jMuNV2]:text "Body (Text)"':
+          data:
+            text: "{\r
+
+              \  \"file\": {\r
+
+              \    \"filename\": \"{{file}}\",\r
+
+              \    \"type\": \"application/pdf\",\r
+
+              \    \"content\": \"<binary data>\"\r
+
+              \  }\r
+
+              }\r\n"
+          disabled: true
+          visualData: 881.2040001632342/1008.6864972669201/330/178//
+        '[XGlTQPmhZuz0Uh-MrHfYs]:text "Text"':
+          data:
+            text: C:/Users/User/Desktop/uni/app/Giovanni.pdf
+          outgoingConnections:
+            - output->"Body (Object)" uxlIxxtBKMjxdz80EjWsN/file
+          visualData: 879.7632630354524/696.3545513264971/330/175//
+        '[fVLgiWj-QOC2bHRMuCJdv]:toJson "To JSON"':
+          data:
+            indented: true
+          visualData: 1801.072523771789/900.1011177717796/205/202//
+        '[goLDIIw71QiO5otmddTlP]:httpCall "Http Call"':
+          data:
+            body: "{\r
+
+              \    \"filename\":
+              \"C:/Users/User/Desktop/uni/app/Giovanni.pdf\",\r
+
+              \    \"type\": \"application/pdf\",\r
+
+              \    \"content\": \"<binary data>\"\r
+
+              }\r\n"
+            errorOnNon200: true
+            headers: "{ \r
+
+              \    \"Content-Type\": \"multipart/form-data
+              boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW\",\r
+
+              \    \"Accept\": \"application/json\",\r
+
+              \    \"Authorization\": \"Bearer
+              llx-1dqQp8B0TBLlBeqI8UabdXdKN1kkSCNxN8Beil3imBygxQ5p\" \r
+
+              \    \r
+
+              }"
+            jsonTemplate: ""
+            method: POST
+            url: https://api.cloud.llamaindex.ai/api/parsing/upload
+            useBodyInput: false
+            useHeadersInput: false
+            useUrlInput: false
+          outgoingConnections:
+            - json->"Object" qHRM3ay2rhI89_skfMEOG/input
+            - res_body->"Extract JSON" jV4PVOlgtaJ2YOLX3tvIi/input
+          visualData: 2258.5058702198153/973.6638993036636/280/175//
+        '[jV4PVOlgtaJ2YOLX3tvIi]:extractJson "Extract JSON"':
+          disabled: true
+          visualData: 2575.673913856507/789.7070402282407/280/194//
+        '[qHRM3ay2rhI89_skfMEOG]:object "Object"':
+          data:
+            jsonTemplate: "{{input}}"
+          outgoingConnections:
+            - output->"Graph Output" MvwNEpui5sDiCuvCTCSZV/value
+          visualData: 2714.822868423622/1068.1745196349336/230/196//
+        '[tXblci6D7ikfqtlENlWJY]:object "Headers (Object)"':
+          data:
+            jsonTemplate: ""
+          disabled: true
+          outgoingConnections:
+            - output->"To JSON" fVLgiWj-QOC2bHRMuCJdv/data
+          visualData: 1372.5034653754997/899.8522173786305/230/175//
+        '[uxlIxxtBKMjxdz80EjWsN]:object "Body (Object)"':
+          data:
+            body: ""
+            jsonTemplate: "{\r
+
+              \  \"file\": {\r
+
+              \    \"filename\": \"{{file}}\",\r
+
+              \    \"type\": \"application/pdf\",\r
+
+              \    \"content\": \"<binary data>\"\r
+
+              \  }\r
+
+              }"
+          disabled: true
+          outgoingConnections:
+            - output->"To JSON" x2XQSjWtPY-7ohfb5cLWT/data
+          visualData: 1370.0617712933793/1266.4445525887886/230/187//
+        '[x2XQSjWtPY-7ohfb5cLWT]:toJson "To JSON"':
+          data:
+            indented: true
+          visualData: 1790.1628341023338/1124.566969437097/205/203//
     HmYUeGwDrhKgiJ6b2mLVz:
       metadata:
         description: ""
@@ -605,204 +1157,51 @@ data:
           visualData: 674.5715725350822/212.8148331021088/1037.379374098834/236//
         '[XuKyUgh01OvLFsRjbPPr6]:text "CV in Latex (Text)"':
           data:
-            text: "\\documentclass[a4paper]{article}\r
-
-              \\usepackage[margin=1in]{geometry} % Adjusts the
-              page margins\r
-
-              \\usepackage{fontawesome5} % For icons like phone,
-              email, LinkedIn\r
-
-              \\usepackage{titlesec} % For customizing section
-              titles\r
-
-              \\usepackage{array} % For formatting tables (Skills
-              and Languages sections)\r
-
-              \\usepackage{hyperref} % For clickable hyperlinks
-              (emails, LinkedIn, etc.)\r
-
-              \r
-
-              % Customizing section titles\r
-
-              \\titleformat{\\section}{\\large\\bfseries}{}{0em}{\
-              }[\\titlerule]\r
-
-              \r
-
-              \\begin{document}\r
-
-              \r
-
-              %==================== HEADER ====================\r
-
-              \\begin{center}\r
-
-              \    \\textbf{Giovanni Rossi} \\\\\r
-
-              \    Verona, Italy \\\\ \r
-
-              \    \\vspace{0.5cm}\r
-
-              \    \\faPhone\\ +39 123 456 7890 \\quad % Replace
-              with your actual number\r
-
-              \    \\faEnvelope\\
-              \\href{mailto:giovanni.rossi@example.com}{giovanni.rossi@example.\
-              com} \\quad % Replace with your actual email\r
-
-              \    \\faLinkedin\\
-              \\href{https://www.linkedin.com/in/giovannirossi}{giovannirossi} %
-              Replace with your LinkedIn URL and display name\r
-
-              \\end{center}\r
-
-              \r
-
-              %==================== PROFILE ====================\r
-
-              \\section*{Profile}\r
-
-              A motivated and analytical third-year Digital
-              Management student with a strong focus on innovation and digital
-              transformation. Proven experience in data analysis and digital
-              marketing strategies, with a passion for leveraging insights to
-              drive business value. Adept at collaborating in teams and
-              presenting data-driven recommendations effectively.\r
-
-              \r
-
-              %==================== EDUCATION
-              ====================\r
-
-              \\section*{Education}\r
-
-              \\makebox[\\textwidth]{\\textbf{H-Farm College}
-              \\hfill Expected Graduation: 2024} \\\\\r
-
-              \\textit{Bachelor's Degree in Digital Management}
-              \\\\\r
-
-              \r
-
-              \\makebox[\\textwidth]{\\textbf{Galileo Galilei High
-              School, Verona} \\hfill Graduated: 2021} \\\\\r
-
-              \\textit{Scientific High-School Diploma} \\\\\r
-
-              \r
-
-              %==================== WORK EXPERIENCE
-              ====================\r
-
-              \\section*{Work Experience}\r
-
-              \\makebox[\\textwidth]{\\textbf{H-Farm College}
-              \\hfill Digital Marketing Project Lead (Sep 2022 - Dec 2022)}\r
-
-              \\begin{itemize}\r
-
-              \    \\item Developed a comprehensive digital
-              marketing strategy for a local startup.\r
-
-              \    \\item Conducted data analysis to identify
-              target audiences and optimize social media campaigns.\r
-
-              \    \\item Presented actionable insights and
-              reports to stakeholders using PowerPoint and Excel.\r
-
-              \    \\item Applied skills in project management
-              tools (Asana) to ensure timely delivery of project milestones.\r
-
-              \\end{itemize}\r
-
-              \r
-
-              \\makebox[\\textwidth]{\\textbf{H-Farm College –
-              Innovation Lab} \\hfill Data Analysis Intern (Jan 2023 - Mar
-              2023)}\r
-
-              \\begin{itemize}\r
-
-              \    \\item Assisted in analyzing key performance
-              metrics for an educational platform.\r
-
-              \    \\item Automated data visualization dashboards
-              using Microsoft Excel and Tableau.\r
-
-              \    \\item Collaborated with peers to propose
-              strategies for improving platform engagement.\r
-
-              \\end{itemize}\r
-
-              \r
-
-              %==================== SKILLS ====================\r
-
-              \\section*{Skills}\r
-
-              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
-              th}@{}}\r
-
-              \    \\textbf{Technical Skills} & Data analysis
-              tools (Excel, Tableau, basic Python), project management software
-              (Asana, Trello), basics of web development and UX design (HTML,
-              CSS, Figma). \\\\ \r
-
-              \    \\textbf{Other Skills} & Team collaboration,
-              effective communication, critical thinking, and adaptability.
-              \\\\\r
-
-              \\end{tabular}\r
-
-              \r
-
-              %==================== LANGUAGES
-              ====================\r
-
-              \\section*{Languages}\r
-
-              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
-              th}@{}}\r
-
-              \    \\textbf{Native} & Italian \\\\ \r
-
-              \    \\textbf{Fluent} & English \\\\ \r
-
-              \    \\textbf{Basic} & Spanish \\\\ \r
-
-              \\end{tabular}\r
-
-              \r
-
-              %==================== INTERESTS
-              ====================\r
-
-              \\section*{Interests}\r
-
-              \\begin{itemize}\r
-
-              \    \\item Tennis: Passionate about playing and
-              following professional tournaments.\r
-
-              \    \\item Technology: Enthusiastic about emerging
-              trends like AI, blockchain, and their applications in business.\r
-
-              \    \\item Travel: Loves exploring different
-              cultures and cuisines, with recent trips to Spain and Germany.\r
-
-              \    \\item Gaming: Casual gamer, particularly
-              enjoys strategy and simulation games.\r
-
-              \\end{itemize}\r
-
-              \r
-
-              %==================== END OF DOCUMENT
-              ====================\r
-
-              \\end{document}"
+            text: "\\\\documentclass[a4paper]{article}\\n\\\\usepackage[margin=1in]{geometr\
+              y} % Adjusts the page margins\\n\\\\usepackage{fontawesome5} % For
+              icons like phone, email, LinkedIn\\n\\\\usepackage{titlesec} % For
+              customizing section titles\\n\\\\usepackage{array} % For
+              formatting tables (Skills and Languages
+              sections)\\n\\\\usepackage{hyperref} % For clickable hyperlinks
+              (emails, LinkedIn, etc.)\\n\\n% Customizing section
+              titles\\n\\\\titleformat{\\\\section}{\\\\large\\\\bfseries}{}{0e\
+              m}{}[\\\\titlerule]\\n\\n\\\\begin{document}\\n\\n%==============\
+              ====== HEADER
+              ====================\\n\\\\begin{center}\\n    \\\\textbf{John
+              Doe} \\\\\\\\\\n    123 Main St, Springfield
+              \\\\\\\\\\n    \\\\vspace{0.5cm}\\n    \\\\faPhone\\\\ +1234567890
+              \\\\quad\\n    \\\\faEnvelope\\\\
+              \\\\href{mailto:john.doe@example.com}{john.doe@example.com}
+              \\\\quad\\n    \\\\faLinkedin\\\\
+              \\\\href{https://linkedin.com/in/johndoe}{LinkedIn}
+              \\n\\\\end{center}\\n\\n%==================== PROFILE
+              ====================\\n\\\\section*{Profile}\\nAn experienced
+              developer with expertise in web technologies and a passion for
+              building innovative solutions.\\n\\n%==================== WORK
+              EXPERIENCE ====================\\n\\\\section*{Work
+              Experience}\\n\\\\makebox[\\\\textwidth]{\\\\textbf{Tech Corp}
+              \\\\hfill Software Engineer (2020-01-01 -
+              2022-12-31)}\\n\\\\begin{itemize}\\n    \\\\item Developed and
+              maintained web applications.\\n    \\\\item Collaborated with
+              cross-functional
+              teams.\\n\\\\end{itemize}\\n\\n%==================== EDUCATION
+              ====================\\n\\\\section*{Education}\\n\\\\makebox[\\\\\
+              textwidth]{\\\\textbf{University of Technology} \\\\hfill
+              2019-05-01} \\\\\\\\\\n\\\\textit{Degree: Bachelor of Science in
+              Computer Science} \\\\\\\\\\n\\n%==================== SKILLS
+              ====================\\n\\\\section*{Skills}\\n\\\\begin{tabular}{\
+              @{}p{0.3\\\\textwidth}p{0.7\\\\textwidth}@{}}\\n    \\\\textbf{Te\
+              chnical Skills} & JavaScript, Python, React \\\\\\\\
+              \\n    \\\\textbf{Other Skills} & Leadership, Project Management
+              \\\\\\\\\\n\\\\end{tabular}\\n\\n%==================== LANGUAGES
+              ====================\\n\\\\section*{Languages}\\n\\\\begin{tabula\
+              r}{@{}p{0.3\\\\textwidth}p{0.7\\\\textwidth}@{}}\\n    \\\\textbf\
+              {Native} & English \\\\\\\\ \\n    \\\\textbf{Fluent} & Spanish
+              \\\\\\\\\\n\\\\end{tabular}\\n\\n%==================== INTERESTS
+              ====================\\n\\\\section*{Interests}\\n\\\\begin{itemiz\
+              e}\\n    \\\\item Photography\\n    \\\\item
+              Traveling\\n    \\\\item
+              AI\\n\\\\end{itemize}\\n\\n\\\\end{document}\\n\"\r\n"
           outgoingConnections:
             - output->"Write File" ETJnk_E_HPpiGH6v5Z_OC/content
           visualData: 13.988251951722196/541.2970019390347/330/246//
@@ -834,14 +1233,6 @@ data:
           outgoingConnections:
             - output->"pdflatex (Shell Command)" L_t6NeRxm6vf8H3pwpl8I/command
           visualData: 1780.0836917366128/616.9060162416704/330/266//
-    JUtfO2Qdbgbmuw-FMXlvI:
-      metadata:
-        description: ""
-        id: JUtfO2Qdbgbmuw-FMXlvI
-        name: Tests/List of models
-      nodes:
-        '[wIAIpVimdmgTcqG0Zqlfq]:listOllamaModels "List Ollama Models"':
-          visualData: 672.7999877929688/228/330/1//
     KNsK4IKfHKwKZTMPlJYoc:
       metadata:
         description: ""
@@ -996,6 +1387,8 @@ data:
         '[GCmdRErcMCmt3TdK6u_mg]:if "If"':
           data:
             unconnectedControlFlowExcluded: true
+          outgoingConnections:
+            - output->"Delay" qFGmAln7SOtyBkZQkT_ex/input1
           visualData: 2241.529914356742/2635.73311217834/155/123//
         '[Hl-RQw5KMWMMemuh3bPxd]:text "Body (Text)"':
           data:
@@ -1013,7 +1406,7 @@ data:
 
               }\r\n"
           disabled: true
-          visualData: -105.73580551676423/2308.7794080387366/330/168//
+          visualData: -88.46270983226037/2313.714591681566/330/174//
         '[Hm2HC36DD7SHJRL9f3u32]:image "Image"':
           data:
             data:
@@ -1050,7 +1443,7 @@ data:
               }"
           outgoingConnections:
             - output->"Http Call" ZmtfIZHDzFbIokuLgczxK/headers
-          visualData: 2664.407402053507/2044.4107559069703/330/115//
+          visualData: 2677.1250542089456/2099.096674729553/330/173//
         '[MBkTtdP1QWA86q2BqUMM0]:context "Context"':
           data:
             dataType: string
@@ -1246,6 +1639,27 @@ data:
           outgoingConnections:
             - output->"Http Call" owMDpNjDDog4B6tnT-BtJ/req_body
           visualData: 124.3822058926573/702.933936482105/330/33//
+    Que8sQa0Kj5MLdxIPDE2i:
+      metadata:
+        description: ""
+        id: Que8sQa0Kj5MLdxIPDE2i
+        name: Tests/LLamaIndex/LlamaTest
+      nodes:
+        '[XCnVQnkGMJ5gT3aunmUFn]:subGraph "Subgraph"':
+          data:
+            graphId: oENQDyef3PhAbiUoA1Hkq
+            useAsGraphPartialOutput: false
+            useErrorOutput: false
+          visualData: 1286.268292682927/447.95121951219505/330/4//
+        '[Xx9hd_vwlXIZfPNxy8_SJ]:subGraph "Subgraph"':
+          data:
+            graphId: D4Fm6n64gG7N1lIibNmEA
+            useAsGraphPartialOutput: false
+            useErrorOutput: false
+          outgoingConnections:
+            - key->"Subgraph" XCnVQnkGMJ5gT3aunmUFn/key
+            - output->"Subgraph" XCnVQnkGMJ5gT3aunmUFn/json
+          visualData: 878/453/330/1//
     SrpEY8HejD6oN9lYTwpV2:
       metadata:
         description: ""
@@ -1467,7 +1881,7 @@ data:
           visualData: 1045.4810407826224/17.381088474318734/330/129//
         '[mLtkCKyiqs25B2LZV1zu1]:boolean "Bool"':
           data:
-            value: false
+            value: true
           outgoingConnections:
             - value->"Subgraph" Mrtc72w4n7Vo-jlqJ9wrf/html_format
           visualData: -28.157489462706707/762.9697413892663/160/140//
@@ -1475,7 +1889,7 @@ data:
       metadata:
         description: ""
         id: TLwB2EYOrkpB0yJ0uxMl4
-        name: App/llamaparse
+        name: App/upload_pdf/llamaparse
       nodes:
         '[01uTL3my044B9aqLI_lVo]:text "Text"':
           data:
@@ -1494,6 +1908,14 @@ data:
             height: 990.8639940678001
             text: "# write a file"
           visualData: 3209.321306502766/-1027.8920762826438/1037.379374098834/227//
+        '[25XtoBN2HQeJszgJdgUJ6]:graphInput "Path (Graph Input)"':
+          data:
+            dataType: string
+            id: path
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Text" 2KZ4zTRHi-rnwRkVk57XS/path
+          visualData: -746.7977473395282/-587.1748656915311/330/234//
         '[2KZ4zTRHi-rnwRkVk57XS]:text "Text"':
           data:
             text: 'curl -X POST "https://api.cloud.llamaindex.ai/api/parsing/upload" -H
@@ -1514,9 +1936,6 @@ data:
         '[5-KUYs2H9Hz5aI3dq5-jf]:text "Name Pdf (Text)"':
           data:
             text: Giovanni.pdf
-          outgoingConnections:
-            - output->"Extract Regex" k7oiAFUnnG3B9EcZBCn_Y/input
-            - output->"Text" 2KZ4zTRHi-rnwRkVk57XS/file
           visualData: -358.6908750405222/-452.5482957695859/330/144//
         '[5Gws02Rg8sAC8TdSgILNO]:comment "Comment"':
           data:
@@ -1547,7 +1966,7 @@ data:
             text: C:\Users\User\Desktop\uni\app\amI-AI\files_uploaded
           outgoingConnections:
             - output->"Write File" POJ-uDgG_mEYUdV73StPU/baseDirectory
-          visualData: 3584.0256593772806/-812.9133870322869/330/221//
+          visualData: 3528.971961404236/-819.2052322288293/330/239//
         '[K2n47VZxQGHQqeT-do2Y2]:context "Context"':
           data:
             dataType: string
@@ -1569,8 +1988,6 @@ data:
         '[PBq6RNzwN8e6mE57c3LUi]:text "PATH (Text)"':
           data:
             text: C:/Users/User/Desktop/uni/app/
-          outgoingConnections:
-            - output->"Text" 2KZ4zTRHi-rnwRkVk57XS/path
           visualData: -356.24368594300137/-576.8371582888747/330/144//
         '[POJ-uDgG_mEYUdV73StPU]:writeFile "Write File"':
           data:
@@ -1581,6 +1998,15 @@ data:
             useContentInput: true
             usePathInput: true
           visualData: 3983.2461675090826/-656.2460515442131/230/217//
+        '[Qs8EHQ45y_iSo7cJtZHUI]:graphInput "Name File PDF (Graph Input)"':
+          data:
+            dataType: string
+            id: name_pdf
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Extract Regex" k7oiAFUnnG3B9EcZBCn_Y/input
+            - data->"Text" 2KZ4zTRHi-rnwRkVk57XS/file
+          visualData: -747.9849841888698/-439.4140569956659/330/237//
         '[SY4GXhaiwoexZUbe1T7eh]:shellCommand "Shell Command"':
           data:
             command: ""
@@ -1588,6 +2014,8 @@ data:
             useCommandInput: true
             useWorkingDirectoryInput: false
             workingDirectory: C:\Users\User\Desktop\uni\app
+          outgoingConnections:
+            - stdout->"Graph Output" xVD3toU1cEEILP_8TUxm-/value
           visualData: 2738.4797665655183/-140.89189241554158/230/191//
         '[UXknleMs6UpZ1YiQZar3-]:extractJson "Result pdf parsed (Extract JSON)"':
           outgoingConnections:
@@ -1607,6 +2035,7 @@ data:
             usePathInput: false
             useRecursiveInput: false
             useRelativeInput: false
+          disabled: true
           visualData: -354.57890821258945/-281.59959663180325/230/153//
         '[ZTUxnqncIT96_rwp5L7qO]:image "Image"':
           data:
@@ -1691,6 +2120,11 @@ data:
           outgoingConnections:
             - result->"Extract JSON" 0b4gcKh_g7HfAhzxF5W_h/input
           visualData: 903.0319531521133/-608.0993468313295/180/150//
+        '[xVD3toU1cEEILP_8TUxm-]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: status
+          visualData: 3059.7892731780435/-120.02405450195636/330/238//
         '[y4C1_soL959LhMZev-W72]:compare "Compare"':
           data:
             comparisonFunction: ==
@@ -1703,33 +2137,6 @@ data:
           outgoingConnections:
             - output->"Write File" POJ-uDgG_mEYUdV73StPU/path
           visualData: 2934.3323301064456/-1158.0759751244295/330/null//
-    VglPVdxrnd7YCQ6SeFCB0:
-      metadata:
-        description: ""
-        id: VglPVdxrnd7YCQ6SeFCB0
-        name: Tests/models
-      nodes:
-        '[Eyj71w3PsTdwWMbTXSkYy]:code "Code"':
-          data:
-            code: >-
-              // This is a code node, you can write and JS in here and it will
-              be executed.
-
-              // Inputs are accessible via an object `inputs` and data is typed (i.e. inputs.foo.type, inputs.foo.value)
-
-              // Return an object with named outputs that match the output names specified in the node's config.
-
-              // Output values must by typed as well (e.g. { bar: { type: 'string', value: 'bar' } }
-
-              return {
-                output1: {
-                  type: inputs.input1.type,
-                  value: inputs.input1.value
-                }
-              };
-            inputNames: input1
-            outputNames: output1
-          visualData: 621.8273634591704/143.3129669197157/230/2//
     WYO2N7-3vz1TUBLOET4tJ:
       metadata:
         description: ""
@@ -1999,16 +2406,18 @@ data:
             color: rgba(255,255,255,1)
             height: 453.40452936862357
             text: "## **Output**"
-          visualData: -254.56308027825781/-164.93160765408015/470.4086794777768/283//
+          visualData: -254.56308027825781/-164.93160765408015/470.4086794777768/329//
         '[7kdRumF3MVy_yJw49EOOF]:chat "Chat"':
           data:
             additionalParameters: []
             cache: false
             enableFunctionUse: false
             endpoint: https://api.openai.com/v1/chat/completions
-            maxTokens: 1024
+            maxTokens: 2000
             model: gpt-4o-mini
             parallelFunctionCalling: true
+            regex: ""
+            responseFormat: text
             stop: ""
             temperature: 0.5
             top_p: 1
@@ -2018,6 +2427,9 @@ data:
             useMaxTokensInput: false
             useModelInput: false
             usePresencePenaltyInput: false
+            useResponseFormatInput: false
+            useResponseSchemaNameInput: false
+            useSeedInput: false
             useStop: false
             useStopInput: false
             useTemperatureInput: false
@@ -2026,28 +2438,28 @@ data:
             useUseTopPInput: false
             useUserInput: false
           outgoingConnections:
-            - response->"Extract Regex" IoZrtpwXLyaWPYm1lt_v8/input
-            - response->"Extract Regex" pNBX-NSlpCdWQQe2NIdK5/input
-          visualData: -737.3768492628809/-122.38886575840976/230/284//
+            - response->"Text" y2jl3ASWfdt378B-xqRM7/input
+          visualData: -1238.0213082049127/70.7884817817303/230/370//
         '[BQtxxgda2HpS0x0K9Q49t]:graphOutput "Graph Output"':
           data:
             dataType: string
             id: Answer
-          visualData: -173.46028179362526/70.91004627655047/330/283//
+          visualData: -198.63876839969328/159.2243874513266/330/361//
+        '[GaVwFKAnI09pwcDXlLz9U]:subGraph "Subgraph"':
+          data:
+            graphId: pXsEHdlb7ZVzLCMMLCJ4e
+            useAsGraphPartialOutput: false
+            useErrorOutput: false
+          disabled: true
+          outgoingConnections:
+            - info_structured->"Graph Output" ZCLJIrGkIDm5VXy9j5_uT/value
+          visualData: -982.3027133297609/-163.18345629979174/330/359//
         '[IoK_VNG14LFTpzOqvs1aB]:ifElse "If/Else (Template)"':
           data:
             unconnectedControlFlowExcluded: true
           outgoingConnections:
             - output->"Prompt System (Text)" YUBjAYXkACYog48MxS6ew/template
-          visualData: -1889.0109857511468/172.10950695330612/205/266//
-        '[IoZrtpwXLyaWPYm1lt_v8]:extractRegex "Extract Regex"':
-          data:
-            errorOnFailed: false
-            regex: "```([\\s\\S]+?)```"
-            useRegexInput: false
-          outgoingConnections:
-            - output1->"If/Else" bkNlsVPFiQfmQyFCK1QUL/false
-          visualData: -638.226719168003/490.8932821311905/280/297//
+          visualData: -1925.7757155994893/-102.75082927137433/205/367//
         '[QNMMePJ1P8IUKVd3wUPvf]:text "CV Template HTML (Text)"':
           data:
             text: "<div id=\"cv\">\r
@@ -2260,76 +2672,295 @@ data:
               </div>\r\n"
           outgoingConnections:
             - output->"If/Else (Template)" IoK_VNG14LFTpzOqvs1aB/true
-          visualData: -2144.4216747647865/-248.41161753772138/330/264//
+          visualData: -3023.274306653415/703.9705742236034/330/366//
         '[YUBjAYXkACYog48MxS6ew]:text "Prompt System (Text)"':
           data:
-            text: "Act as an HR expert tasked with writing a CV in LaTeX or HTML based on
-              the information provided in the message, a JOB OFFER and a
-              PERSONAL DESCRIPTION. The CV must be structured to fit the job
-              offer starting from the personal description, into the following
-              sections:\r
+            text: "<instructions>\r
+
+              \    <role>Act as an HR expert tasked with writing a
+              CV in LaTeX or HTML based on the information provided in the
+              message, a JOB OFFER, and a PERSONAL DESCRIPTION.</role>\r
 
               \r
 
-              Name and Surname\r
+              \    <structure>\r
 
-              Personal Information (e.g., address, phone, email,
-              LinkedIn, etc.)\r
+              \        <sections>\r
 
-              Profile (a concise professional summary)\r
+              \            <section>Name and Surname</section>\r
 
-              Education\r
+              \            <section>Personal
+              Information</section>\r
 
-              Work Experience\r
+              \            <section>Profile</section>\r
 
-              Skills\r
+              \            <section>Education</section>\r
 
-              Languages\r
+              \            <section>Work Experience</section>\r
 
-              Interests\r
+              \            <section>Skills</section>\r
+
+              \            <section>Languages</section>\r
+
+              \            <section>Interests</section>\r
+
+              \        </sections>\r
+
+              \    </structure>\r
 
               \r
 
+              \    <requirements>\r
+
+              \        <item>Fit the CV content to align with the
+              provided job offer and personal description.</item>\r
+
+              \        <item>Use the provided LaTeX or HTML
+              template structure for formatting.</item>\r
+
+              \        <item>Write only the LaTeX or HTML code
+              without additional comments or placeholders.</item>\r
+
+              \        <item>You must Start the document with
+              triple quotes `\"\"\"` and end it similarly.</item>\r
+
+              \        <item>If any section of information is
+              missing, omit the section without assuming or filling in
+              data.</item>\r
+
+              \        <item>Ensure the formatting is clean and
+              adheres to the given style.</item>\r
+
+              \    </requirements>\r
+
               \r
 
-              Instructions:\r
+              \    <template>\r
 
-              - Use the following LaTeX or HTML template style for
-              structure and formatting:\r
+              \        \"\"\"\r
+
+              \        {{template}}\r
+
+              \        \"\"\"\r
+
+              \    </template>\r
+
+              </instructions>\r
 
               \r
+
+              <example-output>\r
 
               \"\"\"\r
 
-              {{template}}\r
+              \\documentclass[a4paper]{article}\r
+
+              \\usepackage[margin=1in]{geometry} % Adjusts the
+              page margins\r
+
+              \\usepackage{fontawesome5} % For icons like phone,
+              email, LinkedIn\r
+
+              \\usepackage{titlesec} % For customizing section
+              titles\r
+
+              \\usepackage{array} % For formatting tables (Skills
+              and Languages sections)\r
+
+              \\usepackage{hyperref} % For clickable hyperlinks
+              (emails, LinkedIn, etc.)\r
+
+              \r
+
+              % Customizing section titles\r
+
+              \\titleformat{\\section}{\\large\\bfseries}{}{0em}{\
+              }[\\titlerule]\r
+
+              \r
+
+              \\begin{document}\r
+
+              \r
+
+              %==================== HEADER ====================\r
+
+              \\begin{center}\r
+
+              \    \\textbf{Giovanni Rossi} \\\\\r
+
+              \    Italy \\\\\r
+
+              \    \\vspace{0.5cm}\r
+
+              \    \\faPhone\\ +39 123 456 7890 \\quad % Replace
+              with your actual number\r
+
+              \    \\faEnvelope\\
+              \\href{mailto:giovanni.rossi@example.com}{giovanni.rossi@example.\
+              com} \\quad % Replace with your actual email\r
+
+              \    \\faLinkedin\\
+              \\href{https://www.linkedin.com/in/giovannirossi}{Giovanni Rossi}
+              % Replace with your LinkedIn URL and display name\r
+
+              \\end{center}\r
+
+              \r
+
+              %==================== PROFILE ====================\r
+
+              \\section*{Profile}\r
+
+              A third-year Digital Management student with a
+              strong foundation in data analysis and digital marketing. Proven
+              experience in developing data-driven strategies and insights for
+              improving business performance. Skilled in utilizing analytical
+              tools and presenting findings effectively. Passionate about
+              digital transformation and its impact on modern business
+              practices.\r
+
+              \r
+
+              %==================== EDUCATION
+              ====================\r
+
+              \\section*{Education}\r
+
+              \\makebox[\\textwidth]{\\textbf{H-Farm College}
+              \\hfill Expected Graduation: 2024} \\\\\r
+
+              \\textit{Bachelor's Degree in Digital Management}
+              \\\\\r
+
+              \r
+
+              \\makebox[\\textwidth]{\\textbf{Galileo Galilei High
+              School, Verona} \\hfill Graduated: 2021} \\\\\r
+
+              \\textit{Scientific High-School Diploma} \\\\\r
+
+              \r
+
+              %==================== WORK EXPERIENCE
+              ====================\r
+
+              \\section*{Work Experience}\r
+
+              \r
+
+              \\makebox[\\textwidth]{\\textbf{H-Farm College |
+              Innovation Lab} \\hfill Data Analysis Intern (Jan 2023 - Mar
+              2023)}\r
+
+              \\begin{itemize}\r
+
+              \    \\item Assisted in analyzing key performance
+              metrics for an educational platform.\r
+
+              \    \\item Automated data visualization dashboards
+              using Microsoft Excel and Tableau.\r
+
+              \    \\item Collaborated with peers to propose
+              strategies for improving platform engagement.\r
+
+              \\end{itemize}\r
+
+              \r
+
+              \\makebox[\\textwidth]{\\textbf{H-Farm College}
+              \\hfill Digital Marketing Project Lead (Sep 2022 - Dec 2022)}\r
+
+              \\begin{itemize}\r
+
+              \    \\item Developed a comprehensive digital
+              marketing strategy for a local startup.\r
+
+              \    \\item Conducted data analysis to identify
+              target audiences and optimize social media campaigns.\r
+
+              \    \\item Presented actionable insights and
+              reports to stakeholders using PowerPoint and Excel.\r
+
+              \\end{itemize}\r
+
+              \r
+
+              %==================== SKILLS ====================\r
+
+              \\section*{Skills}\r
+
+              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
+              th}@{}}\r
+
+              \    \\textbf{Technical Skills} & Excel, Tableau,
+              basic Python, project management tools (Asana, Trello). \\\\ \r
+
+              \    \\textbf{Other Skills} & Team collaboration,
+              effective communication, critical thinking, adaptability. \\\\\r
+
+              \\end{tabular}\r
+
+              \r
+
+              %==================== LANGUAGES
+              ====================\r
+
+              \\section*{Languages}\r
+
+              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
+              th}@{}}\r
+
+              \    \\textbf{Native} & Italian \\\\ \r
+
+              \    \\textbf{Fluent} & English \\\\ \r
+
+              \    \\textbf{Basic} & Spanish \\\\ \r
+
+              \\end{tabular}\r
+
+              \r
+
+              %==================== INTERESTS
+              ====================\r
+
+              \\section*{Interests}\r
+
+              \\begin{itemize}\r
+
+              \    \\item Tennis: Passionate about playing and
+              following professional tournaments.\r
+
+              \    \\item Technology: Enthusiastic about emerging
+              trends like AI and blockchain.\r
+
+              \    \\item Travel: Loves exploring different
+              cultures and cuisines.\r
+
+              \    \\item Gaming: Enjoys strategy and simulation
+              games.\r
+
+              \\end{itemize}\r
+
+              \r
+
+              %==================== END OF DOCUMENT
+              ====================\r
+
+              \\end{document}\r
 
               \"\"\"\r
 
-              \r
-
-              Remember:\r
-
-              \r
-
-              - Use only the provided LaTeX structure and adjust
-              the content to reflect the provided information accurately.\r
-
-              - Write only the LaTeX code and content without any
-              additional comments, explanations, or placeholders. Start the code
-              with \"\"\" and finish with \"\"\"\r
-
-              - If any section of information is missing, omit it
-              without assuming or filling in any data.\r
-
-              - Ensure the resulting document is formatted cleanly
-              and adheres to the provided structure and style.\r
-
-              \r
-
-              \r\n"
+              </example-output>"
           outgoingConnections:
             - output->"Chat" 7kdRumF3MVy_yJw49EOOF/systemPrompt
-          visualData: -1368.5450911111193/-99.88919963006879/330/267//
+          visualData: -1673.1673864808429/-189.17504367319455/330/369//
+        '[ZCLJIrGkIDm5VXy9j5_uT]:graphOutput "Graph Output"':
+          data:
+            dataType: object
+            id: json
+          disabled: true
+          visualData: -202.8066004745043/-34.596240906551444/330/357//
         '[aATYTwFRsNVYPXLe4mt_T]:assembleMessage "Assemble Message"':
           data:
             toolCallId: ""
@@ -2338,7 +2969,15 @@ data:
             useTypeInput: false
           outgoingConnections:
             - message->"Chat" 7kdRumF3MVy_yJw49EOOF/prompt
-          visualData: -1550.9052288394641/512.4934047026213/280/270//
+          visualData: -1689.2107683337197/503.7398912354914/280/368//
+        '[ac6NpQjFZ_EqeqplEHkzf]:extractRegex "Extract Regex"':
+          data:
+            errorOnFailed: false
+            regex: '"""([\s\S]+?)"""'
+            useRegexInput: false
+          outgoingConnections:
+            - output1->"Graph Output" BQtxxgda2HpS0x0K9Q49t/value
+          visualData: -618.4846213440089/366.6833558495255/280/null//
         '[adQYBlg54zmZeoOowCkpO]:comment "Comment"':
           data:
             backgroundColor: rgba(0,0,0,0.05)
@@ -2352,12 +2991,6 @@ data:
 
               - message -> message from the user\r\n"
           visualData: -2941.656329911893/-336.95954350788236/663.1567922408503/275//
-        '[bkNlsVPFiQfmQyFCK1QUL]:ifElse "If/Else"':
-          data:
-            unconnectedControlFlowExcluded: true
-          outgoingConnections:
-            - output->"Graph Output" BQtxxgda2HpS0x0K9Q49t/value
-          visualData: -336.5420248630171/483.91417379903874/205/295//
         '[eSQ1UDGFBnXOpoAYjljX3]:text "CV Template Latex (Text)"':
           data:
             text: "\\documentclass[a4paper]{article}\r
@@ -2581,7 +3214,7 @@ data:
               \\end{document}\r\n"
           outgoingConnections:
             - output->"If/Else (Template)" IoK_VNG14LFTpzOqvs1aB/false
-          visualData: -1778.479276854653/-251.3726817292774/330/265//
+          visualData: -2657.331908743281/701.0095100320474/330/366//
         '[igfhaQ9wEsxuNKDhxI0o4]:text "Message P. Info (Text)"':
           data:
             text: "PERSONAL DESCRIPTION:\"\"\"\r
@@ -2591,14 +3224,15 @@ data:
               \"\"\""
           outgoingConnections:
             - output->"Assemble Message" aATYTwFRsNVYPXLe4mt_T/part2
-          visualData: -1966.7802496848035/610.2547951928444/330/269//
+            - output->"Subgraph" GaVwFKAnI09pwcDXlLz9U/input
+          visualData: -2105.0857891790592/601.5012817257145/330/368//
         '[kNxmPRMeeennfvcw4GvGp]:comment "Comment"':
           data:
             backgroundColor: rgba(0,0,0,0.05)
             color: rgba(255,255,255,1)
             height: 1182.8631840598805
             text: ""
-          visualData: -2215.7756644087876/-355.2149350943086/1849.656769491849/280//
+          visualData: -2211.2016463606883/-259.51987953706777/1849.656769491849/319//
         '[kucuOK2c2SQSkezsaOJMs]:text "Message Job Offer (Text)"':
           data:
             text: "JOB OFFER:\"\"\"\r
@@ -2608,7 +3242,7 @@ data:
               \"\"\"\r\n"
           outgoingConnections:
             - output->"Assemble Message" aATYTwFRsNVYPXLe4mt_T/part1
-          visualData: -1972.0815221974813/401.7472605814916/330/268//
+          visualData: -2110.387061691737/392.9937471143617/330/368//
         '[mRMnVc4q7P4j-XaIbf-y_]:graphInput "Graph Input"':
           data:
             dataType: string
@@ -2617,15 +3251,6 @@ data:
           outgoingConnections:
             - data->"Message Job Offer (Text)" kucuOK2c2SQSkezsaOJMs/role
           visualData: -2828.76632500986/241.00942597150464/330/260//
-        '[pNBX-NSlpCdWQQe2NIdK5]:extractRegex "Extract Regex"':
-          data:
-            errorOnFailed: false
-            regex: '"""([\s\S]+?)"""'
-            useRegexInput: false
-          outgoingConnections:
-            - output1->"If/Else" bkNlsVPFiQfmQyFCK1QUL/true
-            - succeeded->"If/Else" bkNlsVPFiQfmQyFCK1QUL/if
-          visualData: -638.226626087561/238.4322608346002/280/294//
         '[waqMhaULNtnM4Lo2WHUcj]:graphInput "Graph Input"':
           data:
             dataType: boolean
@@ -2636,6 +3261,12 @@ data:
           outgoingConnections:
             - data->"If/Else (Template)" IoK_VNG14LFTpzOqvs1aB/if
           visualData: -2832.079467231554/20.85695949650858/330/250//
+        '[y2jl3ASWfdt378B-xqRM7]:text "Text"':
+          data:
+            text: "{{input}}"
+          outgoingConnections:
+            - output->"Extract Regex" ac6NpQjFZ_EqeqplEHkzf/input
+          visualData: -680.0126286555304/100.50038060966249/330/364//
         '[yWPQAtfjibytB75N4LxcS]:graphInput "Graph Input"':
           data:
             dataType: chat-message
@@ -2644,6 +3275,417 @@ data:
           outgoingConnections:
             - data->"Message P. Info (Text)" igfhaQ9wEsxuNKDhxI0o4/info
           visualData: -2828.3846418461635/486.16845299239736/330/259//
+    oENQDyef3PhAbiUoA1Hkq:
+      metadata:
+        description: ""
+        id: oENQDyef3PhAbiUoA1Hkq
+        name: Tests/LLamaIndex/provaPart2
+      nodes:
+        '[1PiStdgQSLtRkAnP2fOT6]:if "If"':
+          data:
+            unconnectedControlFlowExcluded: true
+          outgoingConnections:
+            - output->"Text" BM69r2shYezzZxXNpfih8/job id
+          visualData: 1435.1109764092794/579.7479989135882/155/241//
+        '[1tIbymDhDdY3XeZ4z4yzm]:delay "Delay"':
+          data:
+            delay: 5000
+          outgoingConnections:
+            - output1->"If" 1PiStdgQSLtRkAnP2fOT6/if
+            - output2->"If" 1PiStdgQSLtRkAnP2fOT6/value
+            - output3->"Text" BM69r2shYezzZxXNpfih8/key
+          visualData: 1131.2054742980586/531.7640023702751/205/241//
+        '[BM69r2shYezzZxXNpfih8]:text "Text"':
+          data:
+            text: 'curl -X GET "https://api.cloud.llamaindex.ai/api/parsing/job/{{job id}}"
+              -H "accept: application/json" -H "Authorization: Bearer {{key}}"'
+          outgoingConnections:
+            - output->"Shell Command" BhJ-aUxzsvNJZcPwOjl9X/command
+          visualData: 1299.6569607270176/845.081390463216/330/241//
+        '[BhJ-aUxzsvNJZcPwOjl9X]:shellCommand "Shell Command"':
+          data:
+            command: ""
+            errorOnNonZeroExitCode: false
+            useCommandInput: true
+            useWorkingDirectoryInput: false
+            workingDirectory: C:\Users\User\Desktop\uni\app
+          outgoingConnections:
+            - stdout->"Graph Output" JlpxL2cQjc8jwySQeixkW/value
+          visualData: 1741.5519128693613/839.6077304302839/230/241//
+        '[FGsHxxyDExI6tQ-mtO1X5]:extractObjectPath "JOB ID (Extract Object Path)"':
+          data:
+            path: $.id
+            usePathInput: false
+          outgoingConnections:
+            - match->"Delay" 1tIbymDhDdY3XeZ4z4yzm/input2
+          visualData: 566/393/280/243//
+        '[JlpxL2cQjc8jwySQeixkW]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: status
+          visualData: 2062.8614194818865/860.4755683438691/330/241//
+        '[dRsc_iiQ_3ykp4iWabsOH]:text "Text"':
+          data:
+            text: PENDING
+          outgoingConnections:
+            - output->"Compare" lda-WbT4nSIhhYaaEXDQU/a
+          visualData: 521/871/330/244//
+        '[iqHDbRrzNWtpC0djV7b-k]:extractObjectPath "STATUS (Extract Object Path)"':
+          data:
+            path: $.status
+            usePathInput: false
+          outgoingConnections:
+            - match->"Compare" lda-WbT4nSIhhYaaEXDQU/b
+          visualData: 556.0000744877505/624.1363297315813/280/241//
+        '[kk8OOD2RLEXhcVDz06LnI]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: key
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Delay" 1tIbymDhDdY3XeZ4z4yzm/input3
+          visualData: -203.9922193015488/728.4159540040908/330/262//
+        '[lda-WbT4nSIhhYaaEXDQU]:compare "Compare"':
+          data:
+            comparisonFunction: ==
+          outgoingConnections:
+            - output->"Delay" 1tIbymDhDdY3XeZ4z4yzm/input1
+          visualData: 919.6813765898153/733.8757630751211/190/241//
+        '[tpGHYizDYGUMe8imv5RYd]:graphInput "Graph Input"':
+          data:
+            dataType: object
+            id: json
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"JOB ID (Extract Object Path)" FGsHxxyDExI6tQ-mtO1X5/object
+            - data->"STATUS (Extract Object Path)" iqHDbRrzNWtpC0djV7b-k/object
+          visualData: -214.5367507280088/521.1401515208114/330/263//
+    pXsEHdlb7ZVzLCMMLCJ4e:
+      metadata:
+        description: ""
+        id: pXsEHdlb7ZVzLCMMLCJ4e
+        name: App/json
+      nodes:
+        '[-CfrqHerzS-8BZFWUJqdx]:object "Json Schema (Object)"':
+          data:
+            jsonTemplate: >-
+              {
+                "name": "resume_schema",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "header": {
+                      "type": "object",
+                      "properties": {
+                        "fullName": {
+                          "type": "string"
+                        },
+                        "address": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "linkedin": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "fullName",
+                        "address",
+                        "phone",
+                        "email",
+                        "linkedin"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "profile": {
+                      "type": "string",
+                      "description": "A brief description highlighting skills, interests, and career goals."
+                    },
+                    "workExperience": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "companyName": {
+                            "type": "string"
+                          },
+                          "jobTitle": {
+                            "type": "string"
+                          },
+                          "startDate": {
+                            "type": "string"
+                          },
+                          "endDate": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "responsibilities": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "companyName",
+                          "jobTitle",
+                          "startDate",
+                          "endDate",
+                          "responsibilities"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "education": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "institutionName": {
+                            "type": "string"
+                          },
+                          "graduationDate": {
+                            "type": "string"
+                          },
+                          "degree": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "institutionName",
+                          "graduationDate",
+                          "degree"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "skills": {
+                      "type": "object",
+                      "properties": {
+                        "technicalSkills": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "otherSkills": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "technicalSkills",
+                        "otherSkills"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "languages": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "proficiency": {
+                            "type": "string",
+                            "enum": [
+                              "Native",
+                              "Fluent",
+                              "Basic"
+                            ]
+                          },
+                          "language": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "proficiency",
+                          "language"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "interests": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "html_cv": {
+                      "type": "string",
+                      "description": "The CV in HTML format, following the template"
+                    },
+                    "latex_cv": {
+                      "type": "string",
+                      "description": "The CV in LaTeX format, following a template"
+                    }
+                  },
+                  "required": [
+                    "header",
+                    "profile",
+                    "workExperience",
+                    "education",
+                    "skills",
+                    "languages",
+                    "interests",
+                    "html_cv",
+                    "latex_cv"
+                  ],
+                  "additionalProperties": false
+                },
+                "strict": true
+              }
+          disabled: true
+          visualData: 304.96156882198943/480.8830036541194/241.69205890500962/347//
+        '[8yRzijouWhjQsyt9JXIkL]:text "Prompt (Text)"':
+          data:
+            text: "<instructions>\r
+
+              \    <role>Fill the provided JSON structure with
+              information collected, ensuring accuracy and adherence to the
+              structure.</role>\r
+
+              \r
+
+              \    <input>\r
+
+              \        <item>information_collected</item>\r
+
+              \        <item>json_structure: {{json}}</item>\r
+
+              \    </input>\r
+
+              \r
+
+              \    "
+          outgoingConnections:
+            - output->"Chat" Dn71Opo5kDda8wFCK-c8z/systemPrompt
+          visualData: 946.2674480874199/625.3422869964236/330/349//
+        '[Dn71Opo5kDda8wFCK-c8z]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            endpoint: https://api.openai.com/v1/chat/completions
+            maxTokens: 1024
+            model: gpt-4o-mini-2024-07-18
+            parallelFunctionCalling: true
+            responseFormat: json
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Extract JSON" gvZSTJRWe3uwMw4RWiEgJ/input
+          visualData: 1403.5459654810015/835.8073286092274/230/348//
+        '[LEdAv0k5-4tQJrmTj9ggw]:text "Text"':
+          data:
+            text: "<input>\r
+
+              \        <item>information_collected:
+              {{info}}</item>\r
+
+              </input>"
+          outgoingConnections:
+            - output->"Chat" Dn71Opo5kDda8wFCK-c8z/prompt
+          visualData: 954.6556706036001/1018.3119840353859/330/354//
+        '[ZGrDWWSKhW2VB0NCq5gc9]:graphOutput "Graph Output"':
+          data:
+            dataType: object
+            id: info_structured
+          visualData: 2122.050614382891/860.0563238893501/330/358//
+        '[gvZSTJRWe3uwMw4RWiEgJ]:extractJson "Extract JSON"':
+          outgoingConnections:
+            - output->"Graph Output" ZGrDWWSKhW2VB0NCq5gc9/value
+          visualData: 1746.9604710776182/871.2848129250324/280/359//
+        '[mrSAXVFRdx27vkBkvpqJ2]:object "Json Schema (Object)"':
+          data:
+            jsonTemplate: >
+              {
+                "header": {
+                  "description": "This section contains general personal information such as full name, address, phone number, email, and LinkedIn profile.",
+                  "fullName": "John Doe",
+                  "address": "123 Main St, Springfield",
+                  "phone": "+1234567890",
+                  "email": "john.doe@example.com",
+                  "linkedin": "https://linkedin.com/in/johndoe"
+                },
+                "profile": "A brief description highlighting your skills, career goals, and key attributes.",
+                "workExperience": {
+                  "description": "An array of objects representing your professional experience, with details like company name, job title, dates, and responsibilities.",
+                  "entries": [
+                    {
+                      "companyName": "Tech Corp",
+                      "jobTitle": "Software Engineer",
+                      "startDate": "2020-01-01",
+                      "endDate": "2022-12-31",
+                      "responsibilities": [
+                        "Developed and maintained web applications.",
+                        "Collaborated with cross-functional teams."
+                      ]
+                    }
+                  ]
+                },
+                "education": {
+                  "description": "An array of objects representing your academic background, including institution name, graduation date, and degree earned.",
+                  "entries": [
+                    {
+                      "institutionName": "University of Technology",
+                      "graduationDate": "2019-05-01",
+                      "degree": "Bachelor of Science in Computer Science"
+                    }
+                  ]
+                },
+                "skills": {
+                  "description": "A set of technical and other skills categorized as arrays, providing an overview of your competencies.",
+                  "technicalSkills": ["JavaScript", "Python", "React"],
+                  "otherSkills": ["Leadership", "Project Management"]
+                },
+                "languages": {
+                  "description": "An array of objects listing the languages you speak along with their proficiency levels (e.g., Native, Fluent, Basic).",
+                  "entries": [
+                    { "proficiency": "Native", "language": "English" },
+                    { "proficiency": "Fluent", "language": "Spanish" }
+                  ]
+                },
+                "interests": {
+                  "description": "An array of strings describing your hobbies or personal interests.",
+                  "entries": ["Photography", "Traveling", "AI"]
+                }
+              }
+            text: ""
+          visualData: 607.8396450970707/636.1487802223363/241.69205890500962/346//
+        '[yFq8uzoKW5uJ5YBlmw4e8]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: input
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Text" LEdAv0k5-4tQJrmTj9ggw/info
+          visualData: 540.0802073798928/1093.0423773145696/330/353//
   metadata:
     description: An agent who is able to support you in order to create a CV and to
       prepare yourself for being ready for a interview
