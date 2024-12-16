@@ -5,3 +5,4 @@ llamaparse.png
 latex_errors.log
 *.rivet-data
 .env
+LettaAgent/venv
