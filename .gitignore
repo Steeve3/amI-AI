@@ -1,4 +1,8 @@
 /.vscode/launch.json
 /node_modules/
+llamaparse.png
+/files_uploaded
+latex_errors.log
 *.rivet-data
 .env
+LettaAgent/venv

@@ -383,6 +383,28 @@ body.light-theme .back-button:hover {
 }
 
 /* Loading Animation Styles */
+/* Loading animation for the CV container */
+#cv.loading {
+    position: relative;
+    opacity: 0.6;
+    pointer-events: none; /* Prevent interaction during loading */
+}
+
+#cv.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 43, 98, 0.2);
+    border-top-color: #002B62;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    transform: translate(-50%, -50%);
+}
+
+/* Spinner animation for the send button */
 .loading-overlay {
     position: fixed;
     top: 0;
@@ -394,15 +416,36 @@ body.light-theme .back-button:hover {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
+    visibility: hidden; /* Hidden by default */
+    opacity: 0; /* No opacity by default */
+    transition: visibility 0.3s, opacity 0.3s;
 }
 
 .loading-overlay.active {
+    visibility: visible; /* Make it visible */
     opacity: 1;
-    visibility: visible;
 }
+
+button.loading {
+    position: relative;
+    pointer-events: none; /* Prevent clicking */
+    opacity: 0.7;
+}
+
+button.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    transform: translate(-50%, -50%);
+}
+
 
 .loading-spinner {
     width: 100px;
