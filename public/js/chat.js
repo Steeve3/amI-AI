@@ -47,6 +47,9 @@ async function handleChatMessage(message) {
     const currentCV = cvContainer ? cvContainer.innerHTML : '';
 
     try {
+        // Retrieve job description from sessionStorage
+        const jobDescription = sessionStorage.getItem('jobDescription') || '';
+
         // Show loading spinner on send button
         sendBtn.classList.add('loading');
         sendBtn.disabled = true;
@@ -59,7 +62,7 @@ async function handleChatMessage(message) {
         const response = await fetch('/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message, cvContent: currentCV }),
+            body: JSON.stringify({ message, cvContent: currentCV, jobOff: jobDescription  }),
         });
 
         if (!response.ok) {

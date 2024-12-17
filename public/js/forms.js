@@ -63,7 +63,9 @@ function initCvForm() {
                 skills: document.getElementById('skills')?.value,
                 jobDescription: document.getElementById('job-description')?.value
             };
-
+            // Save job description to sessionStorage
+            sessionStorage.setItem('jobDescription', formData.jobDescription);
+            
             const prompt = `
                 About: ${formData.selfDescription}
                 Name: ${formData.fullName}

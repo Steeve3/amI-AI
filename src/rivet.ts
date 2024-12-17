@@ -41,6 +41,7 @@ interface HtmlRequestBody {
 interface ChatRequestBody {
     message: string;
     cvContent: string;
+    jobOff: string;
 }
 
 interface PdfRequestBody {
@@ -75,7 +76,7 @@ async function runRivetGraph(prompt: string, JobOffer: string, html_l: boolean):
     };
 }
 
-async function runChatGraph(message: string, cvContent: string) {
+async function runChatGraph(message: string, cvContent: string, jobOff: string) {
     const project = path.join(__dirname, '../am-Ia.rivet-project');
     
     const result = await runGraphInFile(project, {
@@ -84,6 +85,7 @@ async function runChatGraph(message: string, cvContent: string) {
         inputs: { 
             userMessage: message,
             userCVData: cvContent,
+            jobOffer: jobOff,
             conversationHistory: JSON.stringify(conversationHistory) // server save chat hystory
         },
         settings: {openAiEndpoint: 'https://api.openai.com/v1/chat/completions'},
@@ -122,20 +124,22 @@ async function runToolGraph(adjst: string, cvContent: string){ // html content +
 }
 
 app.post('/api/chat', async (req: Request<{}, {}, ChatRequestBody>, res: Response) => {
-    const { message, cvContent } = req.body;
+    const { message, cvContent, jobOff  } = req.body;
 
     // check cvContent
     console.log(cvContent)
+    console.log({ message, cvContent, jobOff  })
 
-    if (!message || !cvContent) {
-        res.status(400).json({ error: "Message and CV content are required" });
+    if (!message || !cvContent || !jobOff) {
+        res.status(400).json({ error: "Message, CV content, and job offer are required" });
         return;
     }
+    
 
     try { 
 
         // Step 1: Run runChatGraph
-        const chatResponse = await runChatGraph(message, cvContent);
+        const chatResponse = await runChatGraph(message, cvContent, jobOff);
 
         // Update conversation history
         conversationHistory.push({ role: 'user', content: message });
