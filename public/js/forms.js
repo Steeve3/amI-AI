@@ -11,8 +11,9 @@ function initUpdateCvForm() {
         updateCvForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const jobDescription = document.getElementById('job-description').value;
-            const file = document.getElementById('cv-upload').files[0];
+            const jobDescription = document.getElementById('job-description')?.value;
+            const fileInput = document.getElementById('cv-upload');
+            const file = fileInput?.files[0];
             
             if (!file) {
                 alert('Please upload a CV file');
@@ -26,18 +27,18 @@ function initUpdateCvForm() {
                 
                 const response = await sendToBackend(prompt, jobDescription);
                 
-                // Store CV data in sessionStorage
-                sessionStorage.setItem('cvContent', response.message);
-                
-                // Add a delay for the loading animation
-                await new Promise(resolve => setTimeout(resolve, 8000));
-                
-                // Redirect to chat page
+                if (response?.message) {
+                    sessionStorage.setItem('cvContent', response.message);
+                } else {
+                    throw new Error('No CV content returned from the server.');
+                }
+
                 window.location.href = 'chat.html';
             } catch (error) {
-                hideLoadingOverlay();
                 console.error('Error:', error);
                 alert('An error occurred while processing your CV');
+            } finally {
+                hideLoadingOverlay();
             }
         });
     }
@@ -45,19 +46,22 @@ function initUpdateCvForm() {
 
 function initCvForm() {
     const cvForm = document.getElementById('cv-form');
+    const submitButton = document.querySelector('.submit-button');
+    const loadingOverlay = document.querySelector('.loading-overlay');
+
     if (cvForm) {
         cvForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const formData = {
-                selfDescription: document.getElementById('self-description').value,
-                fullName: document.getElementById('full-name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                education: document.getElementById('education').value,
-                workExperience: document.getElementById('work-experience').value,
-                skills: document.getElementById('skills').value,
-                jobDescription: document.getElementById('job-description').value
+                selfDescription: document.getElementById('self-description')?.value,
+                fullName: document.getElementById('full-name')?.value,
+                email: document.getElementById('email')?.value,
+                phone: document.getElementById('phone')?.value,
+                education: document.getElementById('education')?.value,
+                workExperience: document.getElementById('work-experience')?.value,
+                skills: document.getElementById('skills')?.value,
+                jobDescription: document.getElementById('job-description')?.value
             };
 
             const prompt = `
@@ -71,27 +75,28 @@ function initCvForm() {
             `;
 
             try {
-                showLoadingOverlay();
+                loadingOverlay.classList.add('active');
+                submitButton.disabled = true;
+                
                 const response = await sendToBackend(prompt, formData.jobDescription);
                 
-                // Store CV data in sessionStorage
-                sessionStorage.setItem('cvContent', response.message);
-                
-                // Add a delay for the loading animation
-                await new Promise(resolve => setTimeout(resolve, 8000));
-                
-                // Redirect to chat page
-                window.location.href = 'chat.html';
+                if (response?.message) {
+                    sessionStorage.setItem('cvContent', response.message);
+                    window.location.href = 'chat.html';
+                } else {
+                    throw new Error('No CV content returned from the server.');
+                }
             } catch (error) {
-                hideLoadingOverlay();
                 console.error('Error:', error);
-                alert('An error occurred while generating your CV');
+                alert('An error occurred while generating your CV. Please try again.');
+            } finally {
+                loadingOverlay.classList.remove('active');
+                submitButton.disabled = false;
             }
         });
     }
 }
 
-// Helper function to read file content
 function readFileAsText(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -101,7 +106,6 @@ function readFileAsText(file) {
     });
 }
 
-// Helper function to send data to backend
 async function sendToBackend(prompt, JobOffers) {
     const response = await fetch('/api/html', {
         method: 'POST',
@@ -111,7 +115,7 @@ async function sendToBackend(prompt, JobOffers) {
         body: JSON.stringify({
             prompt,
             JobOffers,
-            layout: true // Always true for CV generation
+            layout: true
         })
     });
 
