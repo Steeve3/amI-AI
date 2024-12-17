@@ -42,52 +42,108 @@ function setupChatHandlers() {
 }
 
 async function handleChatMessage(message) {
+    const cvContainer = document.getElementById('cv');
+    const sendBtn = document.getElementById('send-btn');
+    const currentCV = cvContainer ? cvContainer.innerHTML : '';
+
     try {
-        showLoadingOverlay('Processing your request...');
-        
-        // Get CV content directly from the CV container
-        const cvContainer = document.getElementById('cv');
-        const cvContent = cvContainer ? cvContainer.innerHTML : '';
-        
-        // Validate both message and CV content
-        if (!message || !cvContent) {
-            throw new Error('Message and CV content are required');
-        }
+        // Show loading spinner on send button
+        sendBtn.classList.add('loading');
+        sendBtn.disabled = true;
+
+        if (!cvContainer) {
+            showNotification('CV container not found on the page!', 'error');
+            return;
+        }        
 
         const response = await fetch('/api/chat', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                message,
-                cvContent 
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message, cvContent: currentCV }),
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+            throw new Error('Error processing your request.');
         }
 
         const data = await response.json();
+
         
         // Add the inner monologue to the chat
         if (data.monologue) {
             addMessage('system-monologue', data.monologue);
         }
-        
-        // Add the AI's response to the chat
+        // Add chatbot response to the chat
         if (data.response) {
             addMessage('system', data.response);
         }
 
-        hideLoadingOverlay();
+        // If tool_update is true, call the second endpoint to update the CV
+        if (data.tool_update) {
+            console.log("Requesting CV update...");
+            cvContainer.classList.add('loading'); // Add CV loading spinner
+            await fetchUpdatedCV(data.adjstmnt, currentCV);
+            cvContainer.classList.remove('loading'); // Remove CV spinner
+
+        }
+
     } catch (error) {
         console.error('Error:', error);
-        hideLoadingOverlay();
         addMessage('system', error.message);
         showNotification(error.message, 'error');
+
+    } finally {
+        // Remove send button spinner and re-enable the button
+        sendBtn.classList.remove('loading');
+        sendBtn.disabled = false;
+    }
+}
+
+async function fetchUpdatedCV(adjstmnt, cvContent) {
+    const cvContainer = document.getElementById('cv');
+    try {
+        // Add 'loading' class to show spinner inside the CV container
+        if (cvContainer) {
+            cvContainer.classList.add('loading');
+        }
+
+        const response = await fetch('/api/updateCV', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ adjstmnt, cvContent })
+        });
+
+        if (!response.ok) {
+            throw new Error('Error updating CV.');
+        }
+
+        const data = await response.json();
+
+        // Update the CV container with the updated content
+        if (data.updatedCV) {
+            console.log("Updating CV container with:", data.updatedCV);
+            updateCVContent(data.updatedCV);
+            sessionStorage.setItem('cvContent', data.updatedCV); // Save to storage
+        } else {
+            console.warn("No updated CV returned.");
+            addMessage('system', 'No updates were made to your CV.');
+        }
+    } catch (error) {
+        console.error('Error updating CV:', error);
+
+        addMessage('system', 'Failed to update CV.');
+    } finally {
+        // Remove 'loading' class from CV container
+        if (cvContainer) {
+            cvContainer.classList.remove('loading');
+        }
+    }
+}
+
+function updateCVContent(newCV) {
+    const cvContainer = document.getElementById('cv'); // Target the CV container
+    if (cvContainer) {
+        cvContainer.innerHTML = newCV; // Replace the content dynamically
     }
 }
 
@@ -114,3 +170,4 @@ style.textContent = `
 }
 `;
 document.head.appendChild(style);
+

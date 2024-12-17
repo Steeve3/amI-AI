@@ -346,15 +346,22 @@ data:
                 },
                 "required": ["name", "arguments"]
               }
+          disabled: true
           outgoingConnections:
             - function->"Array" vo2UxlJIClbUtFLt1wbGO/input1
           visualData: -1096.8134885079407/1040.7028447219527/280/229//
+        '[4D2IDFRWYvqas-vd8GzXh]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: adjustment
+          visualData: 3343.1111733527187/180.32067704042075/330/250//
         '[6WgVswdNimTZyJSHQJOIg]:destructure "Destructure"':
           data:
             paths:
               - $.name
               - $.id
           outgoingConnections:
+            - match_0->"Compare" JHg1ylak7D_857h0sO3mz/b
             - match_0->"Match" hO-3ujDGrsGYLDyK5Bzdm/input
           visualData: 766.89810319102/573.5798526281446/280/234//
         '[6iO8dHO0FzGuM2J_mB00Y]:extractObjectPath "Extract Object Path"':
@@ -583,7 +590,8 @@ data:
               \    </div>\r
 
               </div>"
-          visualData: -1121.3510568351662/436.3407724093317/330/224//
+          disabled: true
+          visualData: -1254.223321002644/317.39866637009527/330/258//
         '[Bl5fS5OvYu9AN9UItTbHY]:extractObjectPath "Extract Object Path"':
           data:
             path: $.chat.inner_monologue
@@ -591,6 +599,12 @@ data:
           outgoingConnections:
             - match->"Graph Output" f3mdw0NCiSyb9hjBOu8Ev/value
           visualData: 1944.2556863262478/-184.23589349434772/280/208//
+        '[HWQyjP7kgaYu1y_OS8na2]:text "Text"':
+          data:
+            text: updateCV
+          outgoingConnections:
+            - output->"Compare" JHg1ylak7D_857h0sO3mz/a
+          visualData: 2692.384897422428/-670.3455727733073/330/242//
         '[Idp21kHPj-oj3NkDZsbke]:comment "Comment"':
           data:
             backgroundColor: rgba(0,0,0,0.05)
@@ -598,6 +612,26 @@ data:
             height: 704.4759983974178
             text: "# UpdateCV"
           visualData: 1869.5552837208695/-390.00799068404524/1057.9312474959656/206//
+        '[JHg1ylak7D_857h0sO3mz]:compare "Compare"':
+          data:
+            comparisonFunction: ==
+          outgoingConnections:
+            - output->"Graph Output" YaMJ2EYG5InTGEXHgqP4Q/value
+          visualData: 2991.8275408076634/-474.46047987038025/190/241//
+        '[JftWhr_TGwK-xA5h6-uPA]:text "Text"':
+          data:
+            text: "The user message: {{message}}\r
+
+              \r
+
+              {{innerM}}:\r
+
+              \r
+
+              {{adj}}"
+          outgoingConnections:
+            - output->"Graph Output" 4D2IDFRWYvqas-vd8GzXh/value
+          visualData: 2944.8414081080546/141.21278286652853/330/253//
         '[KAY3cR8MTvbCMtJGpWlxX]:comment "Comment"':
           data:
             backgroundColor: rgba(0,0,0,0.05)
@@ -665,6 +699,19 @@ data:
             dataType: string
             id: aiResponse
           visualData: 2457.2944782204713/823.3810380350051/330/204//
+        '[XueSxZ5K5XZi2MuGNm4bE]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: userCVData
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Prompt (Text)" yy1Jvx19D0sZNmNoYoBuR/userCVData
+          visualData: -718.077808226069/504.7143722627653/330/257//
+        '[YaMJ2EYG5InTGEXHgqP4Q]:graphOutput "Graph Output"':
+          data:
+            dataType: boolean
+            id: toolUpdate
+          visualData: 3219.5263765900904/-373.6530278623294/330/246//
         '[ZXp8-b_w_21epgLIjkO4q]:gptFunction "GPT Function"':
           data:
             description: Provides feedback or suggestions for improving a CV based on the
@@ -719,9 +766,17 @@ data:
                 "strict": true
               }
             text: ""
+          disabled: true
           outgoingConnections:
             - function->"Array" vo2UxlJIClbUtFLt1wbGO/input2
           visualData: -1098.7349780411573/1183.9916386263578/280/231//
+        '[bEfvd8DsZzcSDATrlrOgk]:comment "Comment"':
+          data:
+            backgroundColor: rgba(0,0,0,0.05)
+            color: rgba(255,255,255,1)
+            height: 604.9575541029296
+            text: "## **ACTIVE TOOL**"
+          visualData: 2551.72756800554/-879.0246926427354/841.5223083916644/244//
         '[ez7NCbJrQwk9ZEupdOP7N]:extractJson "Extract JSON"':
           outgoingConnections:
             - output->"Destructure" 6WgVswdNimTZyJSHQJOIg/object
@@ -731,6 +786,8 @@ data:
           data:
             dataType: string
             id: innerMonologue
+          outgoingConnections:
+            - valueOutput->"Text" JftWhr_TGwK-xA5h6-uPA/innerM
           visualData: 2542.9403192390537/-208.82015230185218/330/199//
         '[h5jM2XnL9faPsnSwsweoP]:graphInput "User Message (Graph Input)"':
           data:
@@ -739,7 +796,8 @@ data:
             useDefaultValueInput: false
           outgoingConnections:
             - data->"Chat" OuZitNvARwccPbmHk8g9J/prompt
-          visualData: -724.3782958041846/338.9242359128642/330/215//
+            - data->"Text" JftWhr_TGwK-xA5h6-uPA/message
+          visualData: -717.7349791999333/284.91929995909095/330/256//
         '[hO-3ujDGrsGYLDyK5Bzdm]:match "Match"':
           data:
             cases:
@@ -749,6 +807,7 @@ data:
           outgoingConnections:
             - case1->"Extract Object Path" Bl5fS5OvYu9AN9UItTbHY/object
             - case1->"Extract Object Path" Kvq8joxoBnTG4KPj-VbRK/object
+            - case1->"Extract Object Path" mh1eYUg3-i8GWDBdRBi6o/object
             - case2->"Extract Object Path" 6iO8dHO0FzGuM2J_mB00Y/object
             - case2->"Extract Object Path" xW2H6FTcm1_FPRikymEx3/object
           visualData: 1260.015914348642/471.0216797578775/280/222//
@@ -757,14 +816,13 @@ data:
             dataType: string
             id: innerMonologue
           visualData: 2458.7002873517754/635.7567557461466/330/204//
-        '[rndcOhFFoSedpHvIZvSO_]:graphInput "User CV Data (Graph Input)"':
+        '[mh1eYUg3-i8GWDBdRBi6o]:extractObjectPath "Extract Object Path"':
           data:
-            dataType: string
-            id: userCVData
-            useDefaultValueInput: false
+            path: $.chat.content
+            usePathInput: false
           outgoingConnections:
-            - data->"Prompt (Text)" yy1Jvx19D0sZNmNoYoBuR/userCVData
-          visualData: -721.2945386666403/487.52815291346127/330/215//
+            - match->"Text" JftWhr_TGwK-xA5h6-uPA/adj
+          visualData: 1941.9685751105173/266.48244437189516/280/247//
         '[skK4UrMsHr5U7rx52hBur]:graphInput "Conversational Hystory (Graph Input)"':
           data:
             dataType: object
@@ -785,7 +843,9 @@ data:
           data:
             flatten: true
             flattenDeep: false
-          visualData: -163.70833819265948/671.4646475199023/230/232//
+            schema: ""
+          disabled: true
+          visualData: -718.5799338077859/1033.097416974265/230/259//
         '[xW2H6FTcm1_FPRikymEx3]:extractObjectPath "Extract Object Path"':
           data:
             path: $.chat.message
@@ -3380,6 +3440,449 @@ data:
           outgoingConnections:
             - data->"Message P. Info (Text)" igfhaQ9wEsxuNKDhxI0o4/info
           visualData: -2828.3846418461635/486.16845299239736/330/259//
+    fkljL6yqifIM1bQZBfbvb:
+      metadata:
+        description: ""
+        id: fkljL6yqifIM1bQZBfbvb
+        name: App/tools/updateTool
+      nodes:
+        '[7ak71BJw9EnF0N31Ahavy]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: htmlCV
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Prompt (Text)" ovIL1uPUAecUuDke3nB7w/htmlCV
+          visualData: -371.2625896062426/389.3054941188209/330/45//
+        '[O7g_H7FCDcV4dBwExpukg]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: adjustments
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Prompt (Text)" ovIL1uPUAecUuDke3nB7w/message
+          visualData: -371.0510698790759/603.0369851616788/330/44//
+        '[bZF-gmGT7kjzfddeEqBZE]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            endpoint: https://api.openai.com/v1/chat/completions
+            maxTokens: 2000
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            responseFormat: json
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Extract JSON" slUPkClDDGwpobHtYK1ZZ/input
+          visualData: 615.4000244140625/311.20001220703125/230/2//
+        '[dGwqdqoR7aMVcv4_hTRvF]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: updatedCV
+          visualData: 1527.4439052443427/354.50885658825297/330/30//
+        '[iQTeBwlQPvisPq91K8Uru]:extractObjectPath "Extract Object Path"':
+          data:
+            path: $.cvUpdated
+            usePathInput: false
+          outgoingConnections:
+            - match->"Graph Output" dGwqdqoR7aMVcv4_hTRvF/value
+          visualData: 1081.1846948980924/538.1899070099017/280/40//
+        '[ovIL1uPUAecUuDke3nB7w]:text "Prompt (Text)"':
+          data:
+            text: "Your role is to fill the requirements asked by the user in written in
+              ADJUSTMENTS on the CV\r
+
+              \r
+
+              ## Process to follow\r
+
+              \r
+
+              1. **Read the CV in HTML Format**: Parse the
+              provided HTML structure of the CV carefully. Extract and
+              understand all relevant sections, including personal information,
+              education, work experience, skills, and any other present
+              categories.\r
+
+              \r
+
+              2. **Understand the User's Adjustments**: Clearly
+              identify the specific changes or enhancements the user wants to
+              make. Examples may include:\r
+
+              \   - Updating or correcting personal details.\r
+
+              \   - Adding new work experience or education.\r
+
+              \   - Enhancing the content for clarity and
+              professionalism.\r
+
+              \   - Adapting the CV for a specific job description
+              or industry.\r
+
+              \r
+
+              3. **Rewrite the CV**: Apply the requested
+              adjustments to the HTML while preserving its structural and
+              semantic integrity. Ensure the formatting remains consistent with
+              the existing design.\r
+
+              \r
+
+              \r
+
+              ### Additional Notes:\r
+
+              - **Content Preservation**: Avoid unintentional loss
+              of existing data.\r
+
+              - **Style Integrity**: Maintain compatibility with
+              linked stylesheets or inline styles.\r
+
+              - **Accessibility**: Ensure the HTML remains
+              accessible and user-friendly.\r
+
+              - **Follow the TEMPLATE for layout and do not
+              change, even if it is requested by the user**\r
+
+              \r
+
+              If no specific adjustments are provided, recopy as
+              it is without change it.\r
+
+              \r
+
+              TEMPLATE: \"\"\"\r
+
+              {{template}}\r
+
+              \"\"\"\r
+
+              \r
+
+              ## input\r
+
+              Here there are:\r
+
+              \r
+
+              ADJUSTMENTS:\"\"\"\r
+
+              {{message}}\r
+
+              \"\"\"\r
+
+              CV:\"\"\"\r
+
+              {{htmlCV}}\r
+
+              \"\"\"\r
+
+              \r
+
+              ## output Example\r
+
+              \r
+
+              \"\"\"json\r
+
+              \r
+
+              {\r
+
+              \    \"cvUpdated\": \"<div id=\\\"cv\\\"> <div
+              class=\\\"header\\\"> <h1>John Doe</h1> <div class=\\\"info\\\">
+              New York, USA<br> <i class=\\\"fas fa-phone\\\"></i> +1
+              123-456-7890 &nbsp; <i class=\\\"fas fa-envelope\\\"></i> <a
+              href=\\\"mailto:john.doe@example.com\\\">john.doe@example.com</a>
+              &nbsp; <i class=\\\"fab fa-linkedin\\\"></i> <a
+              href=\\\"https://linkedin.com/in/johndoe\\\"
+              target=\\\"_blank\\\">LinkedIn Profile</a> </div> </div> <div
+              class=\\\"section\\\"> <h2
+              class=\\\"section-title\\\">Profile</h2> <p>A highly skilled and
+              motivated professional with expertise in software development,
+              passionate about creating impactful solutions and advancing
+              technology.</p> </div> <div class=\\\"section work-experience\\\">
+              <h2 class=\\\"section-title\\\">Work Experience</h2> <div
+              class=\\\"job\\\"> <div class=\\\"job-title\\\"> <span>Tech
+              Corp</span> <span>Senior Developer (Jan 2020 - Present)</span>
+              </div> <ul> <li>Developed scalable web applications using modern
+              frameworks.</li> <li>Led a team of developers to deliver
+              high-impact projects on time.</li> <li>Optimized database
+              performance, reducing query execution time by 30%.</li>
+              <li>Implemented automated testing, improving software
+              reliability.</li> </ul> </div> <div class=\\\"job\\\"> <div
+              class=\\\"job-title\\\"> <span>Code Factory</span> <span>Junior
+              Developer (Jun 2017 - Dec 2019)</span> </div> <ul> <li>Assisted in
+              developing features for a client management platform.</li>
+              <li>Conducted code reviews to ensure adherence to best
+              practices.</li> <li>Collaborated with designers to create
+              user-friendly interfaces.</li> </ul> </div> </div> <div
+              class=\\\"section education\\\"> <h2
+              class=\\\"section-title\\\">Education</h2> <div
+              class=\\\"education-title\\\"> <span>University of
+              Technology</span> <span>May 2017</span> </div> <p><em>Bachelor of
+              Science in Computer Science</em></p> <div
+              class=\\\"education-title\\\"> <span>Community College</span>
+              <span>May 2015</span> </div> <p><em>Associate Degree in
+              Information Technology</em></p> </div> <div class=\\\"section
+              skills\\\"> <h2 class=\\\"section-title\\\">Skills</h2> <table>
+              <tr> <td><strong>Technical Skills</strong></td> <td>JavaScript,
+              Python, SQL, React, Node.js, Docker</td> </tr> <tr>
+              <td><strong>Other Skills</strong></td> <td>Team Leadership, Agile
+              Methodologies, Technical Writing</td> </tr> </table> </div> <div
+              class=\\\"section languages\\\"> <h2
+              class=\\\"section-title\\\">Languages</h2> <table> <tr>
+              <td><strong>Native</strong></td> <td>English</td> </tr> <tr>
+              <td><strong>Fluent</strong></td> <td>Spanish</td> </tr> <tr>
+              <td><strong>Basic</strong></td> <td>French</td> </tr> </table>
+              </div> <div class=\\\"section interests\\\"> <h2
+              class=\\\"section-title\\\">Interests</h2> <p>Coding, Hiking,
+              Artificial Intelligence, Travel</p> </div> </div>\"\r
+
+              }\r
+
+              \r
+
+              \r
+
+              \"\"\""
+          outgoingConnections:
+            - output->"Chat" bZF-gmGT7kjzfddeEqBZE/systemPrompt
+          visualData: 146.59072977194828/181.33218721038568/330/22//
+        '[slUPkClDDGwpobHtYK1ZZ]:extractJson "Extract JSON"':
+          outgoingConnections:
+            - output->"Extract Object Path" iQTeBwlQPvisPq91K8Uru/object
+          visualData: 1082.5603875680838/324.8496985822646/280/35//
+        '[vV1HRpICz_KOhv4CdssAn]:text "cv example (Text)"':
+          data:
+            text: "<div id=\"cv\">\r
+
+              \    <div class=\"header\">\r
+
+              \        <h1>[Full Name]</h1>\r
+
+              \        <div class=\"info\">\r
+
+              \            [City, Country]<br>\r
+
+              \            <i class=\"fas fa-phone\"></i> [Phone
+              Number] &nbsp; \r
+
+              \            <i class=\"fas fa-envelope\"></i> <a
+              href=\"mailto:[Email Address]\">[Email Address]</a> &nbsp;\r
+
+              \            <i class=\"fab fa-linkedin\"></i> <a
+              href=\"[LinkedIn URL]\" target=\"_blank\">[LinkedIn Profile]</a>\r
+
+              \        </div>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section\">\r
+
+              \        <h2 class=\"section-title\">Profile</h2>\r
+
+              \        <p>[Brief description about yourself,
+              highlighting your main skills, interests, and career goals.]</p>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section work-experience\">\r
+
+              \        <h2 class=\"section-title\">Work
+              Experience</h2>\r
+
+              \        <div class=\"job\">\r
+
+              \            <div class=\"job-title\">\r
+
+              \                <span>[Company Name]</span>\r
+
+              \                <span>[Job Title] ([Start Date] -
+              [End Date])</span>\r
+
+              \            </div>\r
+
+              \            <ul>\r
+
+              \                <li>[Responsibility or achievement
+              #1]</li>\r
+
+              \                <li>[Responsibility or achievement
+              #2]</li>\r
+
+              \                <li>[Responsibility or achievement
+              #3]</li>\r
+
+              \                <li>[Responsibility or achievement
+              #4]</li>\r
+
+              \            </ul>\r
+
+              \        </div>\r
+
+              \        <div class=\"job\">\r
+
+              \            <div class=\"job-title\">\r
+
+              \                <span>[Company Name]</span>\r
+
+              \                <span>[Job Title] ([Start Date] -
+              [End Date])</span>\r
+
+              \            </div>\r
+
+              \            <ul>\r
+
+              \                <li>[Responsibility or achievement
+              #1]</li>\r
+
+              \                <li>[Responsibility or achievement
+              #2]</li>\r
+
+              \                <li>[Responsibility or achievement
+              #3]</li>\r
+
+              \            </ul>\r
+
+              \        </div>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section education\">\r
+
+              \        <h2
+              class=\"section-title\">Education</h2>\r
+
+              \        <div class=\"education-title\">\r
+
+              \            <span>[Institution Name]</span>\r
+
+              \            <span>[Graduation Date]</span>\r
+
+              \        </div>\r
+
+              \        <p><em>[Degree or Diploma]</em></p>\r
+
+              \        <div class=\"education-title\">\r
+
+              \            <span>[Institution Name]</span>\r
+
+              \            <span>[Graduation Date]</span>\r
+
+              \        </div>\r
+
+              \        <p><em>[Degree or Diploma]</em></p>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section skills\">\r
+
+              \        <h2 class=\"section-title\">Skills</h2>\r
+
+              \        <table>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Technical
+              Skills</strong></td>\r
+
+              \                <td>[List of technical
+              skills]</td>\r
+
+              \            </tr>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Other
+              Skills</strong></td>\r
+
+              \                <td>[List of other skills]</td>\r
+
+              \            </tr>\r
+
+              \        </table>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section languages\">\r
+
+              \        <h2
+              class=\"section-title\">Languages</h2>\r
+
+              \        <table>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Native</strong></td>\r
+
+              \                <td>[Native Language]</td>\r
+
+              \            </tr>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Fluent</strong></td>\r
+
+              \                <td>[Fluent Language]</td>\r
+
+              \            </tr>\r
+
+              \            <tr>\r
+
+              \                <td><strong>Basic</strong></td>\r
+
+              \                <td>[Basic Language]</td>\r
+
+              \            </tr>\r
+
+              \        </table>\r
+
+              \    </div>\r
+
+              \r
+
+              \    <div class=\"section interests\">\r
+
+              \        <h2
+              class=\"section-title\">Interests</h2>\r
+
+              \        <p>[List of interests, such as sports,
+              technology, travel, etc.]</p>\r
+
+              \    </div>\r
+
+              </div>\r\n"
+          outgoingConnections:
+            - output->"Prompt (Text)" ovIL1uPUAecUuDke3nB7w/template
+          visualData: -288.572646688721/-36.57247387783872/330/20//
     oENQDyef3PhAbiUoA1Hkq:
       metadata:
         description: ""

@@ -48,7 +48,7 @@ interface PdfRequestBody {
 }
 
 // Store conversation history
-let conversationHistory: { role: string; content: string }[] = [];
+let conversationHistory: { role: string; content: string }[] = []; 
 
 // Add explicit route for root path
 app.get('/', ((_req: Request, res: Response) => {
@@ -91,38 +91,102 @@ async function runChatGraph(message: string, cvContent: string) {
     } as RunGraphOptions);
 
     // Extract response type and data
-    const { output } = result;
     console.log(result)
     return {
         monologue: result?.innerMonologue?.value?.toString() ?? "No response", 
-        response: result?.aiResponse?.value?.toString() ?? "No response"
+        response: result?.aiResponse?.value?.toString() ?? "No response",
+        adjstmnt: result?.aiResponse?.value?.toString() ?? "No response",
+        tool_update: result?.toolUpdate?.value === true
     }
 }
 
-app.post('/api/chat', ((req: Request<{}, {}, ChatRequestBody>, res: Response) => {
+async function runToolGraph(adjst: string, cvContent: string){ // html content + adjustment + check if the output is true--> aim of this function is to make run the graph that can update so over write the html structured
+    const project = path.join(__dirname, '../am-Ia.rivet-project');
+
+    const result = await runGraphInFile(project, {
+        graph: "App/tools/updateTool",
+        remoteDebugger: debuggerServer, 
+        inputs: { 
+            adjustments: adjst,
+            htmlCV: cvContent, // Fixed: Now using the passed cvContent parameter
+        },
+        settings: {openAiEndpoint: 'https://api.openai.com/v1/chat/completions'},
+        openAiKey: process.env.OPENAI_API_KEY as string 
+    } as RunGraphOptions);
+
+    // Extract response type and data
+    console.log(result)
+    return {
+        UpdateContent: result?.updatedCV?.value?.toString() ?? "No response"
+    }
+}
+
+app.post('/api/chat', async (req: Request<{}, {}, ChatRequestBody>, res: Response) => {
     const { message, cvContent } = req.body;
-    
+
+    // check cvContent
+    console.log(cvContent)
+
     if (!message || !cvContent) {
         res.status(400).json({ error: "Message and CV content are required" });
         return;
     }
 
-    runChatGraph(message, cvContent)
-        .then(response => {
-            // Update conversation history
-            conversationHistory.push({ role: 'user', content: message });
-            conversationHistory.push({ role: 'assistant', content: response.response });
-            
-            res.json(response);
-        })
-        .catch(error => {
-            console.error("Error processing chat request:", error);
-            res.status(500).json({ 
-                error: "Failed to process chat request",
-                details: error instanceof Error ? error.message : 'Unknown error'
-            });
+    try { 
+
+        // Step 1: Run runChatGraph
+        const chatResponse = await runChatGraph(message, cvContent);
+
+        // Update conversation history
+        conversationHistory.push({ role: 'user', content: message });
+        conversationHistory.push({ role: 'assistant', content: chatResponse.response });
+
+        // Send immediate chat response
+        res.json({
+            monologue: chatResponse.monologue,
+            response: chatResponse.response,
+            adjstmnt: chatResponse.adjstmnt,
+            tool_update: chatResponse.tool_update // Notify client to trigger CV update
         });
-}) as RequestHandler);
+
+    } catch (error) {
+        console.error("Error processing chat request:", error);
+        res.status(500).json({
+            error: "Failed to process chat request",
+            details: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+});
+
+app.post('/api/updateCV', async (req: Request<{}, {}, { adjstmnt: string; cvContent: string }>, res: Response) => {
+    const { adjstmnt, cvContent } = req.body;
+
+    if (!adjstmnt || !cvContent) {
+        res.status(400).json({ error: "Adjustment and CV content are required" });
+        return;
+    }
+
+    try {
+        console.log("Running tool graph for CV update...");
+
+        // Run the tool graph to generate the updated CV
+        const toolResponse = await runToolGraph(adjstmnt, cvContent);
+
+        console.log("Updated CV content:", toolResponse.UpdateContent);
+
+        // Send updated CV content back to the client
+        res.json({
+            updatedCV: toolResponse.UpdateContent
+        });
+
+    } catch (error) {
+        console.error("Error updating CV:", error);
+        res.status(500).json({
+            error: "Failed to update CV",
+            details: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+});
 
 app.post('/api/html', ((req: Request<{}, {}, HtmlRequestBody>, res: Response) => {
     const { prompt, JobOffers, layout } = req.body;

@@ -53,34 +53,86 @@ async function runChatGraph(message, cvContent) {
         openAiKey: process.env.OPENAI_API_KEY
     });
     // Extract response type and data
-    const { output } = result;
     console.log(result);
     return {
         monologue: result?.innerMonologue?.value?.toString() ?? "No response",
-        response: result?.aiResponse?.value?.toString() ?? "No response"
+        response: result?.aiResponse?.value?.toString() ?? "No response",
+        adjstmnt: result?.aiResponse?.value?.toString() ?? "No response",
+        tool_update: result?.toolUpdate?.value === true
     };
 }
-app.post('/api/chat', ((req, res) => {
+async function runToolGraph(adjst, cvContent) {
+    const project = path.join(__dirname, '../am-Ia.rivet-project');
+    const result = await runGraphInFile(project, {
+        graph: "App/tools/updateTool",
+        remoteDebugger: debuggerServer,
+        inputs: {
+            adjustments: adjst,
+            htmlCV: cvContent, // Fixed: Now using the passed cvContent parameter
+        },
+        settings: { openAiEndpoint: 'https://api.openai.com/v1/chat/completions' },
+        openAiKey: process.env.OPENAI_API_KEY
+    });
+    // Extract response type and data
+    console.log(result);
+    return {
+        UpdateContent: result?.updatedCV?.value?.toString() ?? "No response"
+    };
+}
+app.post('/api/chat', async (req, res) => {
     const { message, cvContent } = req.body;
+    // check cvContent
+    console.log(cvContent);
     if (!message || !cvContent) {
         res.status(400).json({ error: "Message and CV content are required" });
         return;
     }
-    runChatGraph(message, cvContent)
-        .then(response => {
+    try {
+        // Step 1: Run runChatGraph
+        const chatResponse = await runChatGraph(message, cvContent);
         // Update conversation history
         conversationHistory.push({ role: 'user', content: message });
-        conversationHistory.push({ role: 'assistant', content: response.response });
-        res.json(response);
-    })
-        .catch(error => {
+        conversationHistory.push({ role: 'assistant', content: chatResponse.response });
+        // Send immediate chat response
+        res.json({
+            monologue: chatResponse.monologue,
+            response: chatResponse.response,
+            adjstmnt: chatResponse.adjstmnt,
+            tool_update: chatResponse.tool_update // Notify client to trigger CV update
+        });
+    }
+    catch (error) {
         console.error("Error processing chat request:", error);
         res.status(500).json({
             error: "Failed to process chat request",
             details: error instanceof Error ? error.message : 'Unknown error'
         });
-    });
-}));
+    }
+});
+app.post('/api/updateCV', async (req, res) => {
+    const { adjstmnt, cvContent } = req.body;
+    if (!adjstmnt || !cvContent) {
+        res.status(400).json({ error: "Adjustment and CV content are required" });
+        return;
+    }
+    try {
+        console.log("Running tool graph for CV update...");
+        // Run the tool graph to generate the updated CV
+        const toolResponse = await runToolGraph(adjstmnt, cvContent);
+        console.log("Updated CV content:", toolResponse.UpdateContent);
+        // Send updated CV content back to the client
+        res.json({
+            updatedCV: toolResponse.UpdateContent
+        });
+    }
+    catch (error) {
+        console.error("Error updating CV:", error);
+        res.status(500).json({
+            error: "Failed to update CV",
+            details: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+});
 app.post('/api/html', ((req, res) => {
     const { prompt, JobOffers, layout } = req.body;
     if (!prompt || !JobOffers) {
