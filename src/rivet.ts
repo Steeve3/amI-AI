@@ -4,8 +4,10 @@ import { fileURLToPath } from 'url';
 import { runGraphInFile, startDebuggerServer, RunGraphOptions } from '@ironclad/rivet-node';
 import * as dotenv from 'dotenv';
 import { Readable } from 'stream';
+import * as fs from 'fs/promises';
 import { createWriteStream } from 'fs';
-import latex from 'node-latex';
+
+
 
 // Load environment variables from .env file
 dotenv.config();
@@ -123,6 +125,28 @@ async function runToolGraph(adjst: string, cvContent: string){ // html content +
     }
 }
 
+// function to get the .tex
+async function runLatexGraph(finalCVContent: string){ // html content + adjustment + check if the output is true--> aim of this function is to make run the graph that can update so over write the html structured
+    const project = path.join(__dirname, '../am-Ia.rivet-project');
+
+    const result = await runGraphInFile(project, {
+        graph: "App/upload_pdf/uploadLatex",
+        remoteDebugger: debuggerServer, 
+        inputs: { 
+            finalhtmlCV: finalCVContent,
+        },
+        settings: {openAiEndpoint: 'https://api.openai.com/v1/chat/completions'},
+        openAiKey: process.env.OPENAI_API_KEY as string 
+    } as RunGraphOptions);
+
+    // Extract response type and data
+    console.log(result)
+    return {
+        cvLatex: result?.updatedCV?.value?.toString() ?? "No response"
+    }
+}
+
+
 app.post('/api/chat', async (req: Request<{}, {}, ChatRequestBody>, res: Response) => {
     const { message, cvContent, jobOff  } = req.body;
 
@@ -213,61 +237,36 @@ app.post('/api/html', ((req: Request<{}, {}, HtmlRequestBody>, res: Response) =>
         });
 }) as RequestHandler);
 
-// Function to compile LaTeX to PDF using node-latex
-async function compileLaTeXToPDF(latexContent: string): Promise<Buffer> {
-    return new Promise((resolve, reject) => {
-        const input = Readable.from(latexContent);
-        const errorLogStream = createWriteStream(path.join(__dirname, '../latex_errors.log'));
-        
-        const options = {
-            cmd: 'C:\\Users\\User\\AppData\\Local\\Programs\\MiKTeX\\miktex\\bin\\x64\\pdflatex.exe',
-            errorLogs: errorLogStream
-        };
-        
-        const output = latex(input, options);
-        const chunks: Buffer[] = [];
 
-        output.on('data', (chunk: Buffer) => {
-            chunks.push(chunk);
-        });
+app.post(
+    '/api/generate-latex',
+    (req: Request<{}, {}, PdfRequestBody>, res: Response) => {
+        (async () => {
+            const { latex } = req.body;
 
-        output.on('end', () => {
-            errorLogStream.end();
-            resolve(Buffer.concat(chunks));
-        });
+            if (!latex) {
+                res.status(400).json({ error: 'No CV content provided' });
+                return;
+            }
 
-        output.on('error', (err: Error) => {
-            console.error('LaTeX compilation error:', err);
-            errorLogStream.end();
-            reject(err);
-        });
-    });
-}
+            try {
+                const result = await runLatexGraph(latex);
 
-app.post('/api/generate-pdf', ((req: Request<{}, {}, PdfRequestBody>, res: Response) => {
-    console.log('Route /generate-pdf was hit');
-    
-    const { latex: latexContent } = req.body;
+                const outputFolder = path.join(__dirname, 'output');
+                const filePath = path.join(outputFolder, 'outputCV.tex');
 
-    if (!latexContent) {
-        res.status(400).send('LaTeX input is required.');
-        return;
+                await fs.mkdir(outputFolder, { recursive: true });
+                await fs.writeFile(filePath, result.cvLatex, 'utf-8');
+
+                console.log(`LaTeX file saved at: ${filePath}`);
+                res.status(200).json({ message: 'LaTeX file generated successfully', filePath });
+            } catch (error) {
+                console.error('Error generating LaTeX:', error);
+                res.status(500).json({ error: 'Failed to generate LaTeX content' });
+            }
+        })();
     }
-
-    compileLaTeXToPDF(latexContent)
-        .then(pdfBuffer => {
-            res.set({
-                'Content-Type': 'application/pdf',
-                'Content-Disposition': 'attachment; filename="output.pdf"',
-                'Content-Length': pdfBuffer.length,
-            });
-            res.send(pdfBuffer);
-        })
-        .catch(error => {
-            console.error('Error generating PDF:', error);
-            res.status(500).send('An error occurred while generating the PDF.');
-        });
-}) as RequestHandler);
+);
 
 // Start the server
 app.listen(PORT, () => {

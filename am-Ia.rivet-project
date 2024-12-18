@@ -3578,6 +3578,494 @@ data:
           outgoingConnections:
             - data->"Message P. Info (Text)" igfhaQ9wEsxuNKDhxI0o4/info
           visualData: -2828.3846418461635/486.16845299239736/330/259//
+    dyB_qOOJGAcoto7mtFPL8:
+      metadata:
+        description: ""
+        id: dyB_qOOJGAcoto7mtFPL8
+        name: App/upload_pdf/uploadLatex
+      nodes:
+        '[2p2uu_vfdk5hdpnMDeUGu]:text "CV Template Latex (Text)"':
+          data:
+            text: "\\documentclass[a4paper]{article}\r
+
+              \\usepackage[margin=1in]{geometry} % Adjusts the
+              page margins\r
+
+              \\usepackage{fontawesome5} % For icons like phone,
+              email, LinkedIn\r
+
+              \\usepackage{titlesec} % For customizing section
+              titles\r
+
+              \\usepackage{array} % For formatting tables (Skills
+              and Languages sections)\r
+
+              \\usepackage{hyperref} % For clickable hyperlinks
+              (emails, LinkedIn, etc.)\r
+
+              \r
+
+              % Customizing section titles\r
+
+              \\titleformat{\\section}{\\large\\bfseries}{}{0em}{\
+              }[\\titlerule]\r
+
+              \r
+
+              \\begin{document}\r
+
+              \r
+
+              %==================== HEADER ====================\r
+
+              % The header contains the candidate's name, address,
+              and contact information.\r
+
+              % Replace placeholders (e.g., \"Nome Cognome\",
+              \"Indirizzo\", etc.) with actual information.\r
+
+              \\begin{center}\r
+
+              \    \\textbf{Your Name} \\\\ % Replace \"Your
+              Name\" with your actual full name\r
+
+              \    Your Address \\\\ % Replace \"Your Address\"
+              with your actual address\r
+
+              \    \\vspace{0.5cm}\r
+
+              \    \\faPhone\\ Phone Number \\quad % Replace
+              \"Phone Number\" with your actual number\r
+
+              \    \\faEnvelope\\
+              \\href{mailto:youremail@example.com}{youremail@example.com} \\quad
+              % Replace with your actual email\r
+
+              \    \\faLinkedin\\
+              \\href{https://www.linkedin.com/in/yourprofile}{LinkedIn Username}
+              % Replace with your LinkedIn URL and display name\r
+
+              \\end{center}\r
+
+              \r
+
+              %==================== PROFILE ====================\r
+
+              % Write a concise summary of your professional
+              profile, tailored to the position you're applying for.\r
+
+              % Keep it short and impactful (3-4 sentences).\r
+
+              \\section*{Profile}\r
+
+              A results-driven professional with expertise in [key
+              skill/industry], known for [key strengths]. Proven experience in
+              [specific achievements or areas of expertise]. Adept at [list one
+              or two other relevant skills or experiences]. Passionate about
+              delivering value through [your approach or area of interest].\r
+
+              \r
+
+              %==================== WORK EXPERIENCE
+              ====================\r
+
+              % List your work experience in reverse chronological
+              order (most recent first).\r
+
+              % Each entry includes the company name, job title,
+              dates, and a list of responsibilities/achievements.\r
+
+              \\section*{Work Experience}\r
+
+              \r
+
+              % Example entry\r
+
+              \\makebox[\\textwidth]{\\textbf{Company Name}
+              \\hfill Job Title (Start Date - End Date)}\r
+
+              \\begin{itemize}\r
+
+              \    \\item Achieved [specific result or outcome] by
+              implementing [specific task or responsibility].\r
+
+              \    \\item Managed [specific aspect of your role]
+              to [impact achieved].\r
+
+              \    \\item Collaborated with [team or department]
+              to deliver [key outcome].\r
+
+              \    \\item Improved [specific process or system],
+              leading to [quantifiable improvement].\r
+
+              \\end{itemize}\r
+
+              \r
+
+              % Add more entries as needed by copying the block
+              above.\r
+
+              \r
+
+              %==================== EDUCATION
+              ====================\r
+
+              % Include your academic background, listing the most
+              recent qualification first.\r
+
+              \\section*{Education}\r
+
+              \r
+
+              % Example entry\r
+
+              \\makebox[\\textwidth]{\\textbf{University Name}
+              \\hfill Graduation Year} \\\\\r
+
+              \\textit{Degree: Your Degree (e.g., Bachelor of
+              Science in Computer Science)} \\\\\r
+
+              \r
+
+              % Add more entries as needed by copying the block
+              above.\r
+
+              \r
+
+              %==================== SKILLS ====================\r
+
+              % Divide skills into categories (e.g., technical and
+              non-technical skills) for clarity.\r
+
+              \\section*{Skills}\r
+
+              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
+              th}@{}}\r
+
+              \    \\textbf{Technical Skills} & List relevant
+              technical skills (e.g., programming languages, tools, platforms).
+              \\\\ \r
+
+              \    \\textbf{Other Skills} & Include soft skills
+              (e.g., leadership, project management, communication). \\\\\r
+
+              \\end{tabular}\r
+
+              \r
+
+              %==================== LANGUAGES
+              ====================\r
+
+              % List languages you are proficient in, along with
+              the level of proficiency.\r
+
+              \\section*{Languages}\r
+
+              \\begin{tabular}{@{}p{0.3\\textwidth}p{0.7\\textwid\
+              th}@{}}\r
+
+              \    \\textbf{Native} & Your native language (e.g.,
+              Italian). \\\\ \r
+
+              \    \\textbf{Fluent} & Any languages you speak
+              fluently (e.g., English). \\\\\r
+
+              \    \\textbf{Basic} & Languages you have basic
+              knowledge of (e.g., Spanish). \\\\\r
+
+              \\end{tabular}\r
+
+              \r
+
+              %==================== INTERESTS
+              ====================\r
+
+              % List hobbies or interests that add personality and
+              relevance to your CV.\r
+
+              \\section*{Interests}\r
+
+              Mention hobbies or interests that are unique,
+              professional, or relevant to the role, such as:\r
+
+              \\begin{itemize}\r
+
+              \    \\item [Interest 1] (e.g., Photography)\r
+
+              \    \\item [Interest 2] (e.g., Hiking)\r
+
+              \    \\item [Interest 3] (e.g., AI and emerging
+              technology trends)\r
+
+              \\end{itemize}\r
+
+              \r
+
+              %==================== END OF DOCUMENT
+              ====================\r
+
+              \\end{document}\r\n"
+          outgoingConnections:
+            - output->"Prompt (Text)" B0WslEvqepps5RIQnqAZ-/template
+          visualData: 741.0466974253002/500.58249618171305/330/367//
+        '[6fy98E0-St-8rMym_A2qx]:extractJson "Extract JSON"':
+          outgoingConnections:
+            - output->"Extract Object Path" 76e9a_yfKH-PmTko_a0gM/object
+          visualData: 2117.8229771743263/751.4221724601033/280/35//
+        '[76e9a_yfKH-PmTko_a0gM]:extractObjectPath "Extract Object Path"':
+          data:
+            path: $.cvLatex
+            usePathInput: false
+          outgoingConnections:
+            - match->"Graph Output" AYllF-TW4kGXiauzbCkWj/value
+          visualData: 2116.447284504335/964.7623808877404/280/40//
+        '[AYllF-TW4kGXiauzbCkWj]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: cvLatex
+          visualData: 2562.7064948505854/781.0813304660917/330/30//
+        '[B0WslEvqepps5RIQnqAZ-]:text "Prompt (Text)"':
+          data:
+            text: "### **Revised Prompt**\r
+
+              \r
+
+              Your role is to convert the given **HTML CV** into
+              **LaTeX format** using the specified **LATEX_TEMPLATE**.\r
+
+              \r
+
+              ---\r
+
+              \r
+
+              ### **Process to Follow**\r
+
+              \r
+
+              1. **Analyze the Input CV in HTML Format**:\r
+
+              \   - Parse the provided HTML structure carefully.\r
+
+              \   - Extract and organize relevant sections such
+              as:\r
+
+              \     - **Personal Information** (name, email,
+              phone, location, etc.)\r
+
+              \     - **Profile Summary**\r
+
+              \     - **Education**\r
+
+              \     - **Work Experience**\r
+
+              \     - **Skills**\r
+
+              \     - **Languages**\r
+
+              \     - **Interests**\r
+
+              \r
+
+              2. **Format the CV into LaTeX**:\r
+
+              \   - Use the provided `LATEX_TEMPLATE` as the
+              layout foundation.\r
+
+              \   - Populate the template with updated and
+              organized data extracted from the HTML CV.\r
+
+              \   - Maintain consistent structure and style in
+              LaTeX.\r
+
+              \r
+
+              3. **Handle Special Conditions**:\r
+
+              \   - If no adjustments are provided, reformat the
+              HTML content directly into the LaTeX template **without
+              modifications**.\r
+
+              \   - Ensure no data loss or corruption while
+              transforming the CV.\r
+
+              \r
+
+              ---\r
+
+              \r
+
+              ### **LaTeX Template**\r
+
+              \r
+
+              Use the following LaTeX template as the foundation
+              for your output:\r
+
+              \r
+
+              \r
+
+              LATEX_TEMPLATE =\"\"\"\r
+
+              \r
+
+              {{template}}\r
+
+              \r
+
+              \"\"\"\r
+
+              \r
+
+              \r
+
+              ### **Input Format**\r
+
+              \r
+
+              The input will include only the HTML CV content:\r
+
+              \"\"\"json\r
+
+              {\r
+
+              \  \"cv\": \"<HTML content of the CV>\"\r
+
+              }\r
+
+              \"\"\"\r
+
+              \r
+
+              ---\r
+
+              \r
+
+              ### **Output Format**\r
+
+              \r
+
+              The output should include the formatted CV in
+              **LaTeX**:\r
+
+              \r
+
+              \"\"\"json\r
+
+              {\r
+
+              \  \"cvLatex\": \"<LaTeX-formatted CV>\"\r
+
+              }\r
+
+              \"\"\"\r
+
+              \r
+
+              ---\r
+
+              \r
+
+              ### **Example**\r
+
+              \r
+
+              **Input**:\r
+
+              \"\"\"json\r
+
+              {\r
+
+              \  \"cv\": \"<div id=\\\"cv\\\"><div
+              class=\\\"header\\\"><h1>John Doe</h1><p>New York, USA | +1
+              123-456-7890 | john.doe@example.com | LinkedIn
+              Profile</p></div><div
+              class=\\\"section\\\"><h2>Profile</h2><p>Software developer with 5
+              years of experience...</p></div><div
+              class=\\\"section\\\"><h2>Work Experience</h2><div
+              class=\\\"job\\\"><h3>Company XYZ</h3><p>Senior Developer (2020 -
+              Present)</p><ul><li>Developed scalable web
+              applications...</li><li>Led a team of
+              developers...</li></ul></div></div></div>\"\r
+
+              }\r
+
+              \"\"\"\r
+
+              \r
+
+              **Output**:\r
+
+              \"\"\"json\r
+
+              {\r
+
+              \  \"cvLatex\":
+              \"\\\\documentclass[a4paper]{article}\\n\\\\usepackage[margin=1in\
+              ]{geometry}\\n\\\\usepackage{fontawesome5}\\n\\\\usepackage{title\
+              sec}\\n\\\\usepackage{array}\\n\\\\usepackage{hyperref}\\n\\n\\\\\
+              titleformat{\\\\section}{\\\\large\\\\bfseries}{}{0em}{}[\\\\titl\
+              erule]\\n\\n\\\\begin{document}\\n\\\\begin{center}\\n    \\\\tex\
+              tbf{John Doe} \\\\\\n    New York, USA
+              \\\\\\n    \\\\vspace{0.5cm}\\n    \\\\faPhone\\ +1 123-456-7890
+              \\quad\\\\faEnvelope\\
+              \\\\href{mailto:john.doe@example.com}{john.doe@example.com}
+              \\quad\\\\faLinkedin\\ \\\\href{https://linkedin.com/in/LinkedIn
+              Profile}{LinkedIn
+              Profile}\\n\\\\end{center}\\n\\n\\\\section*{Profile}\\nSoftware
+              developer with 5 years of experience...\\n\\n\\\\section*{Work
+              Experience}\\n\\\\makebox[\\\\textwidth]{\\\\textbf{Company XYZ}
+              \\\\\\hfill Senior Developer (2020 -
+              Present)}\\n\\\\begin{itemize}\\n    \\\\item Developed scalable
+              web applications...\\n    \\\\item Led a team of
+              developers...\\n\\\\end{itemize}\\n\\n\\\\end{document}\"\r
+
+              }\r
+
+              \"\"\"\r
+
+              \r\n"
+          outgoingConnections:
+            - output->"Chat" ifQkJ4DTCUj4Erhf88gjY/systemPrompt
+          visualData: 1181.853319378191/607.9046610882244/330/22//
+        '[ifQkJ4DTCUj4Erhf88gjY]:chat "Chat"':
+          data:
+            additionalParameters: []
+            cache: false
+            enableFunctionUse: false
+            endpoint: https://api.openai.com/v1/chat/completions
+            maxTokens: 2000
+            model: gpt-4o-mini
+            parallelFunctionCalling: true
+            responseFormat: json
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAdditionalParametersInput: false
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Extract JSON" 6fy98E0-St-8rMym_A2qx/input
+          visualData: 1650.6626140203052/737.77248608487/230/2//
+        '[y2kB46iiJYDCLRHZiKw0a]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: finalhtmlCV
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Chat" ifQkJ4DTCUj4Erhf88gjY/prompt
+          visualData: 649.7580112605001/875.6943134587093/330/46//
     fkljL6yqifIM1bQZBfbvb:
       metadata:
         description: ""

@@ -3,9 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { runGraphInFile, startDebuggerServer } from '@ironclad/rivet-node';
 import * as dotenv from 'dotenv';
-import { Readable } from 'stream';
-import { createWriteStream } from 'fs';
-import latex from 'node-latex';
+import * as fs from 'fs/promises';
 // Load environment variables from .env file
 dotenv.config();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -78,6 +76,24 @@ async function runToolGraph(adjst, cvContent) {
     console.log(result);
     return {
         UpdateContent: result?.updatedCV?.value?.toString() ?? "No response"
+    };
+}
+// function to get the .tex
+async function runLatexGraph(finalCVContent) {
+    const project = path.join(__dirname, '../am-Ia.rivet-project');
+    const result = await runGraphInFile(project, {
+        graph: "App/upload_pdf/uploadLatex",
+        remoteDebugger: debuggerServer,
+        inputs: {
+            finalhtmlCV: finalCVContent,
+        },
+        settings: { openAiEndpoint: 'https://api.openai.com/v1/chat/completions' },
+        openAiKey: process.env.OPENAI_API_KEY
+    });
+    // Extract response type and data
+    console.log(result);
+    return {
+        cvLatex: result?.updatedCV?.value?.toString() ?? "No response"
     };
 }
 app.post('/api/chat', async (req, res) => {
@@ -153,52 +169,28 @@ app.post('/api/html', ((req, res) => {
         });
     });
 }));
-// Function to compile LaTeX to PDF using node-latex
-async function compileLaTeXToPDF(latexContent) {
-    return new Promise((resolve, reject) => {
-        const input = Readable.from(latexContent);
-        const errorLogStream = createWriteStream(path.join(__dirname, '../latex_errors.log'));
-        const options = {
-            cmd: 'C:\\Users\\User\\AppData\\Local\\Programs\\MiKTeX\\miktex\\bin\\x64\\pdflatex.exe',
-            errorLogs: errorLogStream
-        };
-        const output = latex(input, options);
-        const chunks = [];
-        output.on('data', (chunk) => {
-            chunks.push(chunk);
-        });
-        output.on('end', () => {
-            errorLogStream.end();
-            resolve(Buffer.concat(chunks));
-        });
-        output.on('error', (err) => {
-            console.error('LaTeX compilation error:', err);
-            errorLogStream.end();
-            reject(err);
-        });
-    });
-}
-app.post('/api/generate-pdf', ((req, res) => {
-    console.log('Route /generate-pdf was hit');
-    const { latex: latexContent } = req.body;
-    if (!latexContent) {
-        res.status(400).send('LaTeX input is required.');
-        return;
-    }
-    compileLaTeXToPDF(latexContent)
-        .then(pdfBuffer => {
-        res.set({
-            'Content-Type': 'application/pdf',
-            'Content-Disposition': 'attachment; filename="output.pdf"',
-            'Content-Length': pdfBuffer.length,
-        });
-        res.send(pdfBuffer);
-    })
-        .catch(error => {
-        console.error('Error generating PDF:', error);
-        res.status(500).send('An error occurred while generating the PDF.');
-    });
-}));
+app.post('/api/generate-latex', (req, res) => {
+    (async () => {
+        const { latex } = req.body;
+        if (!latex) {
+            res.status(400).json({ error: 'No CV content provided' });
+            return;
+        }
+        try {
+            const result = await runLatexGraph(latex);
+            const outputFolder = path.join(__dirname, 'output');
+            const filePath = path.join(outputFolder, 'outputCV.tex');
+            await fs.mkdir(outputFolder, { recursive: true });
+            await fs.writeFile(filePath, result.cvLatex, 'utf-8');
+            console.log(`LaTeX file saved at: ${filePath}`);
+            res.status(200).json({ message: 'LaTeX file generated successfully', filePath });
+        }
+        catch (error) {
+            console.error('Error generating LaTeX:', error);
+            res.status(500).json({ error: 'Failed to generate LaTeX content' });
+        }
+    })();
+});
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
