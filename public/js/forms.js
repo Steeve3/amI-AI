@@ -65,7 +65,6 @@ function initCvForm() {
             };
             // Save job description to sessionStorage
             sessionStorage.setItem('jobDescription', formData.jobDescription);
-            
             const prompt = `
                 About: ${formData.selfDescription}
                 Name: ${formData.fullName}
